@@ -1,0 +1,7 @@
+<launch>
+  <node name="steering_client" pkg="ucsdRoboCarSimpleRos" type="steering_client.py" />
+  <node name="throttle_client" pkg="ucsdRoboCarSimpleRos" type="throttle_client.py" />
+  <node name="camera_server" pkg="ucsdRoboCarSimpleRos" type="camera_server.py" />
+  <node name="lane_detection_node" pkg="ucsdRoboCarSimpleRos" type="lane_detection.py" output="screen" />
+  <node name="lane_guidance_node" pkg="ucsdRoboCarSimpleRos" type="lane_guidance.py" />
+</launch>

@@ -1,7 +1,0 @@
-<launch>
-  <!--<node name="steering_client" pkg="potatoinside" type="steering_client.py" />-->
-  <!--<node name="throttle_client" pkg="potatoinside" type="throttle_client.py" /> -->
-  <node name="camera_server" pkg="potatoinside" type="camera_server.py" />
-  <node name="lane_detection_node" pkg="potatoinside" type="lane_detection.py" output="screen" />
-  <node name="lane_guidance_node" pkg="potatoinside" type="lane_guidance.py" />
-</launch>
