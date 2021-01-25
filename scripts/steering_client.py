@@ -15,7 +15,7 @@ kit = ServoKit(channels=16)
 
 def callback(data):
     normalized_steering = data.data  # this is a value between -1 and 1, with -1 being fully left and 1 being fully right
-    angle_delta = normalized_steering * 180  # difference in degrees from the center 90 degrees
+    angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
     kit.servo[1].angle = 90 + angle_delta
 
 
