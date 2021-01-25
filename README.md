@@ -1,4 +1,4 @@
-# potatoInside
+# ucsd_robo_car_simple_ros
 
 A ROS package using OpenCV on an RC car to do autonomous laps around a track using line following algorithms.
 
@@ -11,7 +11,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
 
 ## Table of Contents
 
-- [potatoInside](#potatoinside)
+- [ucsd_robo_car_simple_ros](#ucsd_robo_car_simple_ros)
   - [Table of Contents](#table-of-contents)
   - [Wiring Schematic](#wiring-schematic)
   - [Dependencies](#dependencies)
@@ -155,7 +155,7 @@ launched.
 
 ## Launch
 
-Launching the package is as simple as **roslaunch potatoinside potato.launch**. This should begin all the necessary nodes and get the car moving.
+Launching the package is as simple as **roslaunch ucsd_robo_car_simple_ros simplecv_launch.launch**. This should begin all the necessary nodes and get the car moving.
 
 
 ## Issues and Fixes
