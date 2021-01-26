@@ -56,10 +56,15 @@ AFTER you have installed ROS on your Jetson (instructions can be found here: ) e
 
 
 `cd projects/catkin_ws/src`
+
 `git clone `
+
 `cd ..`
+
 `catkin_make`
+
 `source devel/setup.bash`
+
 `rospack profile`
 
 Now try this to make sure it was compiled correctly: 
