@@ -4,13 +4,11 @@ A simple ROS package using OpenCV on a 1/5 RC car to do autonomous laps around a
 
 
 <div>
-  <img src="final_team3_fall_2020.jpg">
 
 ## Table of Contents
 
 - [ucsd_robo_car_simple_ros](#ucsd_robo_car_simple_ros)
   - [Table of Contents](#table-of-contents)
-  - [Wiring Schematic](#wiring-schematic)
   - [Dependencies](#dependencies)
     - [cv2](#cv2)
     - [adafruit_servokit](#adafruit_servokit)
@@ -28,9 +26,6 @@ A simple ROS package using OpenCV on a 1/5 RC car to do autonomous laps around a
   - [Launch](#launch)
   - [Issues and Fixes](#issues-and-fixes)
 
-## Wiring Schematic
-
-![Wiring schematic](schematic.png "Wiring Schematic")
 
 ## Dependencies
 
