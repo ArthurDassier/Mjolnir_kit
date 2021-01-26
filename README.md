@@ -4,7 +4,7 @@ A simple ROS package using OpenCV on a 1/5 RC car to do autonomous laps around a
 
 
 <div>
-  <img src="final_team3_fall_2020.png">
+  <img src="final_team3_fall_2020.jpg">
 
 ## Table of Contents
 
