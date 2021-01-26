@@ -4,9 +4,7 @@ A simple ROS package using OpenCV on a 1/5 RC car to do autonomous laps around a
 
 
 <div>
-  <img src="tokyo-drift.jpeg">
-  <img src="https://scontent-lax3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/129729151_105331831379169_8092052803079854917_n.jpg?_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_cat=109&_nc_ohc=49dXxKBbPxsAX9nSFWN&tp=1&oh=e54271f56498d530abf9e1164a0e957e&oe=5FFA8E15">
-</div>
+  <img src="final_team3_fall_2020.png">
 
 ## Table of Contents
 
