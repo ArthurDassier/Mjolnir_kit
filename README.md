@@ -57,7 +57,7 @@ AFTER you have installed ROS on your Jetson (instructions can be found here: ) e
 
 `cd projects/catkin_ws/src`
 
-`git clone `
+`git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
 
 `cd ..`
 
