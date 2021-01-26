@@ -52,18 +52,18 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
 Please follow the steps below to properly install this library on your Jetson Nano
 
-AFTER you have installed ROS on your Jetson (instructions can be found here: ) enter the commands below in the command window on your Jetson :
+AFTER you have installed ROS on your Jetson (instructions can be found here: ) enter the commands below in the command window on your Jetson:
 
-```
+`
 cd projects/catkin_ws/src
 git clone 
 cd ..
 catkin_make
 source devel/setup.bash
 rospack profile
-```
+`
 
-Now try this to make sure it was compiled correctly : 
+Now try this to make sure it was compiled correctly: 
 
 `roscd ucsd_robo_car_simple_ros`
 
