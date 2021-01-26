@@ -116,14 +116,9 @@ so it can be passed through the ROS topic message structure.
 Associated file: lane_detection.py
 
 In this node, we read from [camera_rgb](#Topics) topic and use opencv to identify line
-information from the image, and publish the information of the middle point between
-all identified lines to the [centroid](#Topics) topic.
+information from the image, and publish the information of the middle point of 
+the yellow lines to the [centroid](#Topics) topic.
 
-<div>
-  <img src="filtering_process.png">
-  <img src="applying_methods.png">
-  <img src="applying_logic.png">
-</div>
 
 #### **lane_guidance_node**
 
@@ -134,7 +129,7 @@ based on the centroid value, and then publish them to their corresponding topics
 
 Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
 
-Steering is based on a PID controller implemented by the [simple-pid](#simple-pid) module. Gains can be tweaked in the **lane_guidance.py** script.
+Steering is based on a P controller implemented by its error function. Gains can be tweaked in the **lane_guidance.py** script.
 
 
 ## Topics
