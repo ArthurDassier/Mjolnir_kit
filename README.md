@@ -1,6 +1,6 @@
 # ucsd_robo_car_simple_ros
 
-A simple ROS package using OpenCV on a 1/5 RC car to do autonomous laps around a track using line following algorithms and opencv.
+A simple ROS package using OpenCV on a 1/5 RC car that can a yellow line using a simple line following algorithm and opencv methods.
 
 
 <div>
