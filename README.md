@@ -97,7 +97,6 @@ Plenty of information on how to use the adafruit_servokit libraries can be found
 
 
 
-
 #### **camera_server**
 
 Associated file: camera_server.py
@@ -110,7 +109,7 @@ so it can be passed through the ROS topic message structure.
 
 Associated file: lane_detection.py
 
-In this node, we read from [camera_rgb](#Topics) topic and use opencv to identify line
+This node reads from [camera_rgb](#Topics) topic and uses opencv to identify line
 information from the image, and publish the information of the middle point of 
 the yellow lines to the [centroid](#Topics) topic.
 
@@ -124,7 +123,7 @@ based on the centroid value, and then publish them to their corresponding topics
 
 Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
 
-Steering is based on a P controller implemented by its error function. Gains can be tweaked in the **lane_guidance.py** script.
+Steering is based on a P controller implemented by its error function. Gain can be tuned in the **lane_guidance.py** script.
 
 
 ## Topics
@@ -151,7 +150,7 @@ An alternative solution can be found <a href="https://medium.com/@beta_b0t/how-t
 
 ### **Throttle not working**
 
-This issue can vary between cars, but generally the problem lies in the PWM range that is mapped by the Adafruit library. If the "start" PWM is too low, then even a maxed out "1" might not map to the PWM value that will trigger the ESC. First make sure the -1 to 1 range is properly calibrated. During runtime, the scale constant found in **throttle_client.py** can also be tweaked.
+This issue can vary between cars, but generally the problem lies in the battery supply and the PWM range that is mapped by the Adafruit library. If the "start" PWM is too low, then even a maxed out "1" might not map to the PWM value that will trigger the ESC. First make sure the -1 to 1 range is properly calibrated. During runtime, the scale constant found in **throttle_client.py** can also be tuned. As your battery begins to drain, the PWM range becomes under-saturated which decreases performance of the motor. Tip: Always try driving with fully charged battery or periodically recalibrate pwm values manually as motor performance starts decreasing.
 
 
 ### **ROS version is not compatible with Python3**
