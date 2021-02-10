@@ -137,8 +137,15 @@ Steering is based on a P controller implemented by its error function. Gain can 
 
 ## Launch
 
-Launching the package is as simple as **roslaunch ucsd_robo_car_simple_ros simplecv_launch.launch**. This should begin all the necessary nodes and get the car moving.
+Launching the package is as simple as
 
+`roslaunch ucsd_robo_car_simple_ros simplecv_launch.launch`
+
+This should begin all the necessary nodes and get the car moving.
+
+Or to launch them indvidually, use
+
+`rosrun ucsd_robo_car_simple_ros file_name`
 
 ## Issues and Fixes
 
