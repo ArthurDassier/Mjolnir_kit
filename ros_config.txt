@@ -1,6 +1,31 @@
 sudo apt-get update
 sudo apt-get upgrade
 
+#==================== openCV ====================#
+
+#-------------------- Check if you have openCV for python3 --------------------#
+python3
+>>import cv2
+
+# if no error occurs, you're good to go. Otherwise issue the command below for barebones version
+pip3 install opencv-python
+
+# check again to see if opencv was compiled correctly for python3 
+python3
+>>import cv2
+
+# No errors should have happened, if so, make sure you used pip3 and not pip when running the 
+# install command above
+
+# if you want to compile from source follow steps below 
+
+# IF NEEDED 
+build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+
+
+#==================== End openCV ====================#
+
+
 #==================== Virtual Environment Setup ====================#
 
 python3 -m pip install --user virtualenv
@@ -52,26 +77,6 @@ pip install --upgrade pyinstaller
 
 #==================== End Upgrading ====================#
 
-        
-#==================== openCV ====================#
-
-# if needed
-build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
-
-
-#-------------------- or use pre-built openCV --------------------#
-
-# first check to see if virtual environment inherrited your system packages, if cv2 is there, skip openCV install
-pip list
-
-cd <path to virtual env>/lib/python3.6
-ln -s /usr/local/python/cv2 cv2
-
-more details here: https://jayrobwilliams.com/files/html/OpenCV_Install.html
-
-
-#==================== End openCV ====================#
-
 
 #==================== Adafruit Library ====================#
 
@@ -81,8 +86,3 @@ pip install adafruit-circuitpython-servokit
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
 #==================== End Adafruit Library ====================#
-
-
-
-
-
