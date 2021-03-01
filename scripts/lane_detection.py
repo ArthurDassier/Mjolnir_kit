@@ -35,9 +35,9 @@ def video_detection(data):
 
     m = cv2.moments(mask, False)
     try:
-        cx, cy = m['m10'] / m['m00'], m['m01'] / m['m00']
+        cx, cy = int(m['m10'] / m['m00']), int(m['m01'] / m['m00'])
     except ZeroDivisionError:
-        cy, cx = height / 2, width / 2
+        cy, cx = int(height / 2), int(width / 2)
 
     # Publish centroid
     mid_x.data = cx
