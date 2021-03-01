@@ -8,6 +8,7 @@ python3
 >>import cv2
 
 # if no error occurs, you're good to go. Otherwise issue the command below for barebones version
+pip3 install --upgrade pip
 pip3 install opencv-python
 
 # check again to see if opencv was compiled correctly for python3 
@@ -16,6 +17,8 @@ python3
 
 # No errors should have happened, if so, make sure you used pip3 and not pip when running the 
 # install command above
+
+more details here: https://pypi.org/project/opencv-python/
 
 # if you want to compile from source follow steps below 
 
