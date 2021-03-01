@@ -3,9 +3,6 @@ sudo apt-get upgrade
 
 #==================== Virtual Environment Setup ====================#
 
-cd projects
-mkdir envs
-cd envs
 python3 -m pip install --user virtualenv
 python3 -m venv --system-site-packages env
 source env/bin/activate
