@@ -28,7 +28,7 @@ python -m site
 
 nano ~/.bash_profile
 # add line below to file
-export PYTHONPATH="<path to conda env>/lib/python3.6"
+export PYTHONPATH="<path to virtual env>/lib/python3.6"
 
 more details here: https://realpython.com/python-virtual-environments-a-primer/
 more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
@@ -66,7 +66,7 @@ build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-na
 # first check to see if virtual environment inherrited your system packages, if cv2 is there, skip openCV install
 pip list
 
-cd <path to conda env>/lib/python3.6
+cd <path to virtual env>/lib/python3.6
 ln -s /usr/local/python/cv2 cv2
 
 more details here: https://jayrobwilliams.com/files/html/OpenCV_Install.html
