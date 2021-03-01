@@ -1,0 +1,90 @@
+sudo apt-get update
+sudo apt-get upgrade
+
+#==================== Virtual Environment Setup ====================#
+
+cd projects
+mkdir envs
+cd envs
+python3 -m pip install --user virtualenv
+python3 -m venv --system-site-packages name_of_your_environment
+source env/bin/activate
+python3 -m pip install requests
+
+#-------------------- Environment details --------------------#
+# get path to executable
+which python
+
+# get python version
+python --version
+
+# list of packages
+pip list
+
+# site packages location
+python -m site
+
+#-------------------- Add PYHTHONPATH --------------------#
+
+nano ~/.bash_profile
+# add line below to file
+export PYTHONPATH="<path to conda env>/lib/python3.6"
+
+more details here: https://realpython.com/python-virtual-environments-a-primer/
+more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
+
+#====================  End Virtual Environment Setup ====================#
+
+
+#==================== NOTE ====================#
+
+NOTE: WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
+TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
+LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!
+
+#==================== End NOTE====================#
+
+
+#==================== Upgrading ====================#
+
+pip install pyyaml
+pip install rospkg
+pip install --upgrade pip
+pip install --upgrade pyinstaller
+
+#==================== End Upgrading ====================#
+
+        
+#==================== openCV ====================#
+
+# if needed
+build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+
+
+#-------------------- or use pre-built openCV --------------------#
+
+# first check to see if virtual environment inherrited your system packages, if cv2 is there, skip openCV install
+pip list
+
+cd <path to conda env>/lib/python3.6
+ln -s /usr/local/python/cv2 cv2
+
+more details here: https://jayrobwilliams.com/files/html/OpenCV_Install.html
+
+
+#==================== End openCV ====================#
+
+
+#==================== Adafruit Library ====================#
+
+pip install adafruit-circuitpython-pca9685
+pip install adafruit-circuitpython-servokit
+
+details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
+
+#==================== End Adafruit Library ====================#
+
+
+
+
+
