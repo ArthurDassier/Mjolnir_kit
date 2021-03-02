@@ -42,6 +42,21 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
 ## Environment Configuration
 
+
+
+- [ ] Generate an SSH key and provide it to Gitlab for access to repositories
+`ssh-keygen # Use all defaults`
+
+- [ ] Then press enter until you get to an empty comand line, then
+`cat $HOME/.ssh/id_rsa.pub`
+
+
+- [ ] Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then
+click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, then paste your SSH key into the text field and submit it.
+
+- [ ] Obtain a copy of the repository
+`git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
+
 Please follow the steps below to properly install this library on your Jetson Nano
 
 AFTER you have installed ROS on your Jetson (instructions can be found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x_cJ667loWgzCt7ikTJk51dKAFSs/edit?usp=sharing" >here</a>) enter the commands below in the command window on your Jetson:
