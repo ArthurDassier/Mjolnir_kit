@@ -57,8 +57,6 @@ click on settings from the drop down menu. Now a new panel on the left hand side
 - [ ] Obtain a copy of the repository
 `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
-Please follow the steps below to properly install this library on your Jetson Nano
-
 - [ ] Set up virtual Environment, instructions found in `ros_config.txt`
 
 - [ ] AFTER you have installed ROS on your Jetson (instructions can be found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x_cJ667loWgzCt7ikTJk51dKAFSs/edit?usp=sharing" >here</a>) enter the commands below in the command window on your Jetson:
