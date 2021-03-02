@@ -177,11 +177,8 @@ This issue can vary between cars, but generally the problem lies in the battery 
 
 
 ### **ROS version is not compatible with Python3**
-Try issuing these commands, more info found 
+If your're having issues using python3, then there is a chance that the virtual environment (explained in `ros_config.txt`) was not setup properly. Try setting up another environment to see if that solves the issue.
+
+More info found 
 <a href="https://medium.com/@beta_b0t/how-to-setup-ros-with-python-3-44a69ca36674" >here</a>
-
-`sudo apt-get install python3-pip python3-yaml`
-
-`sudo pip3 install rospkg catkin_pkg`
-
 
