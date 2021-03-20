@@ -75,19 +75,18 @@ then enter
 
 `import cv2`
 
-_No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above
+**_No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above_**
 
 more details here: https://pypi.org/project/opencv-python/
 
-if you want to compile from source follow steps below _
-
+_**if you want to compile from source follow steps below**_
 
 **IF NEEDED**
 
 - [ ] build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
 
-2. Virtual Environment Setup
+2. **Virtual Environment Setup**
 
 
 `python3 -m pip install --user virtualenv`
@@ -133,7 +132,7 @@ _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo"
 TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
 LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
-3. Upgrading
+3. **Upgrading**
 
 
 `pip install pyyaml`
@@ -145,17 +144,16 @@ LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 `pip install --upgrade pyinstaller`
 
 
-4. Install Adafruit Library
+4. **Install Adafruit Library**
 
 
 `pip install adafruit-circuitpython-pca9685`
 
 `pip install adafruit-circuitpython-servokit`
 
-
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
-5. Access this repository
+5. **Access this repository**
 
 - [ ] Generate an SSH key and provide it to Gitlab for access to repositories
 
