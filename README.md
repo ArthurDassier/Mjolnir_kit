@@ -52,6 +52,7 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
 
 - [ ] Check if you have openCV for python3
+
 `python3`
 
 then enter
@@ -80,13 +81,12 @@ more details here: https://pypi.org/project/opencv-python/
 
 if you want to compile from source follow steps below 
 
-**IF NEEDED **
+**IF NEEDED**
+
 - [ ] build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
 
-
-
-1. Virtual Environment Setup
+2. Virtual Environment Setup
 
 
 `python3 -m pip install --user virtualenv`
@@ -128,14 +128,11 @@ more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pyth
 
 
 **NOTE**
-
 _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
 TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
 LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
-
-
-1. Upgrading
+3. Upgrading
 
 
 `pip install pyyaml`
@@ -147,7 +144,7 @@ LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 `pip install --upgrade pyinstaller`
 
 
-1. Install Adafruit Library
+4. Install Adafruit Library
 
 
 `pip install adafruit-circuitpython-pca9685`
@@ -157,12 +154,14 @@ LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
-1. Access this repository
+5. Access this repository
 
 - [ ] Generate an SSH key and provide it to Gitlab for access to repositories
+
 `ssh-keygen # Use all defaults`
 
 - [ ] Then press enter until you get to an empty comand line, then
+
 `cat $HOME/.ssh/id_rsa.pub`
 
 
