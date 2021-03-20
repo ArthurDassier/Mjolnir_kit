@@ -75,11 +75,12 @@ then enter
 
 `import cv2`
 
-No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above
+_No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above
 
 more details here: https://pypi.org/project/opencv-python/
 
-if you want to compile from source follow steps below 
+if you want to compile from source follow steps below _
+
 
 **IF NEEDED**
 
