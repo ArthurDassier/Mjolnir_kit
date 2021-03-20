@@ -54,24 +54,24 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
    `python3`
 
-     then enter
+   then enter
 
-     `import cv2`
+   `import cv2`
 
   b. If no error occurs, you're good to go. Otherwise issue the command below for barebones version
 
-     `pip3 install --upgrade pip`
+   `pip3 install --upgrade pip`
 
-     `pip3 install opencv-python`
+   `pip3 install opencv-python`
 
 
   c. Check again to see if opencv was compiled correctly for python3 
 
-     `python3`
+   `python3`
 
   then enter
 
-     `import cv2`
+   `import cv2`
 
 **_No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above_**
 
@@ -87,46 +87,46 @@ _**if you want to compile from source follow steps below**_
 
   a. Creat environment
 
-     `python3 -m pip install --user virtualenv`
+   `python3 -m pip install --user virtualenv`
 
-     `sudo apt-get install python3-venv`
+   `sudo apt-get install python3-venv`
 
-     `python3 -m venv --system-site-packages env`
+   `python3 -m venv --system-site-packages env`
 
-     `source env/bin/activate`
+   `source env/bin/activate`
 
-     `python3 -m pip install requests`
+   `python3 -m pip install requests`
 
   b. Environment details 
 
-     Get path to executable
-     `which python`
+   Get path to executable
+   `which python`
 
-     Get python version
-     `python --version`
+   Get python version
+   `python --version`
 
-     List of packages
-     `pip list`
+   List of packages
+   `pip list`
 
-     Site packages location
-     `python -m site`
+   Site packages location
+   `python -m site`
 
   c. Add PYHTHONPATH
 
-     `nano ~/.bash_profile`
+   `nano ~/.bash_profile`
 
-     Add this line to bash file
+   Add this line to bash file
 
-     `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
+   `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
 
-     more details here: https://realpython.com/python-virtual-environments-a-primer/
-     more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
+   more details here: https://realpython.com/python-virtual-environments-a-primer/
+   more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
 
 
-     **NOTE**
-     _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
-     TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
-     LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
+   **NOTE**
+   _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
+   TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
+   LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
 3. **Upgrading**
 
@@ -151,11 +151,11 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
   a. Generate an SSH key and provide it to Gitlab for access to repositories
 
-     `ssh-keygen # Use all defaults`
+   `ssh-keygen # Use all defaults`
 
   b. Then press enter until you get to an empty comand line, then
 
-     `cat $HOME/.ssh/id_rsa.pub`
+   `cat $HOME/.ssh/id_rsa.pub`
 
 
   c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then
@@ -166,25 +166,25 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
   d. Obtain a copy of the repository
 
-     `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
+   `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
   e. Enter the commands below in the command window on your Jetson:
 
-     `cd projects/catkin_ws/src`
+   `cd projects/catkin_ws/src`
 
-     `git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
+   `git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
 
-     `cd ..`
+   `cd ..`
 
-     `catkin_make`
+   `catkin_make`
 
-     `source devel/setup.bash`
+   `source devel/setup.bash`
 
-     `rospack profile`
+   `rospack profile`
 
   f. Now try this to make sure it was compiled correctly: 
 
-     `roscd ucsd_robo_car_simple_ros`
+   `roscd ucsd_robo_car_simple_ros`
 
 If you are brought to this project directory, you are ready to start!
 
