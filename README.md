@@ -48,9 +48,9 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
 
 
-1. **openCV Setup**
+**1. openCV Setup**
 
-  a. Check if you have openCV for python3
+  **a. Check if you have openCV for python3**
 
    `python3`
 
@@ -58,14 +58,14 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
    `import cv2`
 
-  b. If no error occurs, you're good to go. Otherwise issue the command below for barebones version
+  **b. If no error occurs, you're good to go. Otherwise issue the command below for barebones version**
 
    `pip3 install --upgrade pip`
 
    `pip3 install opencv-python`
 
 
-  c. Check again to see if opencv was compiled correctly for python3 
+  **c. Check again to see if opencv was compiled correctly for python3 **
 
    `python3`
 
@@ -81,11 +81,11 @@ _**if you want to compile from source follow steps below**_
 
 **IF NEEDED**
 
-  d. build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+  **d. build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html**
 
-2. **Virtual Environment Setup**
+**2. Virtual Environment Setup**
 
-  a. Creat environment
+  **a. Creat environment**
 
    `python3 -m pip install --user virtualenv`
 
@@ -97,7 +97,7 @@ _**if you want to compile from source follow steps below**_
 
    `python3 -m pip install requests`
 
-  b. Environment details 
+  **b. Environment details **
 
    Get path to executable
    `which python`
@@ -111,7 +111,7 @@ _**if you want to compile from source follow steps below**_
    Site packages location
    `python -m site`
 
-  c. Add PYHTHONPATH
+  **c. Add PYHTHONPATH**
 
    `nano ~/.bash_profile`
 
@@ -128,7 +128,7 @@ _**if you want to compile from source follow steps below**_
    TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
    LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
-3. **Upgrading**
+**3. Upgrading**
 
 `pip install pyyaml`
 
@@ -139,7 +139,7 @@ _**if you want to compile from source follow steps below**_
 `pip install --upgrade pyinstaller`
 
 
-4. **Install Adafruit Library**
+**4. Install Adafruit Library**
 
 `pip install adafruit-circuitpython-pca9685`
 
@@ -147,28 +147,28 @@ _**if you want to compile from source follow steps below**_
 
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
-5. **Access this repository**
+**5. Access this repository**
 
-  a. Generate an SSH key and provide it to Gitlab for access to repositories
+  **a. Generate an SSH key and provide it to Gitlab for access to repositories**
 
    `ssh-keygen # Use all defaults`
 
-  b. Then press enter until you get to an empty comand line, then
+  **b. Then press enter until you get to an empty comand line, then**
 
    `cat $HOME/.ssh/id_rsa.pub`
 
 
-  c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then
+  **c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then**
      
-     click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, 
+     **click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, **
      
-     then paste your SSH key into the text field and submit it.
+     **then paste your SSH key into the text field and submit it.**
 
-  d. Obtain a copy of the repository
+  **d. Obtain a copy of the repository**
 
    `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
-  e. Enter the commands below in the command window on your Jetson:
+  **e. Enter the commands below in the command window on your Jetson:**
 
    `cd projects/catkin_ws/src`
 
@@ -182,11 +182,11 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
    `rospack profile`
 
-  f. Now try this to make sure it was compiled correctly: 
+  **f. Now try this to make sure it was compiled correctly: **
 
    `roscd ucsd_robo_car_simple_ros`
 
-If you are brought to this project directory, you are ready to start!
+**If you are brought to this project directory, you are ready to start!**
 
 
 ## Package Map
