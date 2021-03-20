@@ -52,7 +52,7 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
   a. Check if you have openCV for python3
 
-     `python3`
+   `python3`
 
      then enter
 
