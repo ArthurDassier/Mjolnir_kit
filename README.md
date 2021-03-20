@@ -83,6 +83,8 @@ _**if you want to compile from source follow steps below**_
 
   **d. build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html**
 
+
+
 **2. Virtual Environment Setup**
 
   **a. Creat environment**
@@ -128,6 +130,8 @@ _**if you want to compile from source follow steps below**_
    TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
    LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
+
+
 **3. Upgrading**
 
 `pip install pyyaml`
@@ -139,6 +143,7 @@ _**if you want to compile from source follow steps below**_
 `pip install --upgrade pyinstaller`
 
 
+
 **4. Install Adafruit Library**
 
 `pip install adafruit-circuitpython-pca9685`
@@ -146,6 +151,8 @@ _**if you want to compile from source follow steps below**_
 `pip install adafruit-circuitpython-servokit`
 
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
+
+
 
 **5. Access this repository**
 
@@ -185,6 +192,8 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
   **f. Now try this to make sure it was compiled correctly: **
 
    `roscd ucsd_robo_car_simple_ros`
+
+
 
 **If you are brought to this project directory, you are ready to start!**
 
