@@ -65,7 +65,7 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
    `pip3 install opencv-python`
 
 
-  **c. Check again to see if opencv was compiled correctly for python3 **
+  **c. Check again to see if opencv was compiled correctly for python3**
 
    `python3`
 
