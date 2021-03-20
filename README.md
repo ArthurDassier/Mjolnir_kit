@@ -43,26 +43,35 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 ## Environment Configuration
 ```
 sudo apt-get update
+
 sudo apt-get upgrade
 ```
 
 
 #==================== openCV ====================#
 
-#-------------------- Check if you have openCV for python3 --------------------#
+Check if you have openCV for python3
 `python3`
->>import cv2
 
-# if no error occurs, you're good to go. Otherwise issue the command below for barebones version
+then enter
+
+`import cv2`
+
+If no error occurs, you're good to go. Otherwise issue the command below for barebones version
 ```
 pip3 install --upgrade pip
+
 pip3 install opencv-python
 ```
 
 
-# check again to see if opencv was compiled correctly for python3 
+Check again to see if opencv was compiled correctly for python3 
+
 `python3`
->>import cv2
+
+then enter
+
+`import cv2`
 
 No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above
 
@@ -81,30 +90,35 @@ build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-na
 
 ```
 python3 -m pip install --user virtualenv
+
 sudo apt-get install python3-venv
+
 python3 -m venv --system-site-packages env
+
 source env/bin/activate
+
 python3 -m pip install requests
 ```
 
-
 #-------------------- Environment details --------------------#
-get path to executable
+Get path to executable
 `which python`
 
-get python version
+Get python version
 `python --version`
 
-list of packages
+List of packages
 `pip list`
 
-site packages location
+Site packages location
 `python -m site`
 
 #-------------------- Add PYHTHONPATH --------------------#
 
 `nano ~/.bash_profile`
-# add line below to file
+
+Add line below to file
+
 `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
 
 more details here: https://realpython.com/python-virtual-environments-a-primer/
@@ -126,8 +140,11 @@ LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!
 
 ```
 pip install pyyaml
+
 pip install rospkg
+
 pip install --upgrade pip
+
 pip install --upgrade pyinstaller
 ```
 
@@ -139,6 +156,7 @@ pip install --upgrade pyinstaller
 
 ```
 pip install adafruit-circuitpython-pca9685
+
 pip install adafruit-circuitpython-servokit
 ```
 
