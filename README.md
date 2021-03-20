@@ -41,31 +41,32 @@ Adafruit Servokit is a Python library that provides a high-level interface with 
 CV Bridge provides functions to easily convert (encode/decode) in between ROS image message types to OpenCV-workable Numpy arrays.
 
 ## Environment Configuration
-```
-sudo apt-get update
 
-sudo apt-get upgrade
-```
+`sudo apt-get update`
+
+`sudo apt-get upgrade`
 
 
-#==================== openCV ====================#
 
-Check if you have openCV for python3
+1. **openCV Setup**
+
+
+- [ ] Check if you have openCV for python3
 `python3`
 
 then enter
 
 `import cv2`
 
-If no error occurs, you're good to go. Otherwise issue the command below for barebones version
-```
-pip3 install --upgrade pip
 
-pip3 install opencv-python
-```
+- [ ] If no error occurs, you're good to go. Otherwise issue the command below for barebones version
+
+`pip3 install --upgrade pip`
+
+`pip3 install opencv-python`
 
 
-Check again to see if opencv was compiled correctly for python3 
+- [ ] Check again to see if opencv was compiled correctly for python3 
 
 `python3`
 
@@ -80,27 +81,28 @@ more details here: https://pypi.org/project/opencv-python/
 if you want to compile from source follow steps below 
 
 **IF NEEDED **
-build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+- [ ] build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
 
 
-#==================== End openCV ====================#
 
 
-#==================== Virtual Environment Setup ====================#
+1. Virtual Environment Setup
 
-```
-python3 -m pip install --user virtualenv
 
-sudo apt-get install python3-venv
+`python3 -m pip install --user virtualenv`
 
-python3 -m venv --system-site-packages env
+`sudo apt-get install python3-venv`
 
-source env/bin/activate
+`python3 -m venv --system-site-packages env`
 
-python3 -m pip install requests
-```
+`source env/bin/activate`
 
-#-------------------- Environment details --------------------#
+`python3 -m pip install requests`
+
+
+
+- [ ] Environment details 
+
 Get path to executable
 `which python`
 
@@ -113,59 +115,49 @@ List of packages
 Site packages location
 `python -m site`
 
-#-------------------- Add PYHTHONPATH --------------------#
+- [ ] Add PYHTHONPATH
 
 `nano ~/.bash_profile`
 
-Add line below to file
+Add this line to bash file
 
 `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
 
 more details here: https://realpython.com/python-virtual-environments-a-primer/
 more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
 
-#====================  End Virtual Environment Setup ====================#
 
+**NOTE**
 
-#==================== NOTE ====================#
-
-NOTE: WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
+_**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
 TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
-LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!
-
-#==================== End NOTE====================#
+LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
 
-#==================== Upgrading ====================#
 
-```
-pip install pyyaml
-
-pip install rospkg
-
-pip install --upgrade pip
-
-pip install --upgrade pyinstaller
-```
+1. Upgrading
 
 
-#==================== End Upgrading ====================#
+`pip install pyyaml`
+
+`pip install rospkg`
+
+`pip install --upgrade pip`
+
+`pip install --upgrade pyinstaller`
 
 
-#==================== Adafruit Library ====================#
+1. Install Adafruit Library
 
-```
-pip install adafruit-circuitpython-pca9685
 
-pip install adafruit-circuitpython-servokit
-```
+`pip install adafruit-circuitpython-pca9685`
+
+`pip install adafruit-circuitpython-servokit`
 
 
 details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
-#==================== End Adafruit Library ====================#
-
-
+1. Access this repository
 
 - [ ] Generate an SSH key and provide it to Gitlab for access to repositories
 `ssh-keygen # Use all defaults`
