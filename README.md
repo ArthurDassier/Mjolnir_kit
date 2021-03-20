@@ -87,53 +87,52 @@ _**if you want to compile from source follow steps below**_
 
 
 2. **Virtual Environment Setup**
+  a. Creat environment
+
+    `python3 -m pip install --user virtualenv`
+
+    `sudo apt-get install python3-venv`
+
+    `python3 -m venv --system-site-packages env`
+
+    `source env/bin/activate`
+
+    `python3 -m pip install requests`
 
 
-`python3 -m pip install --user virtualenv`
 
-`sudo apt-get install python3-venv`
+  b. Environment details 
 
-`python3 -m venv --system-site-packages env`
+    Get path to executable
+    `which python`
 
-`source env/bin/activate`
+    Get python version
+    `python --version`
 
-`python3 -m pip install requests`
+    List of packages
+    `pip list`
 
+    Site packages location
+    `python -m site`
 
+  c. Add PYHTHONPATH
 
-- [ ] Environment details 
+    `nano ~/.bash_profile`
 
-Get path to executable
-`which python`
+    Add this line to bash file
 
-Get python version
-`python --version`
+    `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
 
-List of packages
-`pip list`
-
-Site packages location
-`python -m site`
-
-- [ ] Add PYHTHONPATH
-
-`nano ~/.bash_profile`
-
-Add this line to bash file
-
-`export PYTHONPATH="<path to virtual env>/lib/python3.6"`
-
-more details here: https://realpython.com/python-virtual-environments-a-primer/
-more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
+    more details here: https://realpython.com/python-virtual-environments-a-primer/
+    more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
 
 
-**NOTE**
-_**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
-TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
-LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
+    **NOTE**
+    _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
+    TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
+    LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
 3. **Upgrading**
-
 
 `pip install pyyaml`
 
@@ -146,7 +145,6 @@ LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
 4. **Install Adafruit Library**
 
-
 `pip install adafruit-circuitpython-pca9685`
 
 `pip install adafruit-circuitpython-servokit`
@@ -155,41 +153,40 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
 5. **Access this repository**
 
-- [ ] Generate an SSH key and provide it to Gitlab for access to repositories
+  a. Generate an SSH key and provide it to Gitlab for access to repositories
 
-`ssh-keygen # Use all defaults`
+    `ssh-keygen # Use all defaults`
 
-- [ ] Then press enter until you get to an empty comand line, then
+  b. Then press enter until you get to an empty comand line, then
 
-`cat $HOME/.ssh/id_rsa.pub`
-
-
-- [ ] Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then
-click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, then paste your SSH key into the text field and submit it.
-
-- [ ] Obtain a copy of the repository
-`git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
-
-- [ ] Set up virtual Environment, instructions found in `ros_config.txt`
-
-- [ ] AFTER you have installed ROS on your Jetson (instructions can be found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x_cJ667loWgzCt7ikTJk51dKAFSs/edit?usp=sharing" >here</a>) enter the commands below in the command window on your Jetson:
+    `cat $HOME/.ssh/id_rsa.pub`
 
 
-`cd projects/catkin_ws/src`
+  c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then
+     click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, 
+     then paste your SSH key into the text field and submit it.
 
-`git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
+  d. Obtain a copy of the repository
 
-`cd ..`
+    `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
-`catkin_make`
+  e. Enter the commands below in the command window on your Jetson:
 
-`source devel/setup.bash`
+    `cd projects/catkin_ws/src`
 
-`rospack profile`
+    `git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
 
-Now try this to make sure it was compiled correctly: 
+    `cd ..`
 
-`roscd ucsd_robo_car_simple_ros`
+    `catkin_make`
+
+    `source devel/setup.bash`
+
+    `rospack profile`
+
+  f. Now try this to make sure it was compiled correctly: 
+
+    `roscd ucsd_robo_car_simple_ros`
 
 If you are brought to this project directory, you are ready to start!
 
