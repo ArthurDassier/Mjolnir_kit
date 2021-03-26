@@ -60,6 +60,8 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
   **b. If no error occurs, you're good to go. Otherwise issue the command below for barebones version**
 
+   `sudo apt-get install python3-pip`
+
    `pip3 install --upgrade pip`
 
    `pip3 install opencv-python`
