@@ -101,7 +101,7 @@ _**if you want to compile from source follow steps below**_
 
    `python3 -m pip install requests`
 
-  **b. Environment details **
+  **b. Environment details**
 
    Get path to executable
    `which python`
