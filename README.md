@@ -169,9 +169,9 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
   **c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then**
      
-     **click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys, **
+  **click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys,**
      
-     **then paste your SSH key into the text field and submit it.**
+  **then paste your SSH key into the text field and submit it.**
 
   **d. Obtain a copy of the repository**
 
