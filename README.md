@@ -1,6 +1,6 @@
 # ucsd_robo_car_simple_ros
 
-A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line.
+A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line or stay between two white lines.
 
 <div>
 
@@ -77,13 +77,13 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 
 **_No errors should have happened, if so, make sure you used pip3 and not pip when running the install command above_**
 
-more details here: https://pypi.org/project/opencv-python/
+more details <a href="https://pypi.org/project/opencv-python/" >here</a>
 
 _**if you want to compile from source follow steps below**_
 
 **IF NEEDED**
 
-  **d. build instructions here: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html**
+  **d. build instructions** <a href="https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html" >here</a>
 
 
 
@@ -123,16 +123,17 @@ _**if you want to compile from source follow steps below**_
 
    `export PYTHONPATH="<path to virtual env>/lib/python3.6"`
 
-   more details here: https://realpython.com/python-virtual-environments-a-primer/
-   more details here: https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
+  **d. Activate Environment (for new terminals)**
 
+   `source env/bin/activate`
 
    **NOTE**
    _**WHILE IN VIRTUAL ENVIRONMENT, DO NOT USE "sudo" 
    TO INSTALL PIP PACKAGES, THESE WILL INSTALL TO YOUR 
    LOCAL MACHINE INSTEAD OF VIRTUAL ENVIRONMENT!!!**_
 
-
+   more details <a href="https://realpython.com/python-virtual-environments-a-primer/" >here</a>
+   and <a href="https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html" >here</a>
 
 **3. Upgrading**
 
@@ -152,8 +153,7 @@ _**if you want to compile from source follow steps below**_
 
 `pip install adafruit-circuitpython-servokit`
 
-details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
-
+more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a>
 
 
 **5. Access this repository**
@@ -165,7 +165,6 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
   **b. Then press enter until you get to an empty comand line, then**
 
    `cat $HOME/.ssh/id_rsa.pub`
-
 
   **c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then**
      
@@ -191,11 +190,9 @@ details and usage here: https://learn.adafruit.com/16-channel-pwm-servo-driver/p
 
    `rospack profile`
 
-  **f. Now try this to make sure it was compiled correctly: **
+  **f. Now try this to make sure it was compiled correctly:**
 
    `roscd ucsd_robo_car_simple_ros`
-
-
 
 **If you are brought to this project directory, you are ready to start!**
 
