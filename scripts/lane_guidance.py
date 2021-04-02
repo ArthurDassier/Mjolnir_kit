@@ -12,7 +12,7 @@ def LineFollower(msg):
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
-    width = 400  # width of camera frame
+    width = 800  # width of camera frame
 
     if msg.data == 0:
         error_x = 0
