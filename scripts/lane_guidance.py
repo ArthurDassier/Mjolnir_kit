@@ -37,7 +37,6 @@ def main():
     throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
     rate = rospy.Rate(30)
     while not rospy.is_shutdown():
-        
         steering_pub.publish(steering_float)
         throttle_pub.publish(throttle_float)
         rate.sleep()

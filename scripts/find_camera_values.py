@@ -44,7 +44,6 @@ while True:
 
     # changing colorspace to HSV
 
-
     # get trackbar positions
     lowH = cv2.getTrackbarPos('lowH', 'sliders')
     highH = cv2.getTrackbarPos('highH', 'sliders')
