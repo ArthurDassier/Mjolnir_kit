@@ -1,6 +1,6 @@
 # ucsd_robo_car_simple_ros
 
-A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line.
+A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line or stay between two white lines.
 
 <div>
 
