@@ -12,7 +12,7 @@ THROTTLE_TOPIC_NAME = 'throttle'
 '''
 
 kit = ServoKit(channels=16)
-throttle_scale = 0.2  # scale down sensitive throttle
+throttle_scale = 0.03  # scale down sensitive throttle
 
 
 def callback(data):
