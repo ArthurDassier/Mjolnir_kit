@@ -2,7 +2,7 @@
 import rospy
 import cv2
 import numpy as np
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, Int32MultiArray
 from sensor_msgs.msg import Image
 from decoder import decodeImage
 import time
@@ -10,8 +10,6 @@ import time
 global mid_x, mid_y
 mid_x = Int32()
 mid_y = Int32()
-
-pub = rospy.Publisher('/centroid', Int32, queue_size=1)
 
 
 def video_detection(data):
@@ -23,7 +21,7 @@ def video_detection(data):
     top_height = height - rows_offset
     bottom_height = top_height + rows_to_watch
 
-    img = frame[top_height:bottom_height, 0:width]
+    img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
     orig = img.copy()
 
     # image pre-processing
@@ -68,6 +66,7 @@ def video_detection(data):
     centers = []
     cx_list = []
     cy_list = []
+    centroid_and_frame_width = []
     # plotting contours and their centroids
     for contour in contours:
         area = cv2.contourArea(contour)
@@ -86,40 +85,41 @@ def video_detection(data):
 
     try:
         if len(cx_list) >= 2:
-            mid_x.data = int(0.5 * (cx_list[0] + cx_list[1]))
-            mid_y.data = int(0.5 * (cy_list[0] + cy_list[1]))
-            cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
-            pub.publish(mid_x)
+            mid_x = int(0.5 * (cx_list[0] + cx_list[1]))
+            mid_y = int(0.5 * (cy_list[0] + cy_list[1]))
+            cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+            centroid_and_frame_width.append(mid_x)
+            centroid_and_frame_width.append(width)
+            pub.publish(centroid_and_frame_width)
     except ValueError:
         pass
 
     if len(cx_list) == 1:
-        mid_x.data = (cx_list[0])
-        mid_y.data = cy_list[0]
-        cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
-        pub.publish(mid_x)
+        mid_x = cx_list[0]
+        mid_y = cy_list[0]
+        cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+        centroid_and_frame_width.append(mid_x)
+        centroid_and_frame_width.append(width)
+        pub.publish(centroid_and_frame_width)
     elif len(cx_list) == 0:
         pass
-
-    time.sleep(0.08)
-
-    try:
-        # plotting results
-        cv2.imshow("original", orig)
-        cv2.imshow("mask", mask)
-        cv2.imshow("blurred", blurred)
-        cv2.imshow("contours_img", img)
-        cv2.waitKey(1)
-    except KeyboardInterrupt:
-        cv2.destroyAllWindows()
-
-
-def main():
-    rospy.init_node('lane_detection_node', anonymous=True)
-    camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
-    rate = rospy.Rate(5)
-    rospy.spin()
+    
+    # plotting results
+    # try:
+    #     cv2.imshow("original", orig)
+    #     cv2.imshow("mask", mask)
+    #     cv2.imshow("blurred", blurred)
+    #     cv2.imshow("contours_img", img)
+    #     cv2.waitKey(1)
+    # except KeyboardInterrupt:
+    #     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    main()
+    rospy.init_node('lane_detection_node', anonymous=True)
+    camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
+    pub = rospy.Publisher('/centroid', Int32MultiArray, queue_size=2)
+    rate = rospy.Rate(15)
+    while not rospy.is_shutdown():
+        rospy.spin()
+        rate.sleep()
