@@ -26,10 +26,12 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
       - [**decoder**](#decoder)
       - [**find_camera_values**](#find_camera_values)
   - [Topics](#Topics)
+      - [**steering**](#steering)
+      - [**throttle**](#throttle)
+      - [**camera_rgb**](#camera_rgb)
+      - [**centroid**](#centroid)
   - [Launch](#launch)
   - [Issues and Fixes](#issues-and-fixes)
-
-
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
@@ -275,12 +277,28 @@ Steering is based on a P controller implemented by its error function. Gain can 
 
 ## Topics
 
+#### **throttle** 
 | Name       | Msg Type              | Info                                                       |
 | ---------- | --------------------- | ---------------------------------------------------------- |
 | throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
+
+
+#### **steering**
+| Name       | Msg Type              | Info                                                       |
+| ---------- | --------------------- | ---------------------------------------------------------- |
 | steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering          |
+
+#### **camera_rgb**
+| Name       | Msg Type              | Info                                                       |
+| ---------- | --------------------- | ---------------------------------------------------------- |
 | camera_rgb | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+
+#### **centroid**
+| Name       | Msg Type              | Info                                                       |
+| ---------- | --------------------- | ---------------------------------------------------------- |
 | centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
+
+
 
 ## Launch
 
