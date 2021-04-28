@@ -19,12 +19,13 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
       - [**throttle_client**](#throttle_client)
       - [**steering_client**](#steering_client)
       - [**camera_server**](#camera_server)
-      - [**line_detection_node**](#lane_detection_node)
+      - [**line_detection_node**](#line_detection_node)
+      - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
     - [Tools](#tools)
       - [**decoder**](#decoder)
       - [**find_camera_values**](#find_camera_values)
-  - [Topics](#topics)
+  - [Topics](#Topics)
   - [Launch](#launch)
   - [Issues and Fixes](#issues-and-fixes)
 
@@ -240,6 +241,17 @@ This node simply reads from the camera with cv2's interface and publishes the im
 [camera_rgb](#Topics) topic. Before publishing, the image is reformatted from the cv image format
 so it can be passed through the ROS topic message structure.
 
+
+
+#### **line_detection_node**
+
+Associated file: line_detection.py
+
+This node reads from [camera_rgb](#Topics) topic and uses opencv to identify line
+information from the image, and publish the information of the middle point of 
+a single line to the [centroid](#Topics) topic. The color of line is chosen by the user
+and set by using [find_camera_values](#tools)
+
 #### **lane_detection_node**
 
 Associated file: lane_detection.py
@@ -265,7 +277,7 @@ Steering is based on a P controller implemented by its error function. Gain can 
 
 | Name       | Msg Type              | Info                                                       |
 | ---------- | --------------------- | ---------------------------------------------------------- |
-| throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
+| #### **throttle**   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
 | steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering          |
 | camera_rgb | sensor_msgs.msg.Image | Image last read from USB camera image                      |
 | centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
