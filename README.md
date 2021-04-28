@@ -37,7 +37,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**find_camera_values**](#find_camera_values)
   - [Issues and Fixes](#issues-and-fixes)
     - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#cv_bridge_error)
-    - [**Throttle not working**](#Throttle not working)
+    - [**Throttle not working**](#Throttle_not_working)
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
