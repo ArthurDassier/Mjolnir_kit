@@ -6,7 +6,6 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
 
 ## Table of Contents
 
-- [**ucsd_robo_car_simple_ros**](#ucsd_robo_car_simple_ros)
   - [**Dependencies**](#dependencies)
     - [cv2](#cv2)
     - [adafruit_servokit](#adafruit_servokit)
