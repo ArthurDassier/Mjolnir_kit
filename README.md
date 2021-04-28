@@ -210,7 +210,7 @@ more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/pyt
 **If you are brought to this project directory, you are ready to start!**
 
 
-### Nodes
+## Nodes
 
 #### **throttle_client**
 
@@ -231,7 +231,6 @@ Associated file: steering_client.py
 Similar to [throttle_client](#throttle_client), this node subscribes to the [steering](#Topics)
 topic and passes the signals to the hardware. The steering servo is on **channel 1**.
 
-<hr>
 
 Plenty of information on how to use the adafruit_servokit libraries can be found <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a> and <a href="https://github.com/adafruit/Adafruit_CircuitPython_ServoKit" >here</a> 
 
