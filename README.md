@@ -330,20 +330,15 @@ Associated file: find_camera_values.py
 This program allows for the user to quickly tune various camera post-processing parameters including a custom color filter. 
 These values need to be **manually** entered into [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) (depending on which you are using) 
 
-| Name       | Msg Type              | Info                                                       |
+| Property       | Info                                                       |
 | ---------- | --------------------- | ---------------------------------------------------------- |
-| Hue_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Hue_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Saturation_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Saturation_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Value_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Value_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| Hue_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| blur_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| blur_kernal_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
-| dilation_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Hue_low, Hue_high | Setting low and high values for Hue  | 
+| Saturation_low, Saturation_high | Setting low and high values for Saturation | 
+| Value_low, Value_high | Setting low and high values for Value | 
+| blur_value, blur_kernal_value | Values that help with reducing noise | 
+| dilation_value | Value used to help make features more pronounced | 
 
-
+More morphological transfromations and examples can be found <a href="https://docs.opencv.org/3.4/db/df6/tutorial_erosion_dilatation.html" >here</a> and  <a href="https://docs.opencv.org/master/d9/d61/tutorial_py_morphological_ops.html" >here</a>
 
 ## Issues and Fixes
 
