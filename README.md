@@ -296,7 +296,7 @@ Steering is based on a P controller implemented by its error function. Gain can 
 #### **centroid**
 | Name       | Msg Type              | Info                                                       |
 | ---------- | --------------------- | ---------------------------------------------------------- |
-| centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
+| centroid   | std_msgs.msg.Int32MultiArray    | Integer for x coordinate of centroid in camera image space and the camera width |
 
 
 
