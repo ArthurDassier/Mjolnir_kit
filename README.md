@@ -23,15 +23,21 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
       - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
   - [Topics](#topics)
-      - [**steering**](#steering)
-      - [**throttle**](#throttle)
-      - [**camera_rgb**](#camera_rgb)
-      - [**centroid**](#centroid)
+    - [**steering**](#steering)
+    - [**throttle**](#throttle)
+    - [**camera_rgb**](#camera_rgb)
+    - [**centroid**](#centroid)
   - [Launch](#launch)
+    - [**throttle_and_steering_launch**](#throttle_and_steering_launch)
+    - [**lineDetection_launch**](#lineDetection_launch)
+    - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
+    - [**throttle and steering calibration**](#throttle and steering calibration)
     - [**decoder**](#decoder)
     - [**find_camera_values**](#find_camera_values)
   - [Issues and Fixes](#issues-and-fixes)
+    - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#Error with CV_Bridge conversion from Image message to OpenCV image)
+    - [**Throttle not working**](#Throttle not working)
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
@@ -244,15 +250,19 @@ This node simply reads from the camera with cv2's interface and publishes the im
 so it can be passed through the ROS topic message structure.
 
 
-
 #### **line_detection_node**
 
 Associated file: line_detection.py
 
-This node reads from [camera_rgb](#Topics) topic and uses opencv to identify line
+This node subscribes from [camera_rgb](#Topics) topic and uses opencv to identify line
 information from the image, and publish the information of the middle point of 
 a single line to the [centroid](#Topics) topic. The color of line is chosen by the user
 and set by using [find_camera_values](#tools)
+
+Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
+
+Steering is based on a proportional controller implemented by its error function. Gain (Kp) can be tuned in this script.
+
 
 **Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
@@ -264,16 +274,6 @@ This node has the same functionality as [**line_detection_node**](#line_detectio
 
 **Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
-#### **lane_guidance_node**
-
-Associated file: lane_guidance.py
-
-This node subscribes to the [centroid](#Topics) topic, calculates the throttle and steering
-based on the centroid value, and then publish them to their corresponding topics.
-
-Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
-
-Steering is based on a proportional controller implemented by its error function. Gain (Kp) can be tuned in this script.
 
 ## Topics
 
@@ -303,17 +303,31 @@ Steering is based on a proportional controller implemented by its error function
 
 ## Launch
 
-Launching the package is as simple as
+#### **throttle_and_steering_launch**
+This file launches both [throttle_client](#throttle_client) and [steering](#Topics) seperately because these topics can take some time to initialize which can delay productivity. Launch this script once and use the other launch files listed below to get the robot moving.
+
+`roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
+
+#### **lineDetection_launch**
+
+This file will launch [**line_detection_node**](#line_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
+
+#### **laneDetection_launch**
+
+This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
 
 `roslaunch ucsd_robo_car_simple_ros simplecv_launch.launch`
 
 This should begin all the necessary nodes and get the car moving.
 
-Or to launch them indvidually, use
+Or to run programs indvidually, use
 
 `rosrun ucsd_robo_car_simple_ros file_name`
 
 ## Tools 
+
+#### **throttle and steering calibration**
+
 
 
 #### **decoder** 
