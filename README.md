@@ -277,7 +277,7 @@ Steering is based on a P controller implemented by its error function. Gain can 
 
 | Name       | Msg Type              | Info                                                       |
 | ---------- | --------------------- | ---------------------------------------------------------- |
-| #### **throttle**   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
+| throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
 | steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering          |
 | camera_rgb | sensor_msgs.msg.Image | Image last read from USB camera image                      |
 | centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
