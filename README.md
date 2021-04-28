@@ -25,7 +25,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [Tools](#tools)
       - [**decoder**](#decoder)
       - [**find_camera_values**](#find_camera_values)
-  - [Topics](#Topics)
+  - [Topics](#topics)
       - [**steering**](#steering)
       - [**throttle**](#throttle)
       - [**camera_rgb**](#camera_rgb)
@@ -274,7 +274,6 @@ Throttle is based on whether or not a centroid exists - car goes faster when cen
 
 Steering is based on a P controller implemented by its error function. Gain can be tuned in the **lane_guidance.py** script.
 
-## Topics
 ## Topics
 
 
