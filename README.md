@@ -32,7 +32,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**lineDetection_launch**](#lineDetection_launch)
     - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
-    - [**throttle and steering calibration**](#throttle and steering calibration)
+    - [**throttle and steering calibration**](#throttle_and_steering_calibration)
     - [**decoder**](#decoder)
     - [**find_camera_values**](#find_camera_values)
   - [Issues and Fixes](#issues-and-fixes)
@@ -228,7 +228,7 @@ module on **channel 0** for sending signals to the hardware.
 
 This node is also responsible for reading and setting the throttle calibration values.
 
-See [**throttle and steering calibration**](#throttle and steering calibration) for calibration
+See [**throttle and steering calibration**](#throttle_and_steering_calibration) for calibration
 
 #### **steering_client**
 
@@ -241,7 +241,7 @@ topic and passes the signals to the hardware. The steering servo is on **channel
 
 Plenty of information on how to use the adafruit_servokit libraries can be found <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a> and <a href="https://github.com/adafruit/Adafruit_CircuitPython_ServoKit" >here</a> 
 
-See [**throttle and steering calibration**](#throttle and steering calibration) for calibration
+See [**throttle and steering calibration**](#throttle_and_steering_calibration) for calibration
 
 #### **camera_server**
 
