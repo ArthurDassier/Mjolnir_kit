@@ -32,10 +32,10 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**lineDetection_launch**](#lineDetection_launch)
     - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
-    - [**Run Indvidual Programs**](#run_programs)
+    - [**Run Indvidual Programs**](#run-indvidual-programs)
     - [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
     - [**Decoder**](#decoder)
-    - [**Find Camera Values**](#find-camera-values)
+    - [**Find Camera Parameters**](#find-camera-parameters)
   - [Issues and Fixes](#issues-and-fixes)
     - [**Error With CV_Bridge Conversion From Image Message To OpenCV Image**](#error-with-cv_bridge-conversion-from-image-message-to-opencv-image)
     - [**Throttle Not working**](#throttle-not-working)
@@ -354,7 +354,7 @@ Associated file: decoder.py
 This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
 
 
-#### **Find Camera Values** 
+#### **Find Camera Parameters** 
 
 Associated file: find_camera_values.py
 
