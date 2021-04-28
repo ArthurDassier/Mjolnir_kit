@@ -337,6 +337,12 @@ To calibrate steering and throttle, using the commands below to test different v
 
 **NOTE: Throttle is EXTREMELY sensitive. Start with very small values such as 0.01, 0.02, 0.03**
 
+First launch the throttle and steering clients 
+
+`roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
+
+Then in 2 new terminal windows enter these commands 
+
 `rostopic pub -r 15 /steering [TAB][TAB]`
 `rostopic pub -r 15 /throttle [TAB][TAB]`
 
