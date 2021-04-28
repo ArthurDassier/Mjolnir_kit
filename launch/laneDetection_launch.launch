@@ -1,6 +1,4 @@
 <launch>
-  <node name="steering_client" pkg="ucsd_robo_car_simple_ros" type="steering_client.py" />
-  <node name="throttle_client" pkg="ucsd_robo_car_simple_ros" type="throttle_client.py" />
   <node name="camera_server" pkg="ucsd_robo_car_simple_ros" type="camera_server.py" />
   <node name="lane_detection_node" pkg="ucsd_robo_car_simple_ros" type="lane_Detection.py" output="screen" />
   <node name="lane_guidance_node" pkg="ucsd_robo_car_simple_ros" type="lane_guidance.py" />
