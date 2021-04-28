@@ -7,7 +7,6 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
 ## Table of Contents
 
 - [**ucsd_robo_car_simple_ros**](#ucsd_robo_car_simple_ros)
-  - [**Table of Contents**](#table-of-contents)
   - [**Dependencies**](#dependencies)
     - [cv2](#cv2)
     - [adafruit_servokit](#adafruit_servokit)
@@ -34,7 +33,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [Throttle and Steering Calibration](#throttle-and-steering-calibration)
     - [Decoder](#decoder)
     - [Find Camera Parameters](#find-camera-parameters)
-  - [**Issues and Fixes](#issues-and-fixes)
+  - [**Issues and Fixes**](#issues-and-fixes)
     - [Error With CV_Bridge Conversion From Image Message To OpenCV Image](#error-with-cv_bridge-conversion-from-image-message-to-opencv-image)
     - [Throttle Not working](#throttle-not-working)
     - [ROS Version Is Not Compatible with Python3](#ros-version-is-not-compatible-with-python3)
