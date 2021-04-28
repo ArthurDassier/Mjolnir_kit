@@ -36,7 +36,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**decoder**](#decoder)
     - [**find_camera_values**](#find_camera_values)
   - [Issues and Fixes](#issues-and-fixes)
-    - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#Error with CV_Bridge conversion from Image message to OpenCV image)
+    - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#cv_bridge_error)
     - [**Throttle not working**](#Throttle not working)
 ## Dependencies
 
@@ -228,6 +228,8 @@ module on **channel 0** for sending signals to the hardware.
 
 This node is also responsible for reading and setting the throttle calibration values.
 
+See [**throttle and steering calibration**](#throttle and steering calibration) for calibration
+
 #### **steering_client**
 
 Associated file: steering_client.py
@@ -239,7 +241,7 @@ topic and passes the signals to the hardware. The steering servo is on **channel
 
 Plenty of information on how to use the adafruit_servokit libraries can be found <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a> and <a href="https://github.com/adafruit/Adafruit_CircuitPython_ServoKit" >here</a> 
 
-
+See [**throttle and steering calibration**](#throttle and steering calibration) for calibration
 
 #### **camera_server**
 
@@ -328,7 +330,12 @@ Or to run programs indvidually, use
 
 #### **throttle and steering calibration**
 
+To calibrate steering and throttle, using the commands below to test different values for throttle and steering angle. To make sure the right message is passed to topics, pressing the "TAB" key on the keyboard twice will autocomplete how the message should be structured and only the value at the end needs to be changed. 
 
+**NOTE: Throttle is EXTREMELY sensitive. Start with very small values such as 0.01, 0.02, 0.03**
+
+`rostopic pub -r 15 /steering [TAB][TAB]`
+`rostopic pub -r 15 /throttle [TAB][TAB]`
 
 #### **decoder** 
 
