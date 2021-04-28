@@ -274,8 +274,9 @@ Throttle is based on whether or not a centroid exists - car goes faster when cen
 
 Steering is based on a P controller implemented by its error function. Gain can be tuned in the **lane_guidance.py** script.
 
-
 ## Topics
+## Topics
+
 
 #### **throttle** 
 | Name       | Msg Type              | Info                                                       |
