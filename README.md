@@ -13,15 +13,13 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [adafruit_servokit](#adafruit_servokit)
     - [cv_bridge](#cv_bridge)
   - [Environment Configuration](#environment-configuration)
-  - [Package Map](#package-map)
-  - [Structure](#structure)
-    - [Nodes](#nodes)
-      - [**throttle_client**](#throttle_client)
-      - [**steering_client**](#steering_client)
-      - [**camera_server**](#camera_server)
-      - [**line_detection_node**](#line_detection_node)
-      - [**lane_detection_node**](#lane_detection_node)
-      - [**lane_guidance_node**](#lane_guidance_node)
+  - [Nodes](#nodes)
+    - [**throttle_client**](#throttle_client)
+    - [**steering_client**](#steering_client)
+    - [**camera_server**](#camera_server)
+    - [**line_detection_node**](#line_detection_node)
+    - [**lane_detection_node**](#lane_detection_node)
+    - [**lane_guidance_node**](#lane_guidance_node)
   - [Topics](#topics)
     - [**steering**](#steering)
     - [**throttle**](#throttle)
@@ -212,11 +210,6 @@ more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/pyt
 
 **If you are brought to this project directory, you are ready to start!**
 
-
-## Package Map
-<img src="ros_overview.png">
-
-## Structure
 
 ### Nodes
 
