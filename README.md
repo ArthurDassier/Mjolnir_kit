@@ -22,15 +22,15 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
       - [**line_detection_node**](#line_detection_node)
       - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
-    - [Tools](#tools)
-      - [**decoder**](#decoder)
-      - [**find_camera_values**](#find_camera_values)
   - [Topics](#topics)
       - [**steering**](#steering)
       - [**throttle**](#throttle)
       - [**camera_rgb**](#camera_rgb)
       - [**centroid**](#centroid)
   - [Launch](#launch)
+  - [Tools](#tools)
+    - [**decoder**](#decoder)
+    - [**find_camera_values**](#find_camera_values)
   - [Issues and Fixes](#issues-and-fixes)
 ## Dependencies
 
@@ -254,14 +254,15 @@ information from the image, and publish the information of the middle point of
 a single line to the [centroid](#Topics) topic. The color of line is chosen by the user
 and set by using [find_camera_values](#tools)
 
+**Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
+
 #### **lane_detection_node**
 
 Associated file: lane_detection.py
 
-This node reads from [camera_rgb](#Topics) topic and uses opencv to identify line
-information from the image, and publish the information of the middle point of 
-the yellow lines to the [centroid](#Topics) topic.
+This node has the same functionality as [**line_detection_node**](#line_detection_node) however, now the ability to identify more than one line has been included. It is possible to identify the outside lanes as well as the yellow dashed lines if a green mask is applied which can easily be made by using [**find_camera_values**](#find_camera_values). 
 
+**Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
 #### **lane_guidance_node**
 
@@ -272,7 +273,7 @@ based on the centroid value, and then publish them to their corresponding topics
 
 Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
 
-Steering is based on a P controller implemented by its error function. Gain can be tuned in the **lane_guidance.py** script.
+Steering is based on a proportional controller implemented by its error function. Gain (Kp) can be tuned in this script.
 
 ## Topics
 
@@ -311,6 +312,38 @@ This should begin all the necessary nodes and get the car moving.
 Or to launch them indvidually, use
 
 `rosrun ucsd_robo_car_simple_ros file_name`
+
+## Tools 
+
+
+#### **decoder** 
+
+Associated file: decoder.py
+
+This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
+
+
+#### **find_camera_values** 
+
+Associated file: find_camera_values.py
+
+This program allows for the user to quickly tune various camera post-processing parameters including a custom color filter. 
+These values need to be **manually** entered into [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) (depending on which you are using) 
+
+| Name       | Msg Type              | Info                                                       |
+| ---------- | --------------------- | ---------------------------------------------------------- |
+| Hue_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Hue_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Saturation_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Saturation_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Value_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Value_high | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| Hue_low | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| blur_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| blur_kernal_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| dilation_value | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+
+
 
 ## Issues and Fixes
 
