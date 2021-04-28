@@ -31,8 +31,8 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
   - [**Tools**](#tools)
     - [Run Indvidual Programs](#run-indvidual-programs)
     - [Throttle and Steering Calibration](#throttle-and-steering-calibration)
-    - [Decoder](#decoder)
     - [Find Camera Parameters](#find-camera-parameters)
+    - [Decoder](#decoder)
   - [**Issues and Fixes**](#issues-and-fixes)
     - [Error With CV_Bridge Conversion From Image Message To OpenCV Image](#error-with-cv_bridge-conversion-from-image-message-to-opencv-image)
     - [Throttle Not working](#throttle-not-working)
@@ -267,7 +267,9 @@ Associated file: lane_detection.py
 
 This node has the same functionality as [**line_detection_node**](#line_detection_node) however, now the ability to identify more than one line has been included. It is possible to identify the outside lanes as well as the yellow dashed lines if a green mask is applied which can easily be made by using [**find_camera_values**](#find_camera_values). 
 
-**Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
+**Note 1: The bounding areas found in the image can be calibrated for various areas by changing the area parmeter on line 74 of this file.**
+
+**Note 2: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
 Below show the image post processing techniques, cv2 methods and the logic applied respectively.
 
@@ -345,12 +347,6 @@ Then in 2 new terminal windows enter these commands
 
 `rostopic pub -r 15 /throttle [TAB][TAB]`
 
-#### **Decoder** 
-
-Associated file: decoder.py
-
-This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
-
 
 #### **Find Camera Parameters** 
 
@@ -368,6 +364,13 @@ These values need to be **manually** entered into [**line_detection_node**](#lin
 | dilation_value | Value used to help make features more pronounced | 
 
 More morphological transfromations and examples can be found <a href="https://docs.opencv.org/3.4/db/df6/tutorial_erosion_dilatation.html" >here</a> and  <a href="https://docs.opencv.org/master/d9/d61/tutorial_py_morphological_ops.html" >here</a>
+
+#### **Decoder** 
+
+Associated file: decoder.py
+
+This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
+
 
 ## Issues and Fixes
 
