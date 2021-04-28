@@ -269,6 +269,13 @@ This node has the same functionality as [**line_detection_node**](#line_detectio
 
 **Note: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
+Below show the image post processing techniques, cv2 methods and the logic applied respectively.
+
+<div>
+  <img src="filtering_process.png">
+  <img src="applying_methods.png">
+  <img src="applying_logic.png">
+</div>
 
 ## Topics
 
