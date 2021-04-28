@@ -32,6 +32,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**lineDetection_launch**](#lineDetection_launch)
     - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
+    - [**Run indvidual programs**](#Run_programs)
     - [**throttle and steering calibration**](#throttle_and_steering_calibration)
     - [**decoder**](#decoder)
     - [**find_camera_values**](#find_camera_values)
@@ -315,19 +316,20 @@ This file launches both [throttle_client](#throttle_client) and [steering](#Topi
 
 This file will launch [**line_detection_node**](#line_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
 
+`roslaunch ucsd_robo_car_simple_ros lineDetection_launch.launch`
+
 #### **laneDetection_launch**
 
 This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
 
-`roslaunch ucsd_robo_car_simple_ros simplecv_launch.launch`
+`roslaunch ucsd_robo_car_simple_ros laneDetection_launch.launch`
 
-This should begin all the necessary nodes and get the car moving.
-
-Or to run programs indvidually, use
-
-`rosrun ucsd_robo_car_simple_ros file_name`
 
 ## Tools 
+
+#### **Run indvidual programs**
+
+`rosrun ucsd_robo_car_simple_ros file_name.py`
 
 #### **throttle and steering calibration**
 
