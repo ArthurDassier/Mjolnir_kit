@@ -24,7 +24,7 @@ def video_detection(data):
     img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
     orig = img.copy()
 
-    # image pre-processing
+    # image post processing
 
     # experimentally found values from find_camera_values.py
     Hue_low = 19
