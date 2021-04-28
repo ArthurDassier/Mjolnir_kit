@@ -10,8 +10,6 @@ global mid_x, mid_y
 mid_x = Int32()
 mid_y = Int32()
 
-pub = rospy.Publisher('/centroid', Int32, queue_size=1)
-
 
 def video_detection(data):
     # decode image
