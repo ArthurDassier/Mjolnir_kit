@@ -32,7 +32,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**lineDetection_launch**](#lineDetection_launch)
     - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
-    - [**Run indvidual programs**](#Run_programs)
+    - [**Run indvidual programs**](#run_programs)
     - [**throttle and steering calibration**](#throttle_and_steering_calibration)
     - [**decoder**](#decoder)
     - [**find_camera_values**](#find_camera_values)
@@ -344,6 +344,7 @@ First launch the throttle and steering clients
 Then in 2 new terminal windows enter these commands 
 
 `rostopic pub -r 15 /steering [TAB][TAB]`
+
 `rostopic pub -r 15 /throttle [TAB][TAB]`
 
 #### **decoder** 
