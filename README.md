@@ -19,8 +19,11 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
       - [**throttle_client**](#throttle_client)
       - [**steering_client**](#steering_client)
       - [**camera_server**](#camera_server)
-      - [**lane_detection_node**](#lane_detection_node)
+      - [**line_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
+    - [Tools](#tools)
+      - [**decoder**](#decoder)
+      - [**find_camera_values**](#find_camera_values)
   - [Topics](#topics)
   - [Launch](#launch)
   - [Issues and Fixes](#issues-and-fixes)
@@ -34,7 +37,9 @@ OpenCV is a library, in our case for Python, that provides high-level functions 
 
 ### [adafruit_servokit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
 
-Adafruit Servokit is a Python library that provides a high-level interface with low-level PWM controls. In our case, we are using the library to control PWM servos connected to channels of the PCA9685 I2C breakout board.
+Adafruit Servokit is a Python library that provides a high-level interface with low-level PWM controls. For this package, the library is used to control PWM servos and a ESC connected to channels of the PCA9685 I2C breakout board.
+more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a>
+
 
 ### [cv_bridge](http://wiki.ros.org/cv_bridge)
 
