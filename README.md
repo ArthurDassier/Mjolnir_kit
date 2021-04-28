@@ -32,14 +32,14 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [**lineDetection_launch**](#lineDetection_launch)
     - [**laneDetection_launch**](#laneDetection_launch)
   - [Tools](#tools)
-    - [**Run indvidual programs**](#run_programs)
-    - [**throttle and steering calibration**](#throttle_and_steering_calibration)
-    - [**decoder**](#decoder)
-    - [**find_camera_values**](#find_camera_values)
+    - [**Run Indvidual Programs**](#run_programs)
+    - [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
+    - [**Decoder**](#decoder)
+    - [**Find Camera Values**](#find-camera-values)
   - [Issues and Fixes](#issues-and-fixes)
-    - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#cv_bridge_error)
-    - [**Throttle not working**](#Throttle_not_working)
-    - [**ROS version is not compatible with Python3**](#ROS_python3)
+    - [**Error With CV_Bridge Conversion From Image Message To OpenCV Image**](#error-with-cv_bridge-conversion-from-image-message-to-opencv-image)
+    - [**Throttle Not working**](#throttle-not-working)
+    - [**ROS Version Is Not Compatible with Python3**](#ros-version-is-not-compatible-with-python3)
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
@@ -327,11 +327,11 @@ This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_g
 
 ## Tools 
 
-#### **Run indvidual programs**
+#### **Run Indvidual Programs**
 
 `rosrun ucsd_robo_car_simple_ros file_name.py`
 
-#### **throttle and steering calibration**
+#### **Throttle and Steering Calibration**
 
 To calibrate steering and throttle, using the commands below to test different values for throttle and steering angle. To make sure the right message is passed to topics, pressing the "TAB" key on the keyboard twice will autocomplete how the message should be structured and only the value at the end needs to be changed. 
 
@@ -347,14 +347,14 @@ Then in 2 new terminal windows enter these commands
 
 `rostopic pub -r 15 /throttle [TAB][TAB]`
 
-#### **decoder** 
+#### **Decoder** 
 
 Associated file: decoder.py
 
 This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
 
 
-#### **find_camera_values** 
+#### **Find Camera Values** 
 
 Associated file: find_camera_values.py
 
@@ -373,20 +373,20 @@ More morphological transfromations and examples can be found <a href="https://do
 
 ## Issues and Fixes
 
-### **Error with CV_Bridge conversion from Image message to OpenCV image**
+### **Error With CV_Bridge Conversion From Image Message To OpenCV Image**
 
 Using **bridge_object.imgmsg_to_cv2()** threw errors on our Jetson Nano environment, so we had to resort to our own image decoder function. Function **decodeImage()** can be imported from **decoder.py**. If you don't want to use our function, the problem can be avoided by properly building CV_Bridge with Python3 in the ROS package.
 
 An alternative solution can be found <a href="https://medium.com/@beta_b0t/how-to-setup-ros-with-python-3-44a69ca36674" >here</a>
 
-### **Throttle not working**
+### **Throttle Not working**
 
 This issue can vary between cars, but generally the problem lies in the battery supply and the PWM range that is mapped by the Adafruit library. If the "start" PWM is too low, then even a maxed out "1" might not map to the PWM value that will trigger the ESC. First make sure the -1 to 1 range is properly calibrated. During runtime, the scale constant found in **throttle_client.py** can also be tuned. As your battery begins to drain, the PWM range becomes under-saturated which decreases performance of the motor. 
 
 **Tip: Always try driving with fully charged battery or periodically recalibrate pwm values manually as motor performance starts decreasing.**
 
 
-### **ROS version is not compatible with Python3**
+### **ROS Version Is Not Compatible with Python3**
 If your're having issues using python3, then there is a chance that the virtual environment (explained in `ros_config.txt`) was not setup properly. Try setting up another environment to see if that solves the issue.
 
 More info found 
