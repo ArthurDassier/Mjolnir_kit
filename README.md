@@ -38,6 +38,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
   - [Issues and Fixes](#issues-and-fixes)
     - [**Error with CV_Bridge conversion from Image message to OpenCV image**](#cv_bridge_error)
     - [**Throttle not working**](#Throttle_not_working)
+    - [**ROS version is not compatible with Python3**](#ROS_python3)
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
@@ -352,7 +353,7 @@ This program allows for the user to quickly tune various camera post-processing 
 These values need to be **manually** entered into [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) (depending on which you are using) 
 
 | Property       | Info                                                       |
-| ---------- | --------------------- | ---------------------------------------------------------- |
+| ---------- | --------------------- |
 | Hue_low, Hue_high | Setting low and high values for Hue  | 
 | Saturation_low, Saturation_high | Setting low and high values for Saturation | 
 | Value_low, Value_high | Setting low and high values for Value | 
