@@ -266,7 +266,7 @@ Associated file: lane_detection.py
 
 This node has the same functionality as [**line_detection_node**](#line_detection_node) however, now the ability to identify more than one line has been included. It is possible to identify the outside lanes as well as the yellow dashed lines if a green mask is applied which can easily be made by using [**find_camera_values**](#find_camera_values). 
 
-**Note 1: The bounding areas found in the image can be calibrated for various areas by changing the area parmeter on line 74 of this file.**
+**Note 1: The bounding areas found in the image can be calibrated visually using** [Find Camera Parameters](#find-camera-parameters)
 
 **Note 2: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
