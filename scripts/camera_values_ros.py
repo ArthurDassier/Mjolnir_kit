@@ -1,0 +1,176 @@
+#!/usr/bin/env python
+import rospy
+import cv2
+import numpy as np
+from sensor_msgs.msg import Image
+from decoder import decodeImage
+
+cv2.namedWindow('sliders')
+
+
+def callback(x):
+    pass
+
+
+lowH = 0
+highH = 179
+lowS = 0
+highS = 255
+lowV = 0
+highV = 255
+area_min = 1
+area_max = 50000
+
+min_width = 10
+max_width = 500
+
+cv2.createTrackbar('lowH', 'sliders', lowH, highH, callback)
+cv2.createTrackbar('highH', 'sliders', lowH, highH, callback)
+
+cv2.createTrackbar('lowS', 'sliders', lowS, highS, callback)
+cv2.createTrackbar('highS', 'sliders', highS, highS, callback)
+
+cv2.createTrackbar('lowV', 'sliders', lowV, highV, callback)
+cv2.createTrackbar('highV', 'sliders', highV, highV, callback)
+
+cv2.createTrackbar('min_width', 'sliders', min_width, max_width, callback)
+cv2.createTrackbar('max_width', 'sliders', min_width, max_width, callback)
+
+
+def camera_values(data):
+    frame = decodeImage(data.data, data.height, data.width)
+    height, width, channels = frame.shape
+    # print(width)
+    # start_height = int(height/2)
+    # bottom_height = int(3*height/4)
+    start_height = int(height * 0.60)
+    bottom_height = int(height * 0.80)
+
+    left_width = int(width / 4)
+    right_width = int(3 * width / 4)
+
+    left_width = int(0)
+    right_width = int(width)
+    # frame = cv2.cvtColor(frame[start_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
+    img = cv2.cvtColor(frame[start_height:bottom_height, left_width:right_width], cv2.COLOR_RGB2BGR)
+
+    # get trackbar positions
+    lowH = cv2.getTrackbarPos('lowH', 'sliders')
+    highH = cv2.getTrackbarPos('highH', 'sliders')
+    lowS = cv2.getTrackbarPos('lowS', 'sliders')
+    highS = cv2.getTrackbarPos('highS', 'sliders')
+    lowV = cv2.getTrackbarPos('lowV', 'sliders')
+    highV = cv2.getTrackbarPos('highV', 'sliders')
+    min_area = cv2.getTrackbarPos('min_area', 'sliders')
+    max_area = cv2.getTrackbarPos('max_area', 'sliders')
+    min_width = cv2.getTrackbarPos('min_width', 'sliders')
+    max_width = cv2.getTrackbarPos('max_width', 'sliders')
+
+    # set ros parameters
+    rospy.set_param('/Hue_low', lowH)
+    rospy.set_param('/Hue_high', highH)
+    rospy.set_param('/Saturation_low', lowS)
+    rospy.set_param('/Saturation_high', highS)
+    rospy.set_param('/Value_low', lowV)
+    rospy.set_param('/Value_high', highV)
+    rospy.set_param('/Area_min', min_area)
+    rospy.set_param('/Area_max', max_area)
+    rospy.set_param('/Width_min', min_width)
+    rospy.set_param('/Width_max', max_width)
+
+    # Write files to yaml file for storage
+    color_config_path = "../config/color_filter_parameters/custom_filter.yaml"
+    f = open(color_config_path, "w")
+    f.write(f"Hue_low : {lowH} \n"
+            f"Hue_high : {highH} \n"
+            f"Saturation_low : {lowS} \n"
+            f"Saturation_high : {highS} \n"
+            f"Value_low : {lowV} \n"
+            f"Value_high : {highV} \n"
+            f"Area_min : {min_width} \n"
+            f"Area_max : {max_width} \n"
+            f"Width_min : {min_width} \n"
+            f"Width_max : {max_width} \n")
+    f.close()
+
+    # changing color space to HSV
+    # hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV) # for webcam
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) # for intel
+    lower = np.array([lowH, lowS, lowV])
+    higher = np.array([highH, highS, highV])
+    mask = cv2.inRange(hsv, lower, higher)
+
+    if green_filter:
+        res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+    else:
+        res_inv = cv2.bitwise_and(img, img, mask=mask)
+
+    # changing to gray color space
+    gray = cv2.cvtColor(res_inv, cv2.COLOR_BGR2GRAY)
+
+    # changing to black and white color space
+    gray_lower = 127
+    gray_upper = 255
+    (dummy, blackAndWhiteImage) = cv2.threshold(gray, gray_lower, gray_upper, cv2.THRESH_BINARY)
+    contours, dummy = cv2.findContours(blackAndWhiteImage, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    centers = []
+    cx_list = []
+    cy_list = []
+    centroid_and_frame_width = []
+
+    # plotting contours and their centroids
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        # print(area)  # uncomment for debug
+        x, y, w, h = cv2.boundingRect(contour)
+        # if min_area < area < max_area:
+        if min_width < w < max_width:
+            # print(area) # uncomment for debug
+            x, y, w, h = cv2.boundingRect(contour)
+            # img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
+            m = cv2.moments(contour)
+            cx = int(m['m10'] / m['m00'])
+            cy = int(m['m01'] / m['m00'])
+            centers.append([cx, cy])
+            cx_list.append(int(m['m10'] / m['m00']))
+            cy_list.append(int(m['m01'] / m['m00']))
+            cv2.circle(img, (cx, cy), 7, (0, 255, 0), -1)
+
+    try:
+        if len(cx_list) >= 2:
+            mid_x = int(0.5 * (cx_list[0] + cx_list[1]))
+            mid_y = int(0.5 * (cy_list[0] + cy_list[1]))
+            cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+        elif len(cx_list) == 1:
+            mid_x = cx_list[0]
+            mid_y = cy_list[0]
+            cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+    except ValueError:
+        pass
+
+    # plotting results
+    try:
+        cv2.imshow('img', img)
+        cv2.imshow('mask', mask)
+        cv2.imshow('res', res_inv)
+        cv2.imshow('gray', gray)
+        cv2.imshow('blackAndWhiteImage', blackAndWhiteImage)
+        cv2.waitKey(1)
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    green_filter_response = input("Create green filter? (y/n) ").upper()
+    if green_filter_response == 'Y':
+        green_filter = True
+    else:
+        green_filter = False
+    rospy.init_node('camera_values_node', anonymous=False)
+    camera_sub = rospy.Subscriber('camera/color/image_raw', Image, camera_values)
+    rate = rospy.Rate(15)
+    while not rospy.is_shutdown():
+        rospy.spin()
+        rate.sleep()

@@ -6,6 +6,11 @@ from std_msgs.msg import Int32, Int32MultiArray
 from sensor_msgs.msg import Image
 from decoder import decodeImage
 
+
+LINE_DETECTION_NODE_NAME = 'line_detection_node'
+CAMERA_TOPIC_NAME = 'camera_rgb'
+CENTROID_TOPIC_NAME = '/centroid'
+
 global mid_x, mid_y
 mid_x = Int32()
 mid_y = Int32()
@@ -23,20 +28,19 @@ def video_detection(data):
     bottom_height = top_height + rows_to_watch
 
     img = frame[top_height:bottom_height, 0:width]
-    orig = img.copy()
 
     # experimentally found values from find_camera_values.py
-    Hue_low = 20
-    Hue_high = 50
-    Saturation_low = 170
-    Saturation_high = 255
-    Value_low = 155
-    Value_high = 255
+    Hue_low = rospy.get_param("/Hue_low")
+    Hue_high = rospy.get_param("/Hue_high")
+    Saturation_low = rospy.get_param("/Saturation_low")
+    Saturation_high = rospy.get_param("/Saturation_high")
+    Value_low = rospy.get_param("/Value_low")
+    Value_high = rospy.get_param("/Value_high")
 
     # changing color space to HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    # setting threshold limits for yellow color filter
+    # setting threshold limits for custom color filter
     lower = np.array([Hue_low, Saturation_low, Value_low])
     upper = np.array([Hue_high, Saturation_high, Value_high])
 
@@ -69,12 +73,10 @@ def video_detection(data):
 
 
 if __name__ == '__main__':
-    rospy.init_node('lane_detection_node', anonymous=False)
-    camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
-    pub = rospy.Publisher('/centroid', Int32MultiArray, queue_size=2)
+    rospy.init_node(LINE_DETECTION_NODE_NAME, anonymous=False)
+    camera_sub = rospy.Subscriber(CAMERA_TOPIC_NAME, Image, video_detection)
+    pub = rospy.Publisher(CENTROID_TOPIC_NAME, Int32MultiArray, queue_size=2)
     rate = rospy.Rate(15)
     while not rospy.is_shutdown():
         rospy.spin()
         rate.sleep()
-
-

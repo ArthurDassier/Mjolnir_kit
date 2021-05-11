@@ -4,14 +4,12 @@ from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
 
 THROTTLE_NODE_NAME = 'throttle_client'
-THROTTLE_TOPIC_NAME = 'throttle'
-
+THROTTLE_TOPIC_NAME = '/throttle'
+kit = ServoKit(channels=16)
 '''
     more documentation at https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
     throttle servo is on channel 0 
 '''
-
-kit = ServoKit(channels=16)
 throttle_scale = 0.03  # scale down sensitive throttle
 
 

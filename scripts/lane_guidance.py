@@ -2,6 +2,12 @@
 import rospy
 from std_msgs.msg import Float32, Int32, Int32MultiArray
 
+
+LANE_GUIDANCE_NODE_NAME = 'lane_guidance_node'
+STEERING_TOPIC_NAME = '/steering'
+THROTTLE_TOPIC_NAME = '/throttle'
+CENTROID_TOPIC_NAME = '/centroid'
+
 global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
@@ -34,10 +40,10 @@ def LineFollower(msg):
 
 
 if __name__ == '__main__':
-    rospy.init_node('lane_guidance_node', anonymous=True)
-    centroid_subscriber = rospy.Subscriber('/centroid', Int32MultiArray, LineFollower)
-    steering_pub = rospy.Publisher('steering', Float32, queue_size=1)
-    throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
+    rospy.init_node(LANE_GUIDANCE_NODE_NAME, anonymous=True)
+    centroid_subscriber = rospy.Subscriber(CENTROID_TOPIC_NAME, Int32MultiArray, LineFollower)
+    steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
+    throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
     rate = rospy.Rate(15)
     while not rospy.is_shutdown():
         rospy.spin()

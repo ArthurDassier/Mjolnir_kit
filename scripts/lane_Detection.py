@@ -7,6 +7,11 @@ from sensor_msgs.msg import Image
 from decoder import decodeImage
 import time
 
+
+LANE_DETECTION_NODE_NAME = 'lane_detection_node'
+CAMERA_TOPIC_NAME = 'camera_rgb'
+CENTROID_TOPIC_NAME = '/centroid'
+
 global mid_x, mid_y
 mid_x = Int32()
 mid_y = Int32()
@@ -22,28 +27,27 @@ def video_detection(data):
     bottom_height = top_height + rows_to_watch
 
     img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
-    orig = img.copy()
 
     # image post processing
 
     # experimentally found values from find_camera_values.py
-    Hue_low = 19
-    Hue_high = 113
-    Saturation_low = 0
-    Saturation_high = 66
-    Value_low = 132
-    Value_high = 255
-    blur_value = 25
-    blur_kernal_value = 5
-    dilation_value = 1
+    Hue_low = rospy.get_param("/Hue_low")
+    Hue_high = rospy.get_param("/Hue_high")
+    Saturation_low = rospy.get_param("/Saturation_low")
+    Saturation_high = rospy.get_param("/Saturation_high")
+    Value_low = rospy.get_param("/Value_low")
+    Value_high = rospy.get_param("/Value_high")
+    min_width = rospy.get_param("/Width_min")
+    max_width = rospy.get_param("/Width_max")
 
     # get rid of white noise
-    kernel = np.ones((blur_kernal_value, blur_kernal_value), np.float32) / blur_value
-    blurred = cv2.filter2D(img, -1, kernel)
-    dilation = cv2.dilate(blurred, kernel, iterations=dilation_value)
+    # kernel = np.ones((blur_kernal_value, blur_kernal_value), np.float32) / blur_value
+    # blurred = cv2.filter2D(img, -1, kernel)
+    # dilation = cv2.dilate(blurred, kernel, iterations=dilation_value)
 
     # changing color space to HSV
-    hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+    # hsv = cv2.cvtColor(blurred, cv2.COLOR_RGB2BGR)
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     # setting threshold limits for white color filter
     lower = np.array([Hue_low, Saturation_low, Value_low])
@@ -51,8 +55,10 @@ def video_detection(data):
 
     # creating mask
     mask = cv2.inRange(hsv, lower, upper)
-    res = cv2.bitwise_and(dilation, dilation, mask=mask)
-    res = cv2.bitwise_not(res)
+    if green_filter:
+        res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+    else:
+        res = cv2.bitwise_and(img, img, mask=mask)
 
     # changing to gray color space
     gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
@@ -69,12 +75,11 @@ def video_detection(data):
     centroid_and_frame_width = []
     # plotting contours and their centroids
     for contour in contours:
-        area = cv2.contourArea(contour)
-        # print(area) # uncomment for debug
-        if 400 < area < 2000:
+        # area = cv2.contourArea(contour)
+        x, y, w, h = cv2.boundingRect(contour)
+        if min_width < w < max_width:
             # print(area) # uncomment for debug
-            x, y, w, h = cv2.boundingRect(contour)
-            img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
             m = cv2.moments(contour)
             cx = int(m['m10'] / m['m00'])
             cy = int(m['m01'] / m['m00'])
@@ -91,34 +96,33 @@ def video_detection(data):
             centroid_and_frame_width.append(mid_x)
             centroid_and_frame_width.append(width)
             pub.publish(centroid_and_frame_width)
+        elif len(cx_list) == 1:
+            mid_x = cx_list[0]
+            mid_y = cy_list[0]
+            cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+            centroid_and_frame_width.append(mid_x)
+            centroid_and_frame_width.append(width)
+            pub.publish(centroid_and_frame_width)
+        elif len(cx_list) == 0:
+            pass
     except ValueError:
         pass
 
-    if len(cx_list) == 1:
-        mid_x = cx_list[0]
-        mid_y = cy_list[0]
-        cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
-        centroid_and_frame_width.append(mid_x)
-        centroid_and_frame_width.append(width)
-        pub.publish(centroid_and_frame_width)
-    elif len(cx_list) == 0:
-        pass
-    
-    # plotting results
     # try:
+    #     # plotting results
     #     cv2.imshow("original", orig)
     #     cv2.imshow("mask", mask)
-    #     cv2.imshow("blurred", blurred)
-    #     cv2.imshow("contours_img", img)
+    #     cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
+    #     cv2.imshow("plotting_centroid", img)
     #     cv2.waitKey(1)
     # except KeyboardInterrupt:
     #     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    rospy.init_node('lane_detection_node', anonymous=True)
-    camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
-    pub = rospy.Publisher('/centroid', Int32MultiArray, queue_size=2)
+    rospy.init_node(LANE_DETECTION_NODE_NAME, anonymous=True)
+    camera_sub = rospy.Subscriber(CAMERA_TOPIC_NAME, Image, video_detection)
+    pub = rospy.Publisher(CENTROID_TOPIC_NAME, Int32MultiArray, queue_size=2)
     rate = rospy.Rate(15)
     while not rospy.is_shutdown():
         rospy.spin()
