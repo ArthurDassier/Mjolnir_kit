@@ -5,6 +5,9 @@ import numpy as np
 from sensor_msgs.msg import Image
 from decoder import decodeImage
 
+CAMERA_VALUES_NODE_NAME = 'camera_values_node'
+CAMERA_TOPIC_NAME = 'camera_rgb'
+
 cv2.namedWindow('sliders')
 
 
@@ -168,8 +171,8 @@ if __name__ == '__main__':
         green_filter = True
     else:
         green_filter = False
-    rospy.init_node('camera_values_node', anonymous=False)
-    camera_sub = rospy.Subscriber('camera/color/image_raw', Image, camera_values)
+    rospy.init_node(CAMERA_VALUES_NODE_NAME, anonymous=False)
+    camera_sub = rospy.Subscriber(CAMERA_TOPIC_NAME, Image, camera_values)
     rate = rospy.Rate(15)
     while not rospy.is_shutdown():
         rospy.spin()
