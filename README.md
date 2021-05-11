@@ -24,9 +24,9 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [camera_rgb](#camera_rgb)
     - [centroid](#centroid)
   - [**Launch**](#launch)
-    - [throttle_and_steering_launch](#throttle_and_steering_launch)
-    - [lineDetection_launch](#lineDetection_launch)
-    - [laneDetection_launch](#laneDetection_launch)
+    - [throttle and steering launch](#throttle0-and-steering-launch)
+    - [line Detection launch](#line-Detection-launch)
+    - [lane Detection launch](#lane-Detection-launch)
   - [**Tools**](#tools)
     - [Run Indvidual Programs](#run-indvidual-programs)
     - [Throttle and Steering Calibration](#throttle-and-steering-calibration)
@@ -306,20 +306,20 @@ Below show the image post processing techniques, cv2 methods and the logic appli
 
 ## Launch
 
-#### **throttle_and_steering_launch**
+#### **throttle and steering launch**
 This file launches both [throttle_client](#throttle_client) and [steering](#Topics) seperately because these topics can take some time to initialize which can delay productivity. Launch this script once and use the other launch files listed below to get the robot moving.
 
 `roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
 
-#### **lineDetection_launch**
+#### **line Detection launch**
 
-This file will launch [**line_detection_node**](#line_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
+This file will launch [**line_detection_node**](#line_detection_node), [**lane_guidance_node**](#lane_guidance_node), [**camera_server**](#camera_server) and load the color filter parameters created using [**Find Camera Parameters**](#find-camera-parameters)
 
 `roslaunch ucsd_robo_car_simple_ros lineDetection_launch.launch`
 
-#### **laneDetection_launch**
+#### **lane Detection launch**
 
-This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_guidance_node**](#lane_guidance_node) and [**camera_server**](#camera_server)
+This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_guidance_node**](#lane_guidance_node), [**camera_server**](#camera_server) and load the color filter parameters created using [**Find Camera Parameters**](#find-camera-parameters)
 
 `roslaunch ucsd_robo_car_simple_ros laneDetection_launch.launch`
 
