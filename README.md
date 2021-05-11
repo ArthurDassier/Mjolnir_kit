@@ -315,11 +315,15 @@ This file launches both [**throttle_client**](#throttle_client) and [**steering*
 
 This file will launch [**line_detection_node**](#line_detection_node), [**lane_guidance_node**](#lane_guidance_node), [**camera_server**](#camera_server) and load the color filter parameters created using [**Find Camera Parameters**](#find-camera-parameters)
 
+**Before launching, please calibrate the robot first while on the stand! See** [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
+
 `roslaunch ucsd_robo_car_simple_ros lineDetection_launch.launch`
 
 #### **lane Detection launch**
 
 This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_guidance_node**](#lane_guidance_node), [**camera_server**](#camera_server) and load the color filter parameters created using [**Find Camera Parameters**](#find-camera-parameters)
+
+**Before launching, please calibrate the robot first while on the stand! See** [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
 
 `roslaunch ucsd_robo_car_simple_ros laneDetection_launch.launch`
 
