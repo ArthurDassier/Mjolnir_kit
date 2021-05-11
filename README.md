@@ -349,18 +349,27 @@ Then in 2 new terminal windows enter these commands
 
 #### **Find Camera Parameters** 
 
-Associated file: find_camera_values.py
+Associated file: camera_values_ros.py
 
 This program allows for the user to quickly tune various camera post-processing parameters including a custom color filter. 
-These values need to be **manually** entered into [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) (depending on which you are using) 
+These values will **automatically** be sent to either the [**line_detection_node**](#line_detection_node) or the [**lane_detection_node**](#lane_detection_node) (depending on which you are using) by using rosparam functionality. These values are also written to a file called custom_filter.yaml which permanently stores these valus to be used at a later time so that this program does not have to be run again. 
+
+To run this script:
+
+`rosrun ucsd_robo_car_simple_ros camera_server.PY`
+
+`rosrun ucsd_robo_car_simple_ros camera_values_ros.PY`
+
+Answer the promt ("Create green filter? (y/n) ") then hit enter and begin creating your custom filter and color tracker!
+
+
 
 | Property       | Info                                                       |
 | ---------- | --------------------- |
 | Hue_low, Hue_high | Setting low and high values for Hue  | 
 | Saturation_low, Saturation_high | Setting low and high values for Saturation | 
 | Value_low, Value_high | Setting low and high values for Value | 
-| blur_value, blur_kernal_value | Values that help with reducing noise | 
-| dilation_value | Value used to help make features more pronounced | 
+| Width_min, Width_max | Specify the width range of the line to be detected  | 
 
 More morphological transfromations and examples can be found <a href="https://docs.opencv.org/3.4/db/df6/tutorial_erosion_dilatation.html" >here</a> and  <a href="https://docs.opencv.org/master/d9/d61/tutorial_py_morphological_ops.html" >here</a>
 
