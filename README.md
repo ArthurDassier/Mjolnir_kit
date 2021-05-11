@@ -215,8 +215,8 @@ more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/pyt
 
 Associated file: throttle_client.py
 
-This node subscribes to the [throttle](#Topics) topic. We use subscriber callback function
-to validate and normalize throttle value, and then use the [adafruit_servokit](#adafruit_servokit)
+This node subscribes to the [**throttle**](#Topics) topic. We use subscriber callback function
+to validate and normalize throttle value, and then use the [**adafruit_servokit**](#adafruit_servokit)
 module on **channel 0** for sending signals to the hardware.
 
 This node is also responsible for reading and setting the throttle calibration values.
@@ -227,7 +227,7 @@ See [**throttle and steering calibration**](#throttle_and_steering_calibration) 
 
 Associated file: steering_client.py
 
-Similar to [throttle_client](#throttle_client), this node subscribes to the [steering](#Topics)
+Similar to [**throttle_client**](#throttle_client), this node subscribes to the [**steering**](#Topics)
 topic and passes the signals to the hardware. The steering servo is on **channel 1**.
 
 
@@ -240,7 +240,7 @@ See [**throttle and steering calibration**](#throttle_and_steering_calibration) 
 Associated file: camera_server.py
 
 This node simply reads from the camera with cv2's interface and publishes the image to the
-[camera_rgb](#Topics) topic. Before publishing, the image is reformatted from the cv image format
+[**camera_rgb**](#Topics) topic. Before publishing, the image is reformatted from the cv image format
 so it can be passed through the ROS topic message structure.
 
 
@@ -248,10 +248,10 @@ so it can be passed through the ROS topic message structure.
 
 Associated file: line_detection.py
 
-This node subscribes from [camera_rgb](#Topics) topic and uses opencv to identify line
+This node subscribes from [**camera_rgb**](#Topics) topic and uses opencv to identify line
 information from the image, and publish the information of the middle point of 
-a single line to the [centroid](#Topics) topic. The color of line is chosen by the user
-and set by using [find_camera_values](#tools)
+a single line to the [**centroid**](#Topics) topic. The color of line is chosen by the user
+and set by using [**find_camera_values**](#tools)
 
 Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
 
@@ -266,7 +266,7 @@ Associated file: lane_detection.py
 
 This node has the same functionality as [**line_detection_node**](#line_detection_node) however, now the ability to identify more than one line has been included. It is possible to identify the outside lanes as well as the yellow dashed lines if a green mask is applied which can easily be made by using [**find_camera_values**](#find_camera_values). 
 
-**Note 1: The bounding areas found in the image can be calibrated visually using** [Find Camera Parameters](#find-camera-parameters)
+**Note 1: The bounding areas found in the image can be calibrated visually using** [**Find Camera Parameters**](#find-camera-parameters)
 
 **Note 2: The cv windows have been commented out so that no errors occur when running in headless mode. For debugging, its suggested to uncomment these lines.**
 
@@ -307,7 +307,7 @@ Below show the image post processing techniques, cv2 methods and the logic appli
 ## Launch
 
 #### **throttle and steering launch**
-This file launches both [throttle_client](#throttle_client) and [steering](#Topics) seperately because these topics can take some time to initialize which can delay productivity. Launch this script once and use the other launch files listed below to get the robot moving.
+This file launches both [**throttle_client**](#throttle_client) and [**steering**](#Topics) seperately because these topics can take some time to initialize which can delay productivity. Launch this script once and use the other launch files listed below to get the robot moving.
 
 `roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
 
@@ -352,7 +352,7 @@ Then in 2 new terminal windows enter these commands
 Associated file: camera_values_ros.py
 
 This program allows for the user to quickly tune various camera post-processing parameters including a custom color filter. 
-These values will **automatically** be sent to either the [**line_detection_node**](#line_detection_node) or the [**lane_detection_node**](#lane_detection_node) (depending on which you are using) by using rosparam functionality. These values are also written to a file called custom_filter.yaml which permanently stores these valus to be used at a later time so that this program does not have to be run again. 
+These values will **automatically** be sent to either the [**line_detection_node**](#line_detection_node) or the [**lane_detection_node**](#lane_detection_node) (depending on which you are using) by using rosparam functionality. These values are also written to a file called **custom_filter.yaml** which permanently stores these valus to be used at a later time so that this program does not have to be run again. 
 
 To run this script:
 
@@ -360,7 +360,7 @@ To run this script:
 
 `rosrun ucsd_robo_car_simple_ros camera_values_ros.PY`
 
-Answer the promt ("Create green filter? (y/n) ") then hit enter and begin creating your custom filter and color tracker!
+Answer the promt _("Create green filter? (y/n) ")_ then hit enter and begin creating your custom filter and color tracker!
 
 
 
@@ -377,7 +377,7 @@ More morphological transfromations and examples can be found <a href="https://do
 
 Associated file: decoder.py
 
-This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [camera_rgb](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
+This provides a solution for cv_bridge not working and decodes the incoming image into a numpy array that is then passed to the [**camera_rgb**](#Topics) topic. If cv_bridge is built with python3, then this file is not neccessary.
 
 
 ## Issues and Fixes
@@ -396,7 +396,7 @@ This issue can vary between cars, but generally the problem lies in the battery 
 
 
 ### **ROS Version Is Not Compatible with Python3**
-If your're having issues using python3, then there is a chance that the virtual environment (explained in `ros_config.txt`) was not setup properly. Try setting up another environment to see if that solves the issue.
+If your're having issues using python3, then there is a chance that the virtual environment (explained in [**Environment Configuration**](#environment-configuration)) was not setup properly. Try setting up another environment to see if that solves the issue.
 
 More info found 
 <a href="https://medium.com/@beta_b0t/how-to-setup-ros-with-python-3-44a69ca36674" >here</a>
