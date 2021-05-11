@@ -1,0 +1,8 @@
+Hue_low : 0
+Hue_high : 80
+Saturation_low : 30
+Saturation_high : 255
+Value_low : 200
+Value_high : 255
+Width_min : 10
+Width_max : 50
