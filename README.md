@@ -278,6 +278,13 @@ Below show the image post processing techniques, cv2 methods and the logic appli
   <img src="applying_logic.png">
 </div>
 
+For [**lane_detection_node**](#lane_detection_node), the logic above shows that the bounding boxes and centroids change color based on the number of contours found in the image. 
+
+ie. 
+
+- 2 contours : blue bounding boxes each with their own green centroid and a blue average centroid
+- 1 contour : yellow bounding box with a single red centroid
+
 #### **lane_guidance_node**
 
 Associated file: lane_guidance.py
