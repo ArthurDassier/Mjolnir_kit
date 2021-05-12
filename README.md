@@ -278,6 +278,17 @@ Below show the image post processing techniques, cv2 methods and the logic appli
   <img src="applying_logic.png">
 </div>
 
+#### **lane_guidance_node**
+
+Associated file: lane_guidance.py
+
+This node subscribes to the centroid topic, calculates the throttle and steering
+based on the centroid value, and then publish them to their corresponding topics.
+Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
+Steering is based on a proportional controller implemented by the calculating the error between the centroid found in [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) and the heading of the car. 
+
+Gains can be tweaked in the lane_guidance.py script.
+
 ## Topics
 
 
