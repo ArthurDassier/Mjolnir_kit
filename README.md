@@ -282,8 +282,8 @@ For [**lane_detection_node**](#lane_detection_node), the logic above shows that 
 
 ie. 
 
-- 2 contours : blue bounding boxes each with their own green centroid and a blue average centroid
-- 1 contour : yellow bounding box with a single red centroid
+- 2 contours : green bounding boxes each with their own green centroid and a blue average centroid
+- 1 contour : green bounding box with a single red centroid
 
 #### **lane_guidance_node**
 
