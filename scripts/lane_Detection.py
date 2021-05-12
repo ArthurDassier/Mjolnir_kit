@@ -102,7 +102,7 @@ def video_detection(data):
         elif len(cx_list) == 1:
             mid_x = cx_list[0]
             mid_y = cy_list[0]
-            cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+            cv2.circle(img, (mid_x, mid_y), 7, (0, 0, 255), -1)
             centroid_and_frame_width.append(mid_x)
             centroid_and_frame_width.append(width)
             pub.publish(centroid_and_frame_width)
