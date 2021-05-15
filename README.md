@@ -188,9 +188,13 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
   **then paste your SSH key into the text field and submit it.**
 
   **d. Create ROS workspace and obtain copy of ucsd_robo_car_simple_ros repository**
+
    `mkdir projects && cd projects`
+
    `mkdir catkin_ws && cd catkin_ws`
+
    `mkdir src && cd src`
+   
    `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
   **e. Build ucsd_robo_car_simple_ros package:**
