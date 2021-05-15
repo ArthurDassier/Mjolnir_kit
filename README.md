@@ -167,8 +167,11 @@ _**if you want to compile from source follow steps below**_
 
 more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a>
 
+**5. Install ROS Melodic**
+Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x_cJ667loWgzCt7ikTJk51dKAFSs/edit?usp=sharing" >here</a>
 
-**5. Access this repository**
+
+**6. Access this repository**
 
   **a. Generate an SSH key and provide it to Gitlab for access to repositories**
 
@@ -184,15 +187,13 @@ more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/pyt
      
   **then paste your SSH key into the text field and submit it.**
 
-  **d. Obtain a copy of the repository**
-
+  **d. Create ROS workspace and obtain copy of ucsd_robo_car_simple_ros repository**
+   `mkdir projects && cd projects`
+   `mkdir catkin_ws && cd catkin_ws`
+   `mkdir src && cd src`
    `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
-  **e. Enter the commands below in the command window on your Jetson:**
-
-   `cd projects/catkin_ws/src`
-
-   `git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
+  **e. Build ucsd_robo_car_simple_ros package:**
 
    `cd ..`
 
