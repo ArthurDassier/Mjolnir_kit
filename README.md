@@ -225,7 +225,19 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `source devel.setup.bash`
 
-   Then press **> ctrl-x>**, then press **> y>**  (yes), and then press the **> enter>**  key to save an quit
+   Then press 
+   
+   **ctrl-x** 
+   
+   Then press 
+   
+   **y**  (yes) 
+   
+   and then press 
+   
+   **enter** 
+   
+   to save an quit
 
 **If you are brought to this project directory, you are ready to start!**
 
