@@ -207,10 +207,6 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `rospack profile`
 
-  **f. Now try this to make sure it was compiled correctly:**
-
-   `roscd ucsd_robo_car_simple_ros`
-
   **f. OPTIONALLY (RECOMMENDED) add some lines of code to the bash script so that every time a new terminal is opened, the virtual env is activated and this ROS package is compiled and sourced**
 
    `nano ~/.bashrc`
@@ -238,6 +234,10 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
    **enter** 
    
    to save an quit
+  
+  **g. Now try this to make sure it was compiled correctly:**
+
+   `roscd ucsd_robo_car_simple_ros`
 
 **If you are brought to this project directory, you are ready to start!**
 
