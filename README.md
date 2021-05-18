@@ -211,6 +211,22 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `roscd ucsd_robo_car_simple_ros`
 
+  **f. OPTIONALLY (RECOMMENDED) add some lines of code to the bash script so that every time a new terminal is opened, the virtual env is activated and this ROS package is compiled and sourced**
+
+   `nano ~/.bashrc`
+
+   add the following lines of code at the end of the bash script
+
+   `source env/bin/activate`
+
+   `cd projects/catkin_ws`
+
+   `catkin_make`
+
+   `source devel.setup.bash`
+
+   Then press **>ctrl-x> **, then press **>y>**  (yes), and then press the **>enter>**  key to save an quit
+
 **If you are brought to this project directory, you are ready to start!**
 
 
