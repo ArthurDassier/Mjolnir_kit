@@ -10,14 +10,14 @@ THROTTLE_TOPIC_NAME = '/throttle'
 
 esp = ESP32_Mjolnir()
 
-throttle_scale = 1.0  # scale down sensitive throttle
+throttle_scale = 0.8  # scale down sensitive throttle
 
 def steering_callback(data):
     ''' Steering '''
     normalized_steering = data.data
-    angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
+    angle_delta = normalized_steering # difference in degrees from the center 90 degrees
     esp.send_steering(angle_delta)
-    esp.get_input()
+  #  esp.get_input()
 
 
 def throttle_callback(data):
