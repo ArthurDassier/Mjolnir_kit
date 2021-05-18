@@ -3,8 +3,8 @@
 class PIDController():
     def __init__(self):
         self.kp = 0.5
-        self.ki = 0.5
-        self.kd = 0.5
+        self.ki = 0.0
+        self.kd = 0.0
         self.tau = 0.5
 
         self.limMin = -1.0
@@ -13,10 +13,10 @@ class PIDController():
         self.limMaxInt = 1
 
         self.errorNormalize = (1.0/400.0)
-        self.T = 0.5
-        self.integrator = 0.5
+        self.T = 0.05
+        self.integrator = 0.0
         self.prevError = 0.5
-        self.differentiator = 0.5
+        self.differentiator = 0.0
         self.prevCentroid = 0.5
         self.out = 0.5
 
@@ -28,7 +28,7 @@ class PIDController():
         if msg.data == 0:
             error_x = 0.0
         else:
-            error_x = float(centroid - (width / 2))
+            error_x = float(currentPos - setpoint)
             error_x = error_x * self.errorNormalize
 
         self.proportional = self.kp * error_x
@@ -47,11 +47,8 @@ class PIDController():
         else:
             pass
 
-
         # Derivative (band-limited differentiator)
-        self.differentiator = -(2.0 * self.kd * (centroid - self.prevCentroid)
-        + (2.0 * self.tau - self.T) * self.differentiator) / (2.0 * self.tau + self.T)
-
+        self.differentiator = -(2.0 * self.kd * (currentPos - self.prevCentroid) + (2.0 * self.tau - self.T) * self.differentiator) / (2.0 * self.tau + self.T)
 
         #Compute output and apply limits
         self.out = self.proportional + self.integrator + self.differentiator
@@ -61,11 +58,16 @@ class PIDController():
             self.out = self.limMin
 
         print("--------------------------------------------------------------")
-        print("Centroid & width / 2 : " + str(centroid) + " " + str((width / 2)))
-        print("KP & The error : " + str(self.kp) + " " + str(error_x))
-        print("Steering & Throttle published : " + str(self.out) + " " + str(throttle_float))
+        print("Centroid   [{}]".format(setpoint))
+        print("currentPos [{}]".format(currentPos))
+        print("error      [{}]".format(error_x))
+        print("prop.      [{}]".format(self.proportional))
+        print("integ.     [{}]".format(self.integrator))
+        print("differ.    [{}]".format(self.differentiator))
+        print("steering   [{}]".format(self.out))
+        print("throttle   [{}]".format(throttle_float))
         print("--------------------------------------------------------------")
 
         #Store error and measurement for later use
         self.prevError = error_x
-        self.prevCentroid = centroid
+        self.prevCentroid = currentPos

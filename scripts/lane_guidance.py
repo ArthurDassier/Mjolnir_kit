@@ -25,9 +25,9 @@ steeringPID = PIDController()
 def LineFollower(msg):
     centroid = msg.data[0]
     width = msg.data[1]  # width of camera frame
-    throttle_float = 0.8
+    throttle_float = 0.08
 
-    tickPID(self, width / 2, centroid, msg, throttle_float)
+    steeringPID.tickPID(width / 2, centroid,  msg, throttle_float)
 
     steering_pub.publish(steeringPID.out)
     throttle_pub.publish(throttle_float)
