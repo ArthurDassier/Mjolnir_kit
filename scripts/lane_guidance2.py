@@ -42,7 +42,7 @@ def LineFollower(msg):
         pass
 
     # Derivative (band-limited differentiator)
-    PIDController.differentiator = -(2.0 * PIDController.kd #* (measurement - PIDController.prevMeasurement)
+    PIDController.differentiator = -(2.0 * PIDController.kd * (centroid - PIDController.prevCentroid)
     + (2.0 * PIDController.tau - PIDController.T) * PIDController.differentiator) / (2.0 * PIDController.tau + PIDController.T)
 
     #Compute output and apply limits
@@ -55,6 +55,12 @@ def LineFollower(msg):
     steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
 
+<<<<<<< HEAD
+=======
+    PIDController.prevError = error_x
+    PIDController.prevMeasurement = centroid
+
+>>>>>>> 286c3e3ea0ca8a93d7ea41c22f663510cf0fc553
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(KP_TOPIC_NAME)
