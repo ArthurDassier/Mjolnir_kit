@@ -2,6 +2,7 @@
 import rospy
 import paho.mqtt.client as mqtt
 
+from class_PIDController.py import PIDController
 from std_msgs.msg import Float32, Int32, Int32MultiArray
 
 
@@ -17,9 +18,7 @@ KD_TOPIC_NAME = 'app/pid/kd'
 steering_float = Float32()
 throttle_float = Float32()
 
-kp = 0.50
-ki = 0.50
-kd = 0.50
+PIDController = PIDController()
 
 #whatt's up arthur
 #'sup fade
@@ -34,14 +33,26 @@ def LineFollower(msg):
         error_x = float(centroid - (width / 2))
         throttle_float = 0.08 #previous values is 0.1
 
-    steering_float = float(kp * (error_x / (width / 2)))
-    if steering_float < -1:
-        steering_float = -1
-    elif steering_float > 1:
-        steering_float = 1
+    PIDController.integrator = float(PIDController.kp * (error_x / (width / 2)))
+    if PIDController.integrator < -1:
+        PIDController.integrator = -1
+    elif PIDController.integrator > 1:
+        PIDController.integrator = 1
     else:
         pass
-    steering_pub.publish(steering_float)
+
+    # Derivative (band-limited differentiator)
+    PIDController.differentiator = -(2.0 * PIDController.kd #* (measurement - PIDController.prevMeasurement)
+    + (2.0 * PIDController.tau - PIDController.T) * PIDController.differentiator) / (2.0 * PIDController.tau + PIDController.T)
+
+    #Compute output and apply limits
+    PIDController.out = PIDController.kp * error_x + PIDController.integrator + PIDController.differentiator
+    if (PIDController.out > PIDController.limMax):
+        PIDController.out = PIDController.limMax
+    elif (PIDController.out < PIDController.limMin):
+        PIDController.out = PIDController.limMin
+
+    steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
 
 
