@@ -183,7 +183,7 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
   **c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then**
      
-  **click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys,**
+  **click on _preferences_ from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on _SSH Keys_,**
      
   **then paste your SSH key into the text field and submit it.**
 
