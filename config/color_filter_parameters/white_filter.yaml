@@ -6,4 +6,5 @@ Value_low : 210
 Value_high : 255
 Width_min : 40
 Width_max : 300
+green_filter : False
 
