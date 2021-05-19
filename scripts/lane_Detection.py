@@ -55,10 +55,12 @@ def video_detection(data):
 
     # creating mask
     mask = cv2.inRange(hsv, lower, upper)
-    if green_filter:
-        res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
-    else:
-        res = cv2.bitwise_and(img, img, mask=mask)
+    #if green_filter:
+        #res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+    #else:
+    res = cv2.bitwise_and(img, img, mask=mask)
+    
+
 
     # changing to gray color space
     gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
