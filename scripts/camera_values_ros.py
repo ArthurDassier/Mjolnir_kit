@@ -55,7 +55,8 @@ def camera_values(data):
     left_width = int(0)
     right_width = int(width)
     # frame = cv2.cvtColor(frame[start_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
-    img = cv2.cvtColor(frame[start_height:bottom_height, left_width:right_width], cv2.COLOR_RGB2BGR)
+    # img = cv2.cvtColor(frame[start_height:bottom_height, left_width:right_width], cv2.COLOR_RGB2BGR)
+    img = frame[start_height:bottom_height, left_width:right_width]
 
     # get trackbar positions
     lowH = cv2.getTrackbarPos('lowH', 'sliders')
