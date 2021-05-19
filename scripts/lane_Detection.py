@@ -101,15 +101,15 @@ def video_detection(data):
     except ValueError:
         pass
 
-    # try:
-    #     # plotting results
-    #     cv2.imshow("original", orig)
-    #     cv2.imshow("mask", mask)
-    #     cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
-    #     cv2.imshow("plotting_centroid", img)
-    #     cv2.waitKey(1)
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
+    try:
+        # plotting results
+        cv2.imshow("original", orig)
+        cv2.imshow("mask", mask)
+        cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
+        cv2.imshow("plotting_centroid", img)
+        cv2.waitKey(1)
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
