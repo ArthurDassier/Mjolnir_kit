@@ -49,7 +49,7 @@ def video_detection(data):
     upper = np.array([Hue_high, Saturation_high, Value_high])
 
     # creating mask
-    mask = cv2.inRange(hsv, lower, upper))
+    mask = cv2.inRange(hsv, lower, upper)
     if green_filter:
         res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
     else:
