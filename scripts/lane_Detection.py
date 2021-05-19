@@ -40,13 +40,7 @@ def video_detection(data):
     min_width = rospy.get_param("/Width_min")
     max_width = rospy.get_param("/Width_max")
 
-    # get rid of white noise
-    # kernel = np.ones((blur_kernal_value, blur_kernal_value), np.float32) / blur_value
-    # blurred = cv2.filter2D(img, -1, kernel)
-    # dilation = cv2.dilate(blurred, kernel, iterations=dilation_value)
-
     # changing color space to HSV
-    # hsv = cv2.cvtColor(blurred, cv2.COLOR_RGB2BGR)
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     # setting threshold limits for white color filter
@@ -54,16 +48,13 @@ def video_detection(data):
     upper = np.array([Hue_high, Saturation_high, Value_high])
 
     # creating mask
-    mask = cv2.inRange(hsv, lower, upper)
-    #if green_filter:
-        #res = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
-    #else:
-    res = cv2.bitwise_and(img, img, mask=mask)
-    
+    mask = cv2.inRange(hsv, lower, upper))
+    res_inv = cv2.bitwise_and(img, img, mask=mask) #comment when using green filter
+    # res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) #comment when not using green filter
 
 
     # changing to gray color space
-    gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(res_inv, cv2.COLOR_BGR2GRAY)
 
     # changing to black and white color space
     (dummy, blackAndWhiteImage) = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
@@ -75,12 +66,11 @@ def video_detection(data):
     cx_list = []
     cy_list = []
     centroid_and_frame_width = []
+
     # plotting contours and their centroids
     for contour in contours:
-        # area = cv2.contourArea(contour)
         x, y, w, h = cv2.boundingRect(contour)
         if min_width < w < max_width:
-            # print(area) # uncomment for debug
             img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
             m = cv2.moments(contour)
             try:
@@ -100,14 +90,14 @@ def video_detection(data):
             cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
             centroid_and_frame_width.append(mid_x)
             centroid_and_frame_width.append(width)
-            pub.publish(centroid_and_frame_width)
+            pub.publish(data=centroid_and_frame_width)
         elif len(cx_list) == 1:
             mid_x = cx_list[0]
             mid_y = cy_list[0]
             cv2.circle(img, (mid_x, mid_y), 7, (0, 0, 255), -1)
             centroid_and_frame_width.append(mid_x)
             centroid_and_frame_width.append(width)
-            pub.publish(centroid_and_frame_width)
+            pub.publish(data=centroid_and_frame_width)
         elif len(cx_list) == 0:
             pass
     except ValueError:
@@ -125,7 +115,7 @@ def video_detection(data):
 
 
 if __name__ == '__main__':
-    rospy.init_node(LANE_DETECTION_NODE_NAME, anonymous=True)
+    rospy.init_node(LANE_DETECTION_NODE_NAME, anonymous=False)
     camera_sub = rospy.Subscriber(CAMERA_TOPIC_NAME, Image, video_detection)
     pub = rospy.Publisher(CENTROID_TOPIC_NAME, Int32MultiArray, queue_size=2)
     rate = rospy.Rate(15)
