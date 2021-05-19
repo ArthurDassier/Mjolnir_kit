@@ -105,8 +105,10 @@ def camera_values(data):
 
     if green_filter:
         res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+        rospy.set_param('/green_filter', True)
     else:
         res_inv = cv2.bitwise_and(img, img, mask=mask)
+        rospy.set_param('/green_filter', False)
 
     # changing to gray color space
     gray = cv2.cvtColor(res_inv, cv2.COLOR_BGR2GRAY)
