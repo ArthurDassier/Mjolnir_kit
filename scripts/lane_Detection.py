@@ -12,10 +12,6 @@ LANE_DETECTION_NODE_NAME = 'lane_detection_node'
 CAMERA_TOPIC_NAME = 'camera_rgb'
 CENTROID_TOPIC_NAME = '/centroid'
 
-global mid_x, mid_y
-mid_x = Int32()
-mid_y = Int32()
-
 
 def video_detection(data):
     frame = decodeImage(data.data, data.height, data.width)
