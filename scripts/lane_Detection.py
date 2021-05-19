@@ -22,8 +22,9 @@ def video_detection(data):
     top_height = height - rows_offset
     bottom_height = top_height + rows_to_watch
 
-    img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
-
+    # img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
+    img = frame[top_height:bottom_height, 0:width]
+    orig = img.copy()
     # image post processing
 
     # experimentally found values from find_camera_values.py
