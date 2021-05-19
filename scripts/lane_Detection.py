@@ -39,6 +39,7 @@ def video_detection(data):
     Value_high = rospy.get_param("/Value_high")
     min_width = rospy.get_param("/Width_min")
     max_width = rospy.get_param("/Width_max")
+    green_filter = rospy.get_param("/green_filter")
 
     # changing color space to HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
@@ -49,9 +50,10 @@ def video_detection(data):
 
     # creating mask
     mask = cv2.inRange(hsv, lower, upper))
-    res_inv = cv2.bitwise_and(img, img, mask=mask) #comment when using green filter
-    # res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) #comment when not using green filter
-
+    if green_filter:
+        res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+    else:
+        res_inv = cv2.bitwise_and(img, img, mask=mask)
 
     # changing to gray color space
     gray = cv2.cvtColor(res_inv, cv2.COLOR_BGR2GRAY)
