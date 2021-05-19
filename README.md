@@ -411,9 +411,9 @@ These values will **automatically** be sent to either the [**line_detection_node
 
 To run this script:
 
-`rosrun ucsd_robo_car_simple_ros camera_server.PY`
+`rosrun ucsd_robo_car_simple_ros camera_server.py`
 
-`rosrun ucsd_robo_car_simple_ros camera_values_ros.PY`
+`rosrun ucsd_robo_car_simple_ros camera_values_ros.py`
 
 Answer the promt _("Create green filter? (y/n) ")_ then hit enter and begin creating your custom filter and color tracker!
 
