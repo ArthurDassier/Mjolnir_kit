@@ -7,7 +7,7 @@ from cv_bridge import CvBridge
 CAMERA_NODE_NAME = 'camera_server'
 CAMERA_TOPIC_NAME = 'camera_rgb'
 
-cv2_video_capture = cv2.VideoCapture(0)
+cv2_video_capture = cv2.VideoCapture(1)
 CAMERA_FREQUENCY = 10  # Hz
 
 
