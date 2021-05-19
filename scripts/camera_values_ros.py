@@ -93,8 +93,8 @@ def camera_values(data):
             f"Area_min : {min_width} \n"
             f"Area_max : {max_width} \n"
             f"Width_min : {min_width} \n"
-            f"Width_max : {max_width} \n")
-            f"green_filter : {green_filter} \n"
+            f"Width_max : {max_width} \n"
+            f"green_filter : {green_filter} \n")
     f.close()
 
     # changing color space to HSV
