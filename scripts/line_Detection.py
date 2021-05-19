@@ -55,9 +55,9 @@ def video_detection(data):
         cy, cx = int(height / 2), int(width / 2)
 
     # Publish Message
-    mid_x.data = cx
-    mid_y.data = cy
-    cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
+    mid_x = cx
+    mid_y = cy
+    cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
     centroid_and_frame_width.append(mid_x)
     centroid_and_frame_width.append(width)
     pub.publish(data=centroid_and_frame_width)
