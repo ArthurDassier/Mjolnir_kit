@@ -18,8 +18,8 @@ def LineFollower(msg):
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
-    centroid = msg[0]
-    width = msg[1]  # width of camera frame
+    centroid = msg.data[0]
+    width = msg.data[1]  # width of camera frame
 
     if msg.data == 0:
         error_x = 0
@@ -40,7 +40,7 @@ def LineFollower(msg):
 
 
 if __name__ == '__main__':
-    rospy.init_node(LANE_GUIDANCE_NODE_NAME, anonymous=True)
+    rospy.init_node(LANE_GUIDANCE_NODE_NAME, anonymous=False)
     centroid_subscriber = rospy.Subscriber(CENTROID_TOPIC_NAME, Int32MultiArray, LineFollower)
     steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
     throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
