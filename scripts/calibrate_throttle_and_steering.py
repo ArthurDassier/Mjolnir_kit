@@ -70,23 +70,6 @@ while not finish or not rospy.is_shutdown():
     steering_float = slider_to_normalized(steer_input)
     throttle_float = slider_to_normalized(throttle_input)
 
-    rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
-    rospy.set_param('/Steering_straight', motor_dict["Steering_straight"])
-    rospy.set_param('/Steering_max_right', motor_dict["Steering_max_right"])
-    rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_max_forward"])
-    rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_neutral"])
-    rospy.set_param('/Throttle_max_reverse', motor_dict["Throttle_max_reverse"])
-
-    # Write files to yaml file for storage
-    color_config_path = "../config/motor_parameters/motor_values.yaml"
-    f = open(color_config_path, "w")
-    f.write(f"Steering_max_left : {motor_dict['Steering_max_left']} \n"
-            f"Steering_straight : {motor_dict['Steering_straight']} \n"
-            f"Steering_max_right : {motor_dict['Steering_max_right']} \n"
-            f"Throttle_max_forward : {motor_dict['Throttle_max_forward']} \n"
-            f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
-            f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
-    f.close()
     try:
         key = cv2.waitKey(1)
     # try:
@@ -109,10 +92,22 @@ while not finish or not rospy.is_shutdown():
         cv2.destroyAllWindows()
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
-    rospy.spin()
-    rate.sleep()
 
+rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
+rospy.set_param('/Steering_straight', motor_dict["Steering_straight"])
+rospy.set_param('/Steering_max_right', motor_dict["Steering_max_right"])
+rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_max_forward"])
+rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_neutral"])
+rospy.set_param('/Throttle_max_reverse', motor_dict["Throttle_max_reverse"])
+
+# Write files to yaml file for storage
+color_config_path = "../config/motor_parameters/motor_values.yaml"
+f = open(color_config_path, "w")
+f.write(f"Steering_max_left : {motor_dict['Steering_max_left']} \n"
+        f"Steering_straight : {motor_dict['Steering_straight']} \n"
+        f"Steering_max_right : {motor_dict['Steering_max_right']} \n"
+        f"Throttle_max_forward : {motor_dict['Throttle_max_forward']} \n"
+        f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
+        f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
+f.close()
 cv2.destroyAllWindows()
-    # while not rospy.is_shutdown():
-    #     rospy.spin()
-    #     rate.sleep()
