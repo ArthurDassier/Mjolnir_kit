@@ -57,11 +57,13 @@ finish = True
 response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
     finish = False
+    print("Begin calibration")
 else:
     finish = True
     print("Put car on test stand before calibrating and restart!")
 
 while not finish or not rospy.is_shutdown():
+    print("Start with steering")
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
@@ -110,6 +112,7 @@ while not finish or not rospy.is_shutdown():
     rospy.spin()
     rate.sleep()
 
+cv2.destroyAllWindows()
     # while not rospy.is_shutdown():
     #     rospy.spin()
     #     rate.sleep()
