@@ -7,9 +7,18 @@ MOTOR_VALUES_NODE_NAME = 'motor_values_node'
 STEERING_TOPIC_NAME = '/steering'
 THROTTLE_TOPIC_NAME = '/throttle'
 
-global steering_float, throttle_float
+global steering_float, throttle_float, motor_dict
 steering_float = Float32()
 throttle_float = Float32()
+
+motor_dict = {
+            "Steering_max_left": 0.0,
+            "Steering_straight": 0.0,
+            "Steering_max_right": 0.0,
+            "Throttle_max_forward": 0.0,
+            "Throttle_neutral": 0.0,
+            "Throttle_max_reverse": 0.0
+        }
 
 cv2.namedWindow('motor values')
 
@@ -35,19 +44,10 @@ def motor_values():
         steering_float = Float32()
         throttle_float = Float32()
 
-        motor_dict = {
-            "Steering_max_left": 0.0,
-            "Steering_straight": 0.0,
-            "Steering_max_right": 0.0,
-            "Throttle_max_forward": 0.0,
-            "Throttle_neutral": 0.0,
-            "Throttle_max_reverse": 0.0
-        }
-
         steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
-        steering_float = slider_to_normalized(steer_input)
-
         throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
+
+        steering_float = slider_to_normalized(steer_input)
         throttle_float = slider_to_normalized(throttle_input)
 
         rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
@@ -106,5 +106,8 @@ if __name__ == '__main__':
         steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
         throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
         rate = rospy.Rate(15)
+        while not rospy.is_shutdown():
+            rospy.spin()
+            rate.sleep()
     else:
         print("Put car on test stand before calibrating and restart!")
