@@ -3,9 +3,26 @@ import rospy
 import cv2
 from std_msgs.msg import Float32
 
+
+def callback(x):
+    pass
+
+
+def slider_to_normalized(slider_input):
+    input_start = 0
+    input_end = 2000
+    output_start = -1
+    output_end = 1
+    normalized_output = output_start + (slider_input - input_start) * (
+            (output_end - output_start) / (input_end - input_start))
+    return normalized_output
+
+
 MOTOR_VALUES_NODE_NAME = 'motor_values_node'
 STEERING_TOPIC_NAME = '/steering'
 THROTTLE_TOPIC_NAME = '/throttle'
+
+cv2.namedWindow('motor values')
 
 global steering_float, throttle_float, motor_dict
 steering_float = Float32()
@@ -90,18 +107,3 @@ if response == 'Y':
 
 else:
     print("Put car on test stand before calibrating and restart!")
-cv2.namedWindow('motor values')
-
-
-def callback(x):
-    pass
-
-
-def slider_to_normalized(slider_input):
-    input_start = 0
-    input_end = 2000
-    output_start = -1
-    output_end = 1
-    normalized_output = output_start + (slider_input - input_start) * (
-            (output_end - output_start) / (input_end - input_start))
-    return normalized_output
