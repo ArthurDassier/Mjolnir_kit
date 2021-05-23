@@ -13,16 +13,16 @@ kit = ServoKit(channels=16)
 
 
 def callback(data):
-    output_start = rospy.get_param("/Steering_max_left")
-    output_end= rospy.get_param("/Steering_max_right")
-    Steering_straight = rospy.get_param("/Steering_straight")
-
-    input_start = -1
-    input_end = 1
-
-    input_steering = data.data  # this is a value between -1 and 1, with -1 being fully left and 1 being fully right
-    normalized_steering = output_start + (input_steering - input_start) * ((output_end - output_start) / (input_end - input_start))
-
+    # output_start = rospy.get_param("/Steering_max_left")
+    # output_end= rospy.get_param("/Steering_max_right")
+    # Steering_straight = rospy.get_param("/Steering_straight")
+    #
+    # input_start = -1
+    # input_end = 1
+    #
+    # input_steering = data.data  # this is a value between -1 and 1, with -1 being fully left and 1 being fully right
+    # normalized_steering = output_start + (input_steering - input_start) * ((output_end - output_start) / (input_end - input_start))
+    normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
     kit.servo[1].angle = 90 + angle_delta
 
