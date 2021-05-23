@@ -39,10 +39,6 @@ if response == 'Y':
     rate = rospy.Rate(15)
 
     while True:
-        global steering_float, throttle_float
-        steering_float = Float32()
-        throttle_float = Float32()
-
         steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
         throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
