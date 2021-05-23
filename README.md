@@ -167,8 +167,11 @@ _**if you want to compile from source follow steps below**_
 
 more details <a href="https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython" >here</a>
 
+**5. Install ROS Melodic**
+Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x_cJ667loWgzCt7ikTJk51dKAFSs/edit?usp=sharing" >here</a>
 
-**5. Access this repository**
+
+**6. Access this repository**
 
   **a. Generate an SSH key and provide it to Gitlab for access to repositories**
 

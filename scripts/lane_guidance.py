@@ -18,8 +18,8 @@ def LineFollower(msg):
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
-    centroid = msg[0]
-    width = msg[1]  # width of camera frame
+    centroid = msg.data[0]
+    width = msg.data[1]  # width of camera frame
 
     if msg.data == 0:
         error_x = 0

@@ -20,10 +20,14 @@ def talker():
         ret, frame = cv2_video_capture.read()
 
         # construct msg
-        bridge = CvBridge()
-        rgb = bridge.cv2_to_imgmsg(frame)
-        pub.publish(rgb)
+        try: 
+            bridge = CvBridge()
+            rgb = bridge.cv2_to_imgmsg(frame)
+            pub.publish(rgb)
+        except TypeError:
+            pass
         rate.sleep()
+
 
 
 if __name__ == '__main__':
