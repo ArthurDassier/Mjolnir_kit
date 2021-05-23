@@ -2,11 +2,14 @@
 import rospy
 import cv2
 import numpy as np
+from std_msgs.msg import Float32
 from sensor_msgs.msg import Image
 from decoder import decodeImage
 
 CAMERA_VALUES_NODE_NAME = 'camera_values_node'
 CAMERA_TOPIC_NAME = 'camera_rgb'
+STEERING_TOPIC_NAME = '/steering'
+THROTTLE_TOPIC_NAME = '/throttle'
 
 cv2.namedWindow('sliders')
 
@@ -14,6 +17,14 @@ cv2.namedWindow('sliders')
 def callback(x):
     pass
 
+def slider_to_normalized(slider_input):
+    input_start = 0
+    input_end = 2000
+    output_start = -1
+    output_end = 1
+    normalized_output = output_start + (slider_input - input_start) * (
+            (output_end - output_start) / (input_end - input_start))
+    return normalized_output
 
 lowH = 0
 highH = 179
@@ -27,6 +38,13 @@ area_max = 50000
 min_width = 10
 max_width = 500
 
+steer_left = 0
+steer_straight = 1000
+steer_right = 2000
+throttle_reverse = 0
+throttle_neutral = 0
+throttle_forward = 2000
+
 cv2.createTrackbar('lowH', 'sliders', lowH, highH, callback)
 cv2.createTrackbar('highH', 'sliders', lowH, highH, callback)
 
@@ -39,8 +57,18 @@ cv2.createTrackbar('highV', 'sliders', highV, highV, callback)
 cv2.createTrackbar('min_width', 'sliders', min_width, max_width, callback)
 cv2.createTrackbar('max_width', 'sliders', min_width, max_width, callback)
 
+cv2.createTrackbar('Steering_value', 'sliders', steer_straight, steer_right, callback)
+cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forward, callback)
+
+global steering_float, throttle_float
+steering_float = Float32()
+throttle_float = Float32()
 
 def camera_values(data):
+    global steering_float, throttle_float
+    steering_float = Float32()
+    throttle_float = Float32()
+
     frame = decodeImage(data.data, data.height, data.width)
     height, width, channels = frame.shape
     # print(width)
@@ -69,6 +97,10 @@ def camera_values(data):
     max_area = cv2.getTrackbarPos('max_area', 'sliders')
     min_width = cv2.getTrackbarPos('min_width', 'sliders')
     max_width = cv2.getTrackbarPos('max_width', 'sliders')
+
+    steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
+    throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
+
 
     # set ros parameters
     rospy.set_param('/Hue_low', lowH)
@@ -168,6 +200,12 @@ def camera_values(data):
     except KeyboardInterrupt:
         cv2.destroyAllWindows()
 
+    steering_float = slider_to_normalized(steer_input)
+    throttle_float = slider_to_normalized(throttle_input)
+
+    steering_pub.publish(steering_float)
+    throttle_pub.publish(throttle_float)
+
 
 if __name__ == '__main__':
     green_filter_response = input("Create green filter? (y/n) ").upper()
@@ -177,6 +215,8 @@ if __name__ == '__main__':
         green_filter = False
     rospy.init_node(CAMERA_VALUES_NODE_NAME, anonymous=False)
     camera_sub = rospy.Subscriber(CAMERA_TOPIC_NAME, Image, camera_values)
+    steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
+    throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
     rate = rospy.Rate(15)
     while not rospy.is_shutdown():
         rospy.spin()
