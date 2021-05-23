@@ -60,7 +60,7 @@ if response == 'Y':
 else:
     print("Put car on test stand before calibrating and restart!")
 
-while not rospy.is_shutdown()::
+while not rospy.is_shutdown():
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
