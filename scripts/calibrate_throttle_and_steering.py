@@ -69,7 +69,7 @@ while not finish or not rospy.is_shutdown():
     steering_float = slider_to_normalized(steer_input)
     throttle_float = slider_to_normalized(throttle_input)
 
-    try:
+    # try:
         # key = cv2.waitKey(1)
     # try:
     #     key = cv2.waitKey(1)
