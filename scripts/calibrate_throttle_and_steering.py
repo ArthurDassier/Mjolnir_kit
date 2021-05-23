@@ -85,6 +85,8 @@ while not finish or not rospy.is_shutdown():
             f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
             f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
     f.close()
+    try:
+        key = cv2.waitKey(1)
     # try:
     #     key = cv2.waitKey(1)
     #     if key == ord('l'):
@@ -101,8 +103,8 @@ while not finish or not rospy.is_shutdown():
     #         motor_dict["Throttle_max_reverse"] = throttle_float
     #     elif key == 27:
     #         finish = True
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
     rospy.spin()
