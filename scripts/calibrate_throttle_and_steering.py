@@ -49,8 +49,32 @@ throttle_reverse = 0
 throttle_neutral = 0
 throttle_forward = 2000
 
+lowH = 0
+highH = 179
+lowS = 0
+highS = 255
+lowV = 0
+highV = 255
+area_min = 1
+area_max = 50000
+
+min_width = 10
+max_width = 500
+
 cv2.createTrackbar('Steering_value', 'sliders', steer_straight, steer_right, callback)
 cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forward, callback)
+
+cv2.createTrackbar('lowH', 'sliders', lowH, highH, callback)
+cv2.createTrackbar('highH', 'sliders', lowH, highH, callback)
+
+cv2.createTrackbar('lowS', 'sliders', lowS, highS, callback)
+cv2.createTrackbar('highS', 'sliders', highS, highS, callback)
+
+cv2.createTrackbar('lowV', 'sliders', lowV, highV, callback)
+cv2.createTrackbar('highV', 'sliders', highV, highV, callback)
+
+cv2.createTrackbar('min_width', 'sliders', min_width, max_width, callback)
+cv2.createTrackbar('max_width', 'sliders', min_width, max_width, callback)
 
 response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
