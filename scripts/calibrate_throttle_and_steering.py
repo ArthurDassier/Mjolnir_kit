@@ -56,45 +56,21 @@ finish = True
 
 response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
-    finish = False
     print("Begin calibration")
 else:
-    finish = True
     print("Put car on test stand before calibrating and restart!")
 
-while not finish or not rospy.is_shutdown():
+while not rospy.is_shutdown()::
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
     steering_float = slider_to_normalized(steer_input)
     throttle_float = slider_to_normalized(throttle_input)
 
-    # try:
-        # key = cv2.waitKey(1)
-    # try:
-    #     key = cv2.waitKey(1)
-    #     if key == ord('l'):
-    #         motor_dict["Steering_max_left"] = steering_float
-    #     elif key == ord('s'):
-    #         motor_dict["Steering_straight"] = steering_float
-    #     elif key == ord('r'):
-    #         motor_dict["Steering_max_right"] = steering_float
-    #     elif key == ord('f'):
-    #         motor_dict["Throttle_max_forward"] = throttle_float
-    #     elif key == ord('n'):
-    #         motor_dict["Throttle_neutral"] = throttle_float
-    #     elif key == ord('b'):
-    #         motor_dict["Throttle_max_reverse"] = throttle_float
-    #     elif key == 27:
-    #         finish = True
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
-    key = cv2.waitKey(100) & 0xFF
-    if key == ord('q'):
-        finish = True
-        break
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
+
+    cv2.waitKey(1)
 
 rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
 rospy.set_param('/Steering_straight', motor_dict["Steering_straight"])
@@ -114,3 +90,24 @@ f.write(f"Steering_max_left : {motor_dict['Steering_max_left']} \n"
         f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
 f.close()
 cv2.destroyAllWindows()
+
+# try:
+# key = cv2.waitKey(1)
+# try:
+#     key = cv2.waitKey(1)
+#     if key == ord('l'):
+#         motor_dict["Steering_max_left"] = steering_float
+#     elif key == ord('s'):
+#         motor_dict["Steering_straight"] = steering_float
+#     elif key == ord('r'):
+#         motor_dict["Steering_max_right"] = steering_float
+#     elif key == ord('f'):
+#         motor_dict["Throttle_max_forward"] = throttle_float
+#     elif key == ord('n'):
+#         motor_dict["Throttle_neutral"] = throttle_float
+#     elif key == ord('b'):
+#         motor_dict["Throttle_max_reverse"] = throttle_float
+#     elif key == 27:
+#         finish = True
+# except KeyboardInterrupt:
+#     cv2.destroyAllWindows()
