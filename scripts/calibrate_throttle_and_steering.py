@@ -12,20 +12,13 @@ steering_float = Float32()
 throttle_float = Float32()
 
 motor_dict = {
-            "Steering_max_left": 0.0,
-            "Steering_straight": 0.0,
-            "Steering_max_right": 0.0,
-            "Throttle_max_forward": 0.0,
-            "Throttle_neutral": 0.0,
-            "Throttle_max_reverse": 0.0
-        }
-
-cv2.namedWindow('motor values')
-
-
-def callback(x):
-    pass
-
+    "Steering_max_left": 0.0,
+    "Steering_straight": 0.0,
+    "Steering_max_right": 0.0,
+    "Throttle_max_forward": 0.0,
+    "Throttle_neutral": 0.0,
+    "Throttle_max_reverse": 0.0
+}
 
 steer_left = 0
 steer_straight = 1000
@@ -37,8 +30,14 @@ throttle_forward = 2000
 cv2.createTrackbar('Steering_value', 'sliders', steer_straight, steer_right, callback)
 cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forward, callback)
 
+response = input("Is car on test stand (y/n) ").upper()
+if response == 'Y':
+    motor_values()
+    rospy.init_node(MOTOR_VALUES_NODE_NAME, anonymous=False)
+    steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
+    throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
+    rate = rospy.Rate(15)
 
-def motor_values():
     while True:
         global steering_float, throttle_float
         steering_float = Float32()
@@ -89,6 +88,18 @@ def motor_values():
         steering_pub.publish(steering_float)
         throttle_pub.publish(throttle_float)
 
+    while not rospy.is_shutdown():
+        rospy.spin()
+        rate.sleep()
+
+else:
+    print("Put car on test stand before calibrating and restart!")
+cv2.namedWindow('motor values')
+
+
+def callback(x):
+    pass
+
 
 def slider_to_normalized(slider_input):
     input_start = 0
@@ -96,20 +107,5 @@ def slider_to_normalized(slider_input):
     output_start = -1
     output_end = 1
     normalized_output = output_start + (slider_input - input_start) * (
-                (output_end - output_start) / (input_end - input_start))
+            (output_end - output_start) / (input_end - input_start))
     return normalized_output
-
-
-if __name__ == '__main__':
-    response = input("Is car on test stand (y/n) ").upper()
-    if response == 'Y':
-        motor_values()
-        rospy.init_node(MOTOR_VALUES_NODE_NAME, anonymous=False)
-        steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
-        throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
-        rate = rospy.Rate(15)
-        while not rospy.is_shutdown():
-            rospy.spin()
-            rate.sleep()
-    else:
-        print("Put car on test stand before calibrating and restart!")
