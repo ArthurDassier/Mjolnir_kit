@@ -99,7 +99,7 @@ def slider_to_normalized(slider_input):
 if __name__ == '__main__':
     response = input("Is car on test stand (y/n) ").upper()
     if response == 'Y':
-        while:
+        while True:
             motor_values()
             rospy.init_node(MOTOR_VALUES_NODE_NAME, anonymous=False)
             steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
