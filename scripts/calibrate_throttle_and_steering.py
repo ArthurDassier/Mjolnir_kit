@@ -27,8 +27,7 @@ steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
 throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
 rate = rospy.Rate(15)
 
-motor_values = 'motor values'
-cv2.namedWindow(motor_values)
+cv2.namedWindow('motor values')
 
 global steering_float, throttle_float, motor_dict
 steering_float = Float32()
@@ -81,7 +80,7 @@ response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
     finish = False
     while not finish:
-        cv2.imshow(motor_values);
+        cv2.imshow('motor values', motor_values);
         steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
         throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
