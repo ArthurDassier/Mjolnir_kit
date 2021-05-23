@@ -213,13 +213,15 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    add the following lines of code at the end of the bash script
 
+   `cd`
+
    `source env/bin/activate`
 
    `cd projects/catkin_ws`
 
    `catkin_make`
 
-   `source devel.setup.bash`
+   `source devel.setup/bash`
 
    Then press 
    
