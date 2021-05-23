@@ -221,7 +221,7 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `catkin_make`
 
-   `source devel.setup/bash`
+   `source devel/setup.bash`
 
    Then press 
    
