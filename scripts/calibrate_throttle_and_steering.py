@@ -123,9 +123,9 @@ if response == 'Y':
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
 
-while not rospy.is_shutdown():
-    rospy.spin()
-    rate.sleep()
+    while not rospy.is_shutdown():
+        rospy.spin()
+        rate.sleep()
 
 else:
     print("Put car on test stand before calibrating and restart!")
