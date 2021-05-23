@@ -67,22 +67,24 @@ def motor_values():
                 f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
                 f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
         f.close()
-
-        key = cv2.waitKey(0)
-        if key == ord('l'):
-            motor_dict["Steering_max_left"] = steering_float
-        elif key == ord('s'):
-            motor_dict["Steering_straight"] = steering_float
-        elif key == ord('r'):
-            motor_dict["Steering_max_right"] = steering_float
-        elif key == ord('f'):
-            motor_dict["Throttle_max_forward"] = throttle_float
-        elif key == ord('n'):
-            motor_dict["Throttle_neutral"] = throttle_float
-        elif key == ord('b'):
-            motor_dict["Throttle_max_reverse"] = throttle_float
-        elif key == ord('e'):
-            pass
+        try:
+            key = cv2.waitKey(1)
+            if key == ord('l'):
+                motor_dict["Steering_max_left"] = steering_float
+            elif key == ord('s'):
+                motor_dict["Steering_straight"] = steering_float
+            elif key == ord('r'):
+                motor_dict["Steering_max_right"] = steering_float
+            elif key == ord('f'):
+                motor_dict["Throttle_max_forward"] = throttle_float
+            elif key == ord('n'):
+                motor_dict["Throttle_neutral"] = throttle_float
+            elif key == ord('b'):
+                motor_dict["Throttle_max_reverse"] = throttle_float
+            elif key == ord('e'):
+                pass
+        except KeyboardInterrupt:
+            cv2.destroyAllWindows()
 
         steering_pub.publish(steering_float)
         throttle_pub.publish(throttle_float)
