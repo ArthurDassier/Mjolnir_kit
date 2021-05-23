@@ -27,8 +27,7 @@ def video_detection(data):
     bottom_height = top_height + rows_to_watch
 
     img = cv2.cvtColor(frame[top_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
-
-    # image post processing
+    orig = img.copy()
 
     # experimentally found values from find_camera_values.py
     Hue_low = rospy.get_param("/Hue_low")
@@ -40,13 +39,7 @@ def video_detection(data):
     min_width = rospy.get_param("/Width_min")
     max_width = rospy.get_param("/Width_max")
 
-    # get rid of white noise
-    # kernel = np.ones((blur_kernal_value, blur_kernal_value), np.float32) / blur_value
-    # blurred = cv2.filter2D(img, -1, kernel)
-    # dilation = cv2.dilate(blurred, kernel, iterations=dilation_value)
-
     # changing color space to HSV
-    # hsv = cv2.cvtColor(blurred, cv2.COLOR_RGB2BGR)
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     # setting threshold limits for white color filter
@@ -75,10 +68,8 @@ def video_detection(data):
     centroid_and_frame_width = []
     # plotting contours and their centroids
     for contour in contours:
-        # area = cv2.contourArea(contour)
         x, y, w, h = cv2.boundingRect(contour)
         if min_width < w < max_width:
-            # print(area) # uncomment for debug
             img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
             m = cv2.moments(contour)
             try:
@@ -90,7 +81,6 @@ def video_detection(data):
                 cv2.circle(img, (cx, cy), 7, (0, 255, 0), -1)
             except ZeroDivisionError:
                 pass
-
     try:
         if len(cx_list) >= 2:
             mid_x = int(0.5 * (cx_list[0] + cx_list[1]))
@@ -111,15 +101,15 @@ def video_detection(data):
     except ValueError:
         pass
 
-    # try:
-    #     # plotting results
-    #     cv2.imshow("original", orig)
-    #     cv2.imshow("mask", mask)
-    #     cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
-    #     cv2.imshow("plotting_centroid", img)
-    #     cv2.waitKey(1)
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
+    try:
+        # plotting results
+        cv2.imshow("original", orig)
+        cv2.imshow("mask", mask)
+        cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
+        cv2.imshow("plotting_centroid", img)
+        cv2.waitKey(1)
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':

@@ -17,7 +17,6 @@ mid_y = Int32()
 
 
 def video_detection(data):
-    # decode image
     frame = decodeImage(data.data, data.height, data.width)
 
     # getting and setting image properties
@@ -28,6 +27,7 @@ def video_detection(data):
     bottom_height = top_height + rows_to_watch
 
     img = frame[top_height:bottom_height, 0:width]
+    orig = img.copy()
 
     # experimentally found values from find_camera_values.py
     Hue_low = rospy.get_param("/Hue_low")
@@ -63,13 +63,13 @@ def video_detection(data):
     pub.publish(centroid_and_frame_width)
 
     # plotting results
-    # try:
-    #     cv2.imshow("original", orig)
-    #     cv2.imshow("yellow mask", mask)
-    #     cv2.imshow("plotting centroid", img)
-    #     cv2.waitKey(1)
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
+    try:
+        cv2.imshow("original", orig)
+        cv2.imshow("yellow mask", mask)
+        cv2.imshow("plotting centroid", img)
+        cv2.waitKey(1)
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
