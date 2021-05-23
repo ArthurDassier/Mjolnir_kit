@@ -42,7 +42,7 @@ steer_left = 0
 steer_straight = 1000
 steer_right = 2000
 throttle_reverse = 0
-throttle_neutral = 0
+throttle_neutral = 1000
 throttle_forward = 2000
 
 cv2.createTrackbar('lowH', 'sliders', lowH, highH, callback)
