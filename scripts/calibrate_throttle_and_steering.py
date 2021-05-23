@@ -105,7 +105,7 @@ if response == 'Y':
     #
     # except KeyboardInterrupt:
     #     cv2.destroyAllWindows()
-    key = cv2.waitKey(1)
+    key = cv2.waitKey(0)
     if key == ord('l'):
         motor_dict["Steering_max_left"] = steering_float
     elif key == ord('s'):
