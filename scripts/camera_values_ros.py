@@ -94,7 +94,8 @@ def camera_values(data):
             f"Area_min : {min_width} \n"
             f"Area_max : {max_width} \n"
             f"Width_min : {min_width} \n"
-            f"Width_max : {max_width} \n")
+            f"Width_max : {max_width} \n"
+            f"green_filter : {green_filter} \n")
     f.close()
 
     # changing color space to HSV
@@ -106,8 +107,10 @@ def camera_values(data):
 
     if green_filter:
         res_inv = cv2.bitwise_and(img, img, mask=cv2.bitwise_not(mask)) # comment when not using green filter
+        rospy.set_param('/green_filter', True)
     else:
         res_inv = cv2.bitwise_and(img, img, mask=mask)
+        rospy.set_param('/green_filter', False)
 
     # changing to gray color space
     gray = cv2.cvtColor(res_inv, cv2.COLOR_BGR2GRAY)

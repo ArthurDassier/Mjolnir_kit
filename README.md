@@ -183,19 +183,21 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
   **c. Then copy the ssh key and go back to Gitlab. Click on your user profile at the top right corner of the screen then**
      
-  **click on settings from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on SSH Keys,**
+  **click on _preferences_ from the drop down menu. Now a new panel on the left hand side of the screen wil apear, click on _SSH Keys_,**
      
   **then paste your SSH key into the text field and submit it.**
 
-  **d. Obtain a copy of the repository**
+  **d. Create ROS workspace and obtain copy of ucsd_robo_car_simple_ros repository**
 
+   `mkdir projects && cd projects`
+
+   `mkdir catkin_ws && cd catkin_ws`
+
+   `mkdir src && cd src`
+   
    `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
 
-  **e. Enter the commands below in the command window on your Jetson:**
-
-   `cd projects/catkin_ws/src`
-
-   `git clone git@gitlab.com:djnighti/ucsdrobocarsimpleros.git`
+  **e. Build ucsd_robo_car_simple_ros package:**
 
    `cd ..`
 
@@ -205,7 +207,37 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `rospack profile`
 
-  **f. Now try this to make sure it was compiled correctly:**
+  **f. OPTIONALLY (RECOMMENDED) add some lines of code to the bash script so that every time a new terminal is opened, the virtual env is activated and this ROS package is compiled and sourced**
+
+   `nano ~/.bashrc`
+
+   add the following lines of code at the end of the bash script
+
+   `cd`
+
+   `source env/bin/activate`
+
+   `cd projects/catkin_ws`
+
+   `catkin_make`
+
+   `source devel/setup.bash`
+
+   Then press 
+   
+   **ctrl-x** 
+   
+   Then press 
+   
+   **y**  (yes) 
+   
+   and then press 
+   
+   **enter** 
+   
+   to save an quit
+  
+  **g. Now try this to make sure it was compiled correctly:**
 
    `roscd ucsd_robo_car_simple_ros`
 
@@ -280,6 +312,24 @@ Below show the image post processing techniques, cv2 methods and the logic appli
   <img src="applying_methods.png">
   <img src="applying_logic.png">
 </div>
+
+For [**lane_detection_node**](#lane_detection_node), the logic above shows that the bounding boxes and centroids change color based on the number of contours found in the image. 
+
+ie. 
+
+- 2 contours : green bounding boxes each with their own green centroid and a blue average centroid
+- 1 contour : green bounding box with a single red centroid
+
+#### **lane_guidance_node**
+
+Associated file: lane_guidance.py
+
+This node subscribes to the centroid topic, calculates the throttle and steering
+based on the centroid value, and then publish them to their corresponding topics.
+Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
+Steering is based on a proportional controller implemented by the calculating the error between the centroid found in [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node) and the heading of the car. 
+
+Gains can be tweaked in the lane_guidance.py script.
 
 ## Topics
 
@@ -363,9 +413,9 @@ These values will **automatically** be sent to either the [**line_detection_node
 
 To run this script:
 
-`rosrun ucsd_robo_car_simple_ros camera_server.PY`
+`rosrun ucsd_robo_car_simple_ros camera_server.py`
 
-`rosrun ucsd_robo_car_simple_ros camera_values_ros.PY`
+`rosrun ucsd_robo_car_simple_ros camera_values_ros.py`
 
 Answer the promt _("Create green filter? (y/n) ")_ then hit enter and begin creating your custom filter and color tracker!
 
