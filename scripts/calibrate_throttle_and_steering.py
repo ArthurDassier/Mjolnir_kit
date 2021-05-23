@@ -63,7 +63,6 @@ else:
     print("Put car on test stand before calibrating and restart!")
 
 while not finish or not rospy.is_shutdown():
-    print("Start with steering")
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
@@ -71,7 +70,7 @@ while not finish or not rospy.is_shutdown():
     throttle_float = slider_to_normalized(throttle_input)
 
     try:
-        key = cv2.waitKey(1)
+        # key = cv2.waitKey(1)
     # try:
     #     key = cv2.waitKey(1)
     #     if key == ord('l'):
@@ -88,8 +87,12 @@ while not finish or not rospy.is_shutdown():
     #         motor_dict["Throttle_max_reverse"] = throttle_float
     #     elif key == 27:
     #         finish = True
-    except KeyboardInterrupt:
-        cv2.destroyAllWindows()
+    # except KeyboardInterrupt:
+    #     cv2.destroyAllWindows()
+    key = cv2.waitKey(100) & 0xFF
+    if key == ord('q'):
+        finish = True
+        break
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
 
