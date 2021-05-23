@@ -102,7 +102,7 @@ while not finish or not rospy.is_shutdown():
     #     elif key == 27:
     #         finish = True
     # except KeyboardInterrupt:
-        cv2.destroyAllWindows()
+    #     cv2.destroyAllWindows()
     steering_pub.publish(steering_float)
     throttle_pub.publish(throttle_float)
     rospy.spin()
