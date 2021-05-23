@@ -22,6 +22,11 @@ MOTOR_VALUES_NODE_NAME = 'motor_values_node'
 STEERING_TOPIC_NAME = '/steering'
 THROTTLE_TOPIC_NAME = '/throttle'
 
+rospy.init_node(MOTOR_VALUES_NODE_NAME, anonymous=False)
+steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
+throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
+rate = rospy.Rate(15)
+
 cv2.namedWindow('motor values')
 
 global steering_float, throttle_float, motor_dict
@@ -49,12 +54,6 @@ cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forwa
 
 response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
-    motor_values()
-    rospy.init_node(MOTOR_VALUES_NODE_NAME, anonymous=False)
-    steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
-    throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
-    rate = rospy.Rate(15)
-
     while True:
         steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
         throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
