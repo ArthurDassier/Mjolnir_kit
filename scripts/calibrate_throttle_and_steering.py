@@ -78,54 +78,56 @@ cv2.createTrackbar('max_width', 'sliders', min_width, max_width, callback)
 
 response = input("Is car on test stand (y/n) ").upper()
 if response == 'Y':
-    steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
-    throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
+    finish = False
+    while not finish:
+        steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
+        throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
-    steering_float = slider_to_normalized(steer_input)
-    throttle_float = slider_to_normalized(throttle_input)
+        steering_float = slider_to_normalized(steer_input)
+        throttle_float = slider_to_normalized(throttle_input)
 
-    rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
-    rospy.set_param('/Steering_straight', motor_dict["Steering_straight"])
-    rospy.set_param('/Steering_max_right', motor_dict["Steering_max_right"])
-    rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_max_forward"])
-    rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_neutral"])
-    rospy.set_param('/Throttle_max_reverse', motor_dict["Throttle_max_reverse"])
+        rospy.set_param('/Steering_max_left', motor_dict["Steering_max_left"])
+        rospy.set_param('/Steering_straight', motor_dict["Steering_straight"])
+        rospy.set_param('/Steering_max_right', motor_dict["Steering_max_right"])
+        rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_max_forward"])
+        rospy.set_param('/Throttle_max_forward', motor_dict["Throttle_neutral"])
+        rospy.set_param('/Throttle_max_reverse', motor_dict["Throttle_max_reverse"])
 
-    # Write files to yaml file for storage
-    color_config_path = "../config/motor_parameters/motor_values.yaml"
-    f = open(color_config_path, "w")
-    f.write(f"Steering_max_left : {motor_dict['Steering_max_left']} \n"
-            f"Steering_straight : {motor_dict['Steering_straight']} \n"
-            f"Steering_max_right : {motor_dict['Steering_max_right']} \n"
-            f"Throttle_max_forward : {motor_dict['Throttle_max_forward']} \n"
-            f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
-            f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
-    f.close()
-    # try:
-    #
-    # except KeyboardInterrupt:
-    #     cv2.destroyAllWindows()
-    key = cv2.waitKey(0)
-    if key == ord('l'):
-        motor_dict["Steering_max_left"] = steering_float
-    elif key == ord('s'):
-        motor_dict["Steering_straight"] = steering_float
-    elif key == ord('r'):
-        motor_dict["Steering_max_right"] = steering_float
-    elif key == ord('f'):
-        motor_dict["Throttle_max_forward"] = throttle_float
-    elif key == ord('n'):
-        motor_dict["Throttle_neutral"] = throttle_float
-    elif key == ord('b'):
-        motor_dict["Throttle_max_reverse"] = throttle_float
-    elif key == ord('e'):
-        pass
-    steering_pub.publish(steering_float)
-    throttle_pub.publish(throttle_float)
+        # Write files to yaml file for storage
+        color_config_path = "../config/motor_parameters/motor_values.yaml"
+        f = open(color_config_path, "w")
+        f.write(f"Steering_max_left : {motor_dict['Steering_max_left']} \n"
+                f"Steering_straight : {motor_dict['Steering_straight']} \n"
+                f"Steering_max_right : {motor_dict['Steering_max_right']} \n"
+                f"Throttle_max_forward : {motor_dict['Throttle_max_forward']} \n"
+                f"Throttle_neutral : {motor_dict['Throttle_neutral']} \n"
+                f"Throttle_max_reverse : {motor_dict['Throttle_max_reverse']} \n")
+        f.close()
+        # try:
+        #
+        # except KeyboardInterrupt:
+        #     cv2.destroyAllWindows()
+        key = cv2.waitKey(0)
+        if key == ord('l'):
+            motor_dict["Steering_max_left"] = steering_float
+        elif key == ord('s'):
+            motor_dict["Steering_straight"] = steering_float
+        elif key == ord('r'):
+            motor_dict["Steering_max_right"] = steering_float
+        elif key == ord('f'):
+            motor_dict["Throttle_max_forward"] = throttle_float
+        elif key == ord('n'):
+            motor_dict["Throttle_neutral"] = throttle_float
+        elif key == ord('b'):
+            motor_dict["Throttle_max_reverse"] = throttle_float
+        elif key == 27:
+            finish = True
+        steering_pub.publish(steering_float)
+        throttle_pub.publish(throttle_float)
 
-    while not rospy.is_shutdown():
-        rospy.spin()
-        rate.sleep()
+        while not rospy.is_shutdown():
+            rospy.spin()
+            rate.sleep()
 
 else:
     print("Put car on test stand before calibrating and restart!")
