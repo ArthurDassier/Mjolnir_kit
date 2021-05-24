@@ -132,7 +132,7 @@ def camera_values(data):
 
     # changing color space to HSV
     # hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV) # for webcam
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) # for intel
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV) # for intel
     lower = np.array([lowH, lowS, lowV])
     higher = np.array([highH, highS, highV])
     mask = cv2.inRange(hsv, lower, higher)
