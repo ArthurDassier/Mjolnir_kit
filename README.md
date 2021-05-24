@@ -18,6 +18,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [line_detection_node](#line_detection_node)
     - [lane_detection_node](#lane_detection_node)
     - [lane_guidance_node](#lane_guidance_node)
+    - [camera_values_node](#camera_values_node)
   - [**Topics**](#topics)
     - [steering](#steering)
     - [throttle](#throttle)
@@ -27,6 +28,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [throttle and steering launch](#throttle-and-steering-launch)
     - [line detection launch](#line-detection-launch)
     - [lane detection launch](#lane-detection-launch)
+    - [ucsd_robo_car_calibration_launch](#ucsd_robo_car-calibration-launch)
   - [**Tools**](#tools)
     - [Run Indvidual Programs](#run-indvidual-programs)
     - [Throttle and Steering Calibration](#throttle-and-steering-calibration)
@@ -336,6 +338,12 @@ Steering is based on a proportional controller implemented by the calculating th
 
 Gains can be tweaked in the lane_guidance.py script.
 
+#### **camera_values_node**
+
+Associated file: camera_values_ros.py
+
+See [**Find Camera Parameters**](#find-camera-parameters) for details about this node.
+
 ## Topics
 
 
@@ -385,6 +393,11 @@ This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_g
 
 `roslaunch ucsd_robo_car_simple_ros laneDetection_launch.launch`
 
+#### **ucsd_robo_car calibration launch**
+
+This file will launch [**camera_server**](#camera_server) and [**Find Camera Parameters**](#find-camera-parameters)
+
+`roslaunch ucsd_robo_car_calibration_launch.launch`
 
 ## Tools 
 
@@ -422,7 +435,7 @@ These values will **automatically** be sent to either the [**line_detection_node
 
 To run this script:
 
-` ucsd_robo_car_calibration_launch.launch`
+`roslaunch ucsd_robo_car_calibration_launch.launch`
 
 OR
 
