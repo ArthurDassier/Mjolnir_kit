@@ -18,16 +18,6 @@ mid_y = Int32()
 
 
 def video_detection(data):
-    frame = decodeImage(data.data, data.height, data.width)
-
-    height, width, channels = frame.shape
-    rows_to_watch = 50
-    rows_offset = 150
-    top_height = height - rows_offset
-    bottom_height = top_height + rows_to_watch
-
-    img = frame[top_height:bottom_height, 0:width]
-    orig = img.copy()
 
     # experimentally found values from find_camera_values.py
     Hue_low = rospy.get_param("/Hue_low")
@@ -39,6 +29,18 @@ def video_detection(data):
     min_width = rospy.get_param("/Width_min")
     max_width = rospy.get_param("/Width_max")
     green_filter = rospy.get_param("/green_filter")
+    start_height = rospy.get_param("/camera_start_height")
+    bottom_height = rospy.get_param("/camera_bottom_height")
+    left_width = rospy.get_param("/camera_left_width")
+    right_width = rospy.get_param("/camera_right_width")
+    
+    # Image processing from rosparams
+    frame = decodeImage(data.data, data.height, data.width)
+    height, width, channels = frame.shape
+    new_width = int(right_width - left_width)
+
+    img = frame[start_height:bottom_height, left_width:right_width]
+    orig = img.copy()
 
     # changing color space to HSV
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
@@ -88,14 +90,14 @@ def video_detection(data):
             mid_y = int(0.5 * (cy_list[0] + cy_list[1]))
             cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
             centroid_and_frame_width.append(mid_x)
-            centroid_and_frame_width.append(width)
+            centroid_and_frame_width.append(new_width)
             pub.publish(data=centroid_and_frame_width)
         elif len(cx_list) == 1:
             mid_x = cx_list[0]
             mid_y = cy_list[0]
             cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
             centroid_and_frame_width.append(mid_x)
-            centroid_and_frame_width.append(width)
+            centroid_and_frame_width.append(new_width)
             pub.publish(data=centroid_and_frame_width)
         elif len(cx_list) == 0:
             pass
