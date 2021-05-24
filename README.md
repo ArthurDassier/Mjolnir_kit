@@ -241,6 +241,11 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `roscd ucsd_robo_car_simple_ros`
 
+  **h. Now give yourself permissions to access all files in repo:**
+
+   `chmod -R 777 .`
+
+
 **If you are brought to this project directory, you are ready to start!**
 
 
@@ -385,6 +390,8 @@ This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_g
 
 #### **Run Indvidual Programs**
 
+To run any indvidual program, enter this into the terminal and change file_name.py to whatever python file is in the repo
+
 `rosrun ucsd_robo_car_simple_ros file_name.py`
 
 #### **Throttle and Steering Calibration**
@@ -403,6 +410,8 @@ Then in 2 new terminal windows enter these commands
 
 `rostopic pub -r 15 /throttle [TAB][TAB]`
 
+Once throttle values are found, enter them in the [**lane_guidance_node**](#lane_guidance_node) as the values the car will go when it finds or doesnt find a line or lane to follow
+
 
 #### **Find Camera Parameters** 
 
@@ -412,6 +421,10 @@ This program allows for the user to quickly tune various camera post-processing 
 These values will **automatically** be sent to either the [**line_detection_node**](#line_detection_node) or the [**lane_detection_node**](#lane_detection_node) (depending on which you are using) by using rosparam functionality. These values are also written to a file called **custom_filter.yaml** which permanently stores these valus to be used at a later time so that this program does not have to be run again. 
 
 To run this script:
+
+` ucsd_robo_car_calibration_launch.launch`
+
+OR
 
 `rosrun ucsd_robo_car_simple_ros camera_server.py`
 
