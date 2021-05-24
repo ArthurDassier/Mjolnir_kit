@@ -71,9 +71,6 @@ def camera_values(data):
 
     frame = decodeImage(data.data, data.height, data.width)
     height, width, channels = frame.shape
-    # print(width)
-    # start_height = int(height/2)
-    # bottom_height = int(3*height/4)
     start_height = int(height * 0.60)
     bottom_height = int(height * 0.80)
 
@@ -82,8 +79,6 @@ def camera_values(data):
 
     left_width = int(0)
     right_width = int(width)
-    # frame = cv2.cvtColor(frame[start_height:bottom_height, 0:width], cv2.COLOR_RGB2BGR)
-    # img = cv2.cvtColor(frame[start_height:bottom_height, left_width:right_width], cv2.COLOR_RGB2BGR)
     img = frame[start_height:bottom_height, left_width:right_width]
 
     # get trackbar positions
@@ -131,8 +126,7 @@ def camera_values(data):
     f.close()
 
     # changing color space to HSV
-    # hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV) # for webcam
-    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV) # for intel
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     lower = np.array([lowH, lowS, lowV])
     higher = np.array([highH, highS, highV])
     mask = cv2.inRange(hsv, lower, higher)
