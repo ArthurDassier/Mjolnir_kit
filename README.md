@@ -435,7 +435,7 @@ These values will **automatically** be sent to either the [**line_detection_node
 
 To run this script:
 
-`roslaunch ucsd_robo_car_calibration_launch.launch`
+`roslaunch ucsd_robo_car_simple_ros ucsd_robo_car_calibration_launch.launch`
 
 OR
 
