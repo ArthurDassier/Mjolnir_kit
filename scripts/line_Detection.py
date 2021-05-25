@@ -57,7 +57,7 @@ def video_detection(data):
     mid_y = cy
     cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
     centroid_and_frame_width.append(mid_x)
-    centroid_and_frame_width.append(width)
+    centroid_and_frame_width.append(new_width)
     pub.publish(data=centroid_and_frame_width)
 
     # plotting results
