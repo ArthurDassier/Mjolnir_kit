@@ -57,10 +57,12 @@ def video_detection(data):
         res = cv2.bitwise_and(img, img, mask=mask)
 
     # changing to gray color space
-    gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(res, cv2.COLOR_RGB2GRAY)
 
     # changing to black and white color space
-    (dummy, blackAndWhiteImage) = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    gray_lower = 100
+    gray_upper = 255
+    (dummy, blackAndWhiteImage) = cv2.threshold(gray, gray_lower, gray_upper, cv2.THRESH_BINARY)
 
     # locating contours in image
     contours, dummy = cv2.findContours(blackAndWhiteImage, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
