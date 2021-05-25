@@ -39,11 +39,20 @@ area_max = 50000
 min_width = 10
 max_width = 500
 
+min_frame_height=1
+max_frame_height=100
+default_frame_width=100
+max_frame_width=100
+default_min_rows=50
+max_rows=100
+default_min_offset=50
+max_offset=100
+
 steer_left = 0
 steer_straight = 1000
 steer_right = 2000
 throttle_reverse = 0
-throttle_neutral = 1080
+throttle_neutral = 1100
 throttle_forward = 2000
 
 cv2.createTrackbar('lowH', 'sliders', lowH, highH, callback)
@@ -58,8 +67,13 @@ cv2.createTrackbar('highV', 'sliders', highV, highV, callback)
 cv2.createTrackbar('min_width', 'sliders', min_width, max_width, callback)
 cv2.createTrackbar('max_width', 'sliders', min_width, max_width, callback)
 
+cv2.createTrackbar('frame_width', 'sliders', default_frame_width, max_frame_width, callback)
+cv2.createTrackbar('rows_to_watch', 'sliders', default_min_rows, max_rows, callback)
+cv2.createTrackbar('rows_offset', 'sliders', default_min_offset, max_offset, callback)
+
 cv2.createTrackbar('Steering_value', 'sliders', steer_straight, steer_right, callback)
 cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forward, callback)
+
 
 global steering_float, throttle_float
 steering_float = Float32()
@@ -69,18 +83,6 @@ def camera_values(data):
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
-
-    frame = decodeImage(data.data, data.height, data.width)
-    height, width, channels = frame.shape
-    start_height = int(height * 0.60)
-    bottom_height = int(height * 0.80)
-
-    left_width = int(width / 4)
-    right_width = int(3 * width / 4)
-
-    left_width = int(0)
-    right_width = int(width)
-    img = frame[start_height:bottom_height, left_width:right_width]
 
     # get trackbar positions
     lowH = cv2.getTrackbarPos('lowH', 'sliders')
@@ -94,9 +96,41 @@ def camera_values(data):
     min_width = cv2.getTrackbarPos('min_width', 'sliders')
     max_width = cv2.getTrackbarPos('max_width', 'sliders')
 
+    frame_height = cv2.getTrackbarPos('frame_height', 'sliders')
+    crop_width_percent = cv2.getTrackbarPos('frame_width', 'sliders')
+    rows_to_watch_percent = cv2.getTrackbarPos('rows_to_watch', 'sliders')
+    rows_offset_percent = cv2.getTrackbarPos('rows_offset', 'sliders')
+
+
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
+    if frame_height < 1:
+        frame_height =1
+
+    if crop_width_percent < 1:
+        crop_width_percent =1
+
+    if rows_to_watch_percent < 1:
+        rows_to_watch_percent =1
+
+    if rows_offset_percent < 1:
+        rows_offset_percent =1
+
+    rows_to_watch_deciaml = rows_to_watch_percent /100
+    rows_offset_deciaml = rows_offset_percent /100
+    crop_width_deciaml = crop_width_percent /100
+
+    rows_to_watch = int(height * rows_to_watch_deciaml)
+    rows_offset = int(height * (1 - rows_offset_deciaml))
+
+    start_height = int(height - rows_offset)
+    bottom_height = int(start_height + rows_to_watch)
+
+    left_width = int((width/2) * (1-crop_width_deciaml))
+    right_width = int((width/2) * (1+crop_width_deciaml))
+
+    img = frame[start_height:bottom_height, left_width:right_width]
 
     # set ros parameters
     rospy.set_param('/Hue_low', lowH)
@@ -109,6 +143,11 @@ def camera_values(data):
     rospy.set_param('/Area_max', max_area)
     rospy.set_param('/Width_min', min_width)
     rospy.set_param('/Width_max', max_width)
+    rospy.set_param('/camera_start_height', start_height)
+    rospy.set_param('/camera_bottom_height', bottom_height)
+    rospy.set_param('/camera_left_width', left_width)
+    rospy.set_param('/camera_right_width', right_width)
+
 
     # Write files to yaml file for storage
     f = open(os.path.dirname(__file__) + '/../config/color_filter_parameters/custom_filter.yaml', "w")
@@ -122,7 +161,13 @@ def camera_values(data):
             f"Area_max : {max_width} \n"
             f"Width_min : {min_width} \n"
             f"Width_max : {max_width} \n"
-            f"green_filter : {green_filter} \n")
+            f"green_filter : {green_filter} \n"
+            f"camera_start_height : {start_height} \n"
+            f"camera_bottom_height : {bottom_height} \n"
+            f"camera_left_width : {left_width} \n"
+            f"camera_right_width : {right_width} \n"
+            )
+
     f.close()
 
     # changing color space to HSV
