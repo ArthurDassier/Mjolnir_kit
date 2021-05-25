@@ -1,4 +1,4 @@
 <launch>
-  <node name="camera_values_node" pkg="ucsd_robo_car_simple_ros" type="camera_values_ros.py" />
-  <node name="camera_server" pkg="ucsd_robo_car_simple_ros" type="camera_server.py" />
+  <node name="camera_values_node" pkg="Mjolnir_kit" type="camera_values_ros.py" />
+  <node name="camera_server" pkg="Mjolnir_kit" type="camera_server.py" />
 </launch>

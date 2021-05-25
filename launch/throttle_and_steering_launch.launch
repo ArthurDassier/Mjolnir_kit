@@ -1,4 +1,4 @@
 <launch>
-  <node name="steering_client" pkg="ucsd_robo_car_simple_ros" type="steering_client.py" />
-  <node name="throttle_client" pkg="ucsd_robo_car_simple_ros" type="throttle_client.py" />
+  <node name="steering_client" pkg="Mjolnir_kit" type="steering_client.py" />
+  <node name="throttle_client" pkg="Mjolnir_kit" type="throttle_client.py" />
 </launch>

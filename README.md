@@ -1,4 +1,4 @@
-# ucsd_robo_car_simple_ros
+# Mjolnir_kit
 
 A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line or stay between two white lines.
 
@@ -189,7 +189,7 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
      
   **then paste your SSH key into the text field and submit it.**
 
-  **d. Create ROS workspace and obtain copy of ucsd_robo_car_simple_ros repository**
+  **d. Create ROS workspace and obtain copy of Mjolnir_kit repository**
 
    `mkdir projects && cd projects`
 
@@ -197,9 +197,9 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `mkdir src && cd src`
    
-   `git clone git@gitlab.com:djnighti/ucsd_robo_car_simple_ros.git`
+   `git clone git@gitlab.com:djnighti/Mjolnir_kit.git`
 
-  **e. Build ucsd_robo_car_simple_ros package:**
+  **e. Build Mjolnir_kit package:**
 
    `cd ..`
 
@@ -241,7 +241,7 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
   
   **g. Now try this to make sure it was compiled correctly:**
 
-   `roscd ucsd_robo_car_simple_ros`
+   `roscd Mjolnir_kit`
 
   **h. Now give yourself permissions to access all files in repo:**
 
@@ -375,7 +375,7 @@ See [**Find Camera Parameters**](#find-camera-parameters) for details about this
 #### **throttle and steering launch**
 This file launches both [**throttle_client**](#throttle_client) and [**steering**](#Topics) seperately because these topics can take some time to initialize which can delay productivity. Launch this script once and use the other launch files listed below to get the robot moving.
 
-`roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
+`roslaunch Mjolnir_kit throttle_and_steering_launch.launch`
 
 #### **line Detection launch**
 
@@ -383,7 +383,7 @@ This file will launch [**line_detection_node**](#line_detection_node), [**lane_g
 
 **Before launching, please calibrate the robot first while on the stand! See** [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
 
-`roslaunch ucsd_robo_car_simple_ros lineDetection_launch.launch`
+`roslaunch Mjolnir_kit lineDetection_launch.launch`
 
 #### **lane Detection launch**
 
@@ -391,7 +391,7 @@ This file will launch [**lane_detection_node**](#lane_detection_node), [**lane_g
 
 **Before launching, please calibrate the robot first while on the stand! See** [**Throttle and Steering Calibration**](#throttle-and-steering-calibration)
 
-`roslaunch ucsd_robo_car_simple_ros laneDetection_launch.launch`
+`roslaunch Mjolnir_kit laneDetection_launch.launch`
 
 #### **ucsd_robo_car calibration launch**
 
@@ -405,7 +405,7 @@ This file will launch [**camera_server**](#camera_server) and [**Find Camera Par
 
 To run any indvidual program, enter this into the terminal and change file_name.py to whatever python file is in the repo
 
-`rosrun ucsd_robo_car_simple_ros file_name.py`
+`rosrun Mjolnir_kit file_name.py`
 
 #### **Throttle and Steering Calibration**
 
@@ -415,7 +415,7 @@ To calibrate steering and throttle, using the commands below to test different v
 
 First launch the throttle and steering clients 
 
-`roslaunch ucsd_robo_car_simple_ros throttle_and_steering_launch.launch`
+`roslaunch Mjolnir_kit throttle_and_steering_launch.launch`
 
 Then in 2 new terminal windows enter these commands 
 
@@ -435,13 +435,13 @@ These values will **automatically** be sent to either the [**line_detection_node
 
 To run this script:
 
-`roslaunch ucsd_robo_car_simple_ros ucsd_robo_car_calibration_launch.launch`
+`roslaunch Mjolnir_kit ucsd_robo_car_calibration_launch.launch`
 
 OR
 
-`rosrun ucsd_robo_car_simple_ros camera_server.py`
+`rosrun Mjolnir_kit camera_server.py`
 
-`rosrun ucsd_robo_car_simple_ros camera_values_ros.py`
+`rosrun Mjolnir_kit camera_values_ros.py`
 
 Answer the promt _("Create green filter? (y/n) ")_ then hit enter and begin creating your custom filter and color tracker!
 

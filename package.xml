@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>ucsd_robo_car_simple_ros</name>
+  <name>Mjolnir_kit</name>
   <version>0.0.0</version>
-  <description>The ucsd_robo_car_simple_ros package</description>
+  <description>The Mjolnir_kit package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
