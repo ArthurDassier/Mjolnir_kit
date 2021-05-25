@@ -23,10 +23,10 @@ def LineFollower(msg):
 
     if msg.data == 0:
         error_x = 0
-        throttle_float = 0.95
+        throttle_float = 0.07
     else:
         error_x = float(centroid - (width / 2))
-        throttle_float = 1.0
+        throttle_float = 0.08
 
     steering_float = float(kp * (error_x / (width / 2)))
     if steering_float < -1:

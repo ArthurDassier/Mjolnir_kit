@@ -176,7 +176,7 @@ class TeensyMC_Test(Component):
         # print(msg)
         self.ser.write(bytes(msg, 'utf-8'))
 
-'''
+
 class TeensyMC(TeensyMC_Test):
     def __init__(self, mode=OperationMode.manual, port='/dev/ttyACM0', baudrate=115200, timeout=100, pollInterval=25, left_pulse=430, right_pulse=290,
                  max_pulse=390, min_pulse=330, zero_pulse=370):
@@ -240,7 +240,7 @@ class TeensyMC(TeensyMC_Test):
             self.__command(speed=self.speed, steering=self.steering)
 
         # return self.speed, self.throttle, self.steering  # Be very careful with the order 
-'''
+
 
 class Watchdog:
     """Trigger the callback function if timer reaches threshold (ms), unless reset"""

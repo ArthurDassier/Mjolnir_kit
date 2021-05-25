@@ -24,7 +24,7 @@ def callback(data):
     # input_throttle = data.data
     # normalized_throttle = output_start + (input_throttle - input_start) * ((output_end - output_start) / (input_end - input_start))
     normalized_throttle = data.data
-    kit.continuous_servo[0].throttle = normalized_throttle * throttle_scale
+    kit.continuous_servo[2].throttle = normalized_throttle * throttle_scale
 
 
 def listener():
