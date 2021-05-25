@@ -13,17 +13,6 @@ CENTROID_TOPIC_NAME = '/centroid'
 
 
 def video_detection(data):
-    frame = decodeImage(data.data, data.height, data.width)
-
-    # getting and setting image properties
-    height, width, channels = frame.shape
-    rows_to_watch = 50
-    rows_offset = 150
-    top_height = height - rows_offset
-    bottom_height = top_height + rows_to_watch
-
-    img = frame[top_height:bottom_height, 0:width]
-    orig = img.copy()
 
     # experimentally found values from find_camera_values.py
     Hue_low = rospy.get_param("/Hue_low")
@@ -32,9 +21,22 @@ def video_detection(data):
     Saturation_high = rospy.get_param("/Saturation_high")
     Value_low = rospy.get_param("/Value_low")
     Value_high = rospy.get_param("/Value_high")
+    green_filter = rospy.get_param("/green_filter")
+    start_height = rospy.get_param("/camera_start_height")
+    bottom_height = rospy.get_param("/camera_bottom_height")
+    left_width = rospy.get_param("/camera_left_width")
+    right_width = rospy.get_param("/camera_right_width")
+    
+    # Image processing from rosparams
+    frame = decodeImage(data.data, data.height, data.width)
+    height, width, channels = frame.shape
+    new_width = int(right_width - left_width)
+
+    img = frame[start_height:bottom_height, left_width:right_width]
+    orig = img.copy()
 
     # changing color space to HSV
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 
     # setting threshold limits for custom color filter
     lower = np.array([Hue_low, Saturation_low, Value_low])
