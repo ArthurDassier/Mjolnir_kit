@@ -159,17 +159,20 @@ def camera_values(data):
         x, y, w, h = cv2.boundingRect(contour)
         # if min_area < area < max_area:
         if min_width < w < max_width:
-            # print(area) # uncomment for debug
-            x, y, w, h = cv2.boundingRect(contour)
-            # img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-            img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
-            m = cv2.moments(contour)
-            cx = int(m['m10'] / m['m00'])
-            cy = int(m['m01'] / m['m00'])
-            centers.append([cx, cy])
-            cx_list.append(int(m['m10'] / m['m00']))
-            cy_list.append(int(m['m01'] / m['m00']))
-            cv2.circle(img, (cx, cy), 7, (0, 255, 0), -1)
+            try:
+                # print(area) # uncomment for debug
+                x, y, w, h = cv2.boundingRect(contour)
+                # img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                img = cv2.drawContours(img, contour, -1, (0, 255, 0), 3)
+                m = cv2.moments(contour)
+                cx = int(m['m10'] / m['m00'])
+                cy = int(m['m01'] / m['m00'])
+                centers.append([cx, cy])
+                cx_list.append(int(m['m10'] / m['m00']))
+                cy_list.append(int(m['m01'] / m['m00']))
+                cv2.circle(img, (cx, cy), 7, (0, 255, 0), -1)
+            except ZeroDivisionError:
+                pass
 
     try:
         if len(cx_list) >= 2:
