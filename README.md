@@ -247,6 +247,16 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `chmod -R 777 .`
 
+  **i. (ONLY DO THIS AS NEEDED) Now as this remote repository is updated, enter the following commands to update the local repository on the jetson:**
+   
+   `roscd ucsd_robo_car_simple_ros`
+   
+   `git stash`
+
+   `git pull`
+
+   `chmod -R 777 .`
+
 
 **If you are brought to this project directory, you are ready to start!**
 
