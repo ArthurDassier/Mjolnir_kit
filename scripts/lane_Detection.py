@@ -108,10 +108,11 @@ def video_detection(data):
 
     try:
         # plotting results
-        cv2.imshow("original", orig)
-        cv2.imshow("mask", mask)
-        cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
-        cv2.imshow("plotting_centroid", img)
+        cv2.imshow('img', img)
+        cv2.imshow('mask', mask)
+        cv2.imshow('res', res)
+        cv2.imshow('gray', gray)
+        cv2.imshow('blackAndWhiteImage', blackAndWhiteImage)
         cv2.waitKey(1)
     except KeyboardInterrupt:
         cv2.destroyAllWindows()
