@@ -111,9 +111,7 @@ def camera_values(data):
     rospy.set_param('/Width_max', max_width)
 
     # Write files to yaml file for storage
-    # f = open(os.path.dirname(__file__) + '/../config/color_filter_parameters/custom_filter.yaml', "w")
-    color_config_path = "../config/color_filter_parameters/custom_filter.yaml"
-    f = open(color_config_path, "w")
+    f = open(os.path.dirname(__file__) + '/../config/color_filter_parameters/custom_filter.yaml', "w")
     f.write(f"Hue_low : {lowH} \n"
             f"Hue_high : {highH} \n"
             f"Saturation_low : {lowS} \n"
