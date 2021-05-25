@@ -74,7 +74,6 @@ cv2.createTrackbar('rows_offset', 'sliders', default_min_offset, max_offset, cal
 cv2.createTrackbar('Steering_value', 'sliders', steer_straight, steer_right, callback)
 cv2.createTrackbar('Throttle_value', 'sliders', throttle_neutral, throttle_forward, callback)
 
-
 global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
@@ -101,7 +100,6 @@ def camera_values(data):
     rows_to_watch_percent = cv2.getTrackbarPos('rows_to_watch', 'sliders')
     rows_offset_percent = cv2.getTrackbarPos('rows_offset', 'sliders')
 
-
     steer_input = cv2.getTrackbarPos('Steering_value', 'sliders')
     throttle_input = cv2.getTrackbarPos('Throttle_value', 'sliders')
 
@@ -117,6 +115,10 @@ def camera_values(data):
     if rows_offset_percent < 1:
         rows_offset_percent =1
 
+    # Image processing from slider values
+    frame = decodeImage(data.data, data.height, data.width)
+    height, width, channels = frame.shape
+
     rows_to_watch_deciaml = rows_to_watch_percent /100
     rows_offset_deciaml = rows_offset_percent /100
     crop_width_deciaml = crop_width_percent /100
@@ -131,6 +133,7 @@ def camera_values(data):
     right_width = int((width/2) * (1+crop_width_deciaml))
 
     img = frame[start_height:bottom_height, left_width:right_width]
+
 
     # set ros parameters
     rospy.set_param('/Hue_low', lowH)
@@ -148,9 +151,10 @@ def camera_values(data):
     rospy.set_param('/camera_left_width', left_width)
     rospy.set_param('/camera_right_width', right_width)
 
-
     # Write files to yaml file for storage
     f = open(os.path.dirname(__file__) + '/../config/color_filter_parameters/custom_filter.yaml', "w")
+    # color_config_path = "../config/color_filter_parameters/custom_filter.yaml"
+    # f = open(color_config_path, "w")
     f.write(f"Hue_low : {lowH} \n"
             f"Hue_high : {highH} \n"
             f"Saturation_low : {lowS} \n"
@@ -167,10 +171,10 @@ def camera_values(data):
             f"camera_left_width : {left_width} \n"
             f"camera_right_width : {right_width} \n"
             )
-
     f.close()
 
     # changing color space to HSV
+    # hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV) # for intel
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     lower = np.array([lowH, lowS, lowV])
     higher = np.array([highH, highS, highV])
@@ -197,6 +201,7 @@ def camera_values(data):
     cy_list = []
     centroid_and_frame_width = []
 
+    
     # plotting contours and their centroids
     for contour in contours:
         area = cv2.contourArea(contour)
