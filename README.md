@@ -11,6 +11,7 @@ A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steerin
     - [adafruit_servokit](#adafruit_servokit)
     - [cv_bridge](#cv_bridge)
   - [**Environment Configuration**](#environment-configuration)
+  - [**Work Flow To Use This Repository**](#work-flow-to-use-this-repository)
   - [**Nodes**](#nodes)
     - [throttle_client](#throttle_client)
     - [steering_client](#steering_client)
@@ -247,9 +248,59 @@ Instructions found <a href="https://docs.google.com/document/d/1LxcTvSTRHVxSnv3x
 
    `chmod -R 777 .`
 
+  **i. (ONLY DO THIS AS NEEDED) Now as this remote repository is updated, enter the following commands to update the local repository on the jetson:**
+   
+   `roscd ucsd_robo_car_simple_ros`
+   
+   `git stash`
 
-**If you are brought to this project directory, you are ready to start!**
+   `git pull`
 
+   `chmod -R 777 .`
+
+## **Work Flow To Use This Repository**
+
+1. **ALWAYS RUN ROSCORE IN A TERMINAL ON EVERY BOOT UP OF THE JETSON**
+
+`roscore`
+
+2. Calibrate camera using the [**Find Camera Parameters**](#find-camera-parameters) script. These values are saved automatically (see [**Find Camera Parameters**](#find-camera-parameters) for details) to a configuration file, so just press control-c when the camera is calibrated. Below are the commands to get the camera running and begin the calibration process.
+
+
+`rosrun ucsd_robo_car_simple_ros camera_server.py`
+
+`rosrun ucsd_robo_car_simple_ros camera_values_ros.py`
+
+
+3. Calibrate throttle and steering using instructions in [Throttle and Steering Calibration](#throttle-and-steering-calibration). Find a throttle value for both the optimal condtion (error = 0) and the non optimal condtion (error !=0) AKA go fast when error=0 and go slow if error !=0 (see [**lane_guidance_node**](#lane_guidance_node) for details). Once both of these values are found, enter the values manually in **lane_guidance.py**
+For steering, change the Kp value to adjust the steering sensitivty (as Kp --> 1 steering more responsive, as Kp --> 0  steering less responsive) Below are the commands for calibrating throttle and steering as well as editing **lane_guidance.py**
+
+`rostopic pub -r 15 /steering [TAB][TAB]`
+
+`rostopic pub -r 15 /throttle [TAB][TAB]`
+
+`roscd ucsd_robo_car_simple_ros/scripts`
+
+`nano lane_guidance.py`
+
+enter the upper and lower bounds for throttle on lines 26 and 29 and the Kp for steering on line 17
+
+Then press 
+   
+   **ctrl-x** 
+   
+   Then press 
+   
+   **y**  (yes) 
+   
+   and then press 
+   
+   **enter** 
+   
+   to save an quit
+
+
+4. Experiment which algorithim is better; [**line_detection_node**](#line_detection_node) or [**lane_detection_node**](#lane_detection_node)
 
 ## Nodes
 
