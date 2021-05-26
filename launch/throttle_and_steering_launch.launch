@@ -1,4 +1,5 @@
 <launch>
   <node name="steering_client" pkg="mjolnir_kit" type="steering_client.py" />
   <node name="throttle_client" pkg="mjolnir_kit" type="throttle_client.py" />
+  <node name="teensy_client" pkg="mjolnir_kit" type="teensy_client.py" />
 </launch>

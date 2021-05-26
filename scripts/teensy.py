@@ -24,17 +24,14 @@ terminated by '\n'. If everything is polled, send separate messages for each att
 e.g. "steering -0.45\n" "throttle 0.758\n"
 """
 
-from TritonRacerSim.components.component import Component
 import serial
-from enum import Enum
 import time
-import sched
 import re
 
 from TritonRacerSim.components.controller import DriveMode
 from TritonRacerSim.utils.types import ModelType
 
-class TeensyMC_Test(Component):
+class TeensyMC_Test():
     def __init__(self, cfg):
         # Params for tweaking
         super().__init__(inputs=['mux/steering', 'mux/throttle', 'ai/speed', 'usr/mode'], outputs=[], threaded=True)
@@ -62,10 +59,10 @@ class TeensyMC_Test(Component):
         self.zero_pulse = calibrate_cfg['zero_throttle_pwm']
 
 
-    def onStart(self):        # self.send(sbc_message + '\n')
+    # def onStart(self):        # self.send(sbc_message + '\n')
 
-        # Process all available information before leavingy=3000)
-        #self.watchdog_mainthread.start_watchdog(delay=3000)
+    #     # Process all available information before leavingy=3000)
+    #     self.watchdog_mainthread.start_watchdog(delay=3000)
 
     def thread_step(self):
         while self.running:
@@ -122,15 +119,15 @@ class TeensyMC_Test(Component):
         if carMode == DriveMode.AI:
             # and is using a speed based model
             if cfg['ai_model']['model_type'] == ModelType.CNN_2D_SPD_CTL:
-                self.__command(speed=self.speed, steering=self.steering))
+                self.__command(speed=self.speed, steering=self.steering)
         
             # Else we are not using a speed based model (throttle base)
             else: 
-                self.__command(throttle=self.throttle, steering=self.steering))
+                self.__command(throttle=self.throttle, steering=self.steering)
         
         # Human Mode or Partial AI (Steering)
         else:
-            self.__command(throttle=self.throttle, steering=self.steering))
+            self.__command(throttle=self.throttle, steering=self.steering)
 
     def onShutdown(self):
         self.running = False
@@ -177,105 +174,38 @@ class TeensyMC_Test(Component):
         self.ser.write(bytes(msg, 'utf-8'))
 
 
-class TeensyMC(TeensyMC_Test):
-    def __init__(self, mode=OperationMode.manual, port='/dev/ttyACM0', baudrate=115200, timeout=100, pollInterval=25, left_pulse=430, right_pulse=290,
-                 max_pulse=390, min_pulse=330, zero_pulse=370):
-        super().__init__(mode, port, baudrate, timeout, pollInterval, left_pulse, right_pulse, max_pulse, min_pulse, zero_pulse)
+# class Watchdog:
+#     """Trigger the callback function if timer reaches threshold (ms), unless reset"""
 
-    def __poll(self):
-        """Get input values from Teensy in manual mode"""
-        while not self.ser.in_waiting:
-            pass
+#     def __init__(self, threshold, callback):
+#         self.threshold = threshold / 1000.0
+#         self.callback = callback
+#         self.reset = True
+#         self.running = True
 
-        mcu_message = self.ser.readline().decode().lower()  # The message coming in
-        sbc_message = 'poll'  # The message to be sent back. a single 'poll' means polling every information
-        number_in_message = re.findall(r'\d+\.*\d*', mcu_message)  # Find number in message
+#     def start_watchdog(self, delay=500):
+#         """Start the watchdog countdown after the delay (ms)"""
+#         delay_second = delay / 1000.0
+#         print(f'Watchdog will be engaged in {delay_second} seconds.')
+#         from threading import Thread
+#         t = Thread(target=self.__watching, args=(delay,), daemon=False)
+#         t.start()
 
-        if number_in_message: # Correct reading is given, so teensy is alive.
-            self.watchdog_subthread.reset_countdown()  # Reset watchdog as soon as data is received
+#     def __watching(self, delay):
+#         delay_second = delay / 1000.0
+#         time.sleep(delay_second)
 
-            if 'speed' in mcu_message:
-                self.speed = number_in_message[0]
-                sbc_message += '_speed'
-            elif 'throttle' in mcu_message:
-                self.throttle = number_in_message[0]
-                sbc_message += '_throttle'
-            elif 'steering' in mcu_message:
-                self.steering = number_in_message[0]
-                sbc_message += '_steering'
-            elif 'mode' in mcu_message:
-                self.mode = OperationMode.auto if 'auto' in mcu_message else OperationMode.manual
-                sbc_message += '_mode'
+#         while self.running:
+#             if (self.reset):
+#                 self.reset = False
+#             else:
+#                 self.callback()
+#             time.sleep(self.threshold)
 
-            self.ser.write(bytes(sbc_message + '\n', 'utf-8'))
+#     def reset_countdown(self):
+#         """Reset the watchdog countdown"""
+#         self.reset = True
 
-    def __command(self, throttle=None, speed=None, steering=0, shutdown=False):
-        """Send Instructions to Teensy in auto mode"""
-        # print (speed, steering)
-
-        #if throttle > 0:
-        #    self.throttle_pulse = dk.utils.map_range(throttle, 0, 1, self.zero_pulse, self.max_pulse)
-        #else:
-        #    self.throttle_pulse = dk.utils.map_range(throttle, -1, 0, self.min_pulse, self.zero_pulse)
-        #self.steering_pulse = dk.utils.map_range(steering, -1, 1, self.left_pulse, self.right_pulse)
-
-
-        msg = ''
-        if not shutdown:
-            if throttle is not None:
-                msg = f'command throttle {throttle}\n'
-            else:
-                msg = f'command speed {speed}\n'
-            msg += f'command steering {steering}\n'
-        else:
-            msg = 'command shutdown\n'
-        # print (msg)
-        self.ser.write(bytes(msg, 'utf-8'))
-
-    def run_threaded(self, *speed_and_steering_and_mode):
-        self.watchdog_mainthread.reset_countdown()
-        if True or self.mode == OperationMode.auto and len(speed_and_steering_and_mode) == 2:
-            self.speed = speed_and_steering_and_mode[0]
-            self.steering = speed_and_steering_and_mode[1]
-            self.__command(speed=self.speed, steering=self.steering)
-
-        # return self.speed, self.throttle, self.steering  # Be very careful with the order 
-
-
-class Watchdog:
-    """Trigger the callback function if timer reaches threshold (ms), unless reset"""
-
-    def __init__(self, threshold, callback):
-        self.threshold = threshold / 1000.0
-        self.callback = callback
-        self.reset = True
-        self.running = True
-
-    def start_watchdog(self, delay=500):
-        """Start the watchdog countdown after the delay (ms)"""
-        delay_second = delay / 1000.0
-        print(f'Watchdog will be engaged in {delay_second} seconds.')
-        from threading import Thread
-        t = Thread(target=self.__watching, args=(delay,), daemon=False)
-        t.start()
-
-    def __watching(self, delay):
-        delay_second = delay / 1000.0
-        time.sleep(delay_second)
-
-        while self.running:
-            if (self.reset):
-                self.reset = False
-            else:
-                self.callback()
-            time.sleep(self.threshold)
-
-    def reset_countdown(self):
-        """Reset the watchdog countdown"""
-        self.reset = True
-
-    def shutdown(self):
-        """End the watchdog"""
-        self.running = False
-
-    
+#     def shutdown(self):
+#         """End the watchdog"""
+#         self.running = False
