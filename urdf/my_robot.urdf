@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<robot name="my_robot">
+
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1"/>
+      </material>
+
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1"/>
+      </material>
+
+    <material name="grey">
+        <color rgba="0.25 0.25 0.25 1"/>
+      </material>
+
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <mass value="0.18" />
+            <inertia ixx="0.0002835" ixy="0.0" ixz="0.0" iyy="0.0002835" iyz="0.0" izz="0.000324"/>
+        </inertial>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.06" length="0.09"/>
+            </geometry>
+        </collision>
+
+        <visual>
+        <origin rpy="0 0 1.57" xyz="0 0 0.05"/>
+        <geometry>
+            <box size="0.26 0.5 0.05"/>
+        </geometry>
+        </visual>
+    </link>
+
+    <link name="lidar_link">
+		<visual>
+            <origin rpy="0 0 1.57" xyz="0.065 0.0 0.05"/>
+            <geometry>
+                <box size="0.07 0.07 0.1"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+	</link>
+
+    <link name="camera_link">
+		<visual>
+            <origin rpy="0 0 1.57" xyz="0.0825 0.0 0.18"/>
+            <geometry>
+                <box size="0.13 0.03 0.03"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+	</link>
+
+    <link name="wheel_FL">
+        <visual>
+            <origin rpy="1.57 0.0 0.0" xyz="0.20 0.155 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <link name="wheel_FR">
+        <visual>
+            <origin rpy="1.57 0.0 0.0" xyz="0.20 -0.155 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <link name="wheel_RL">
+        <visual>
+            <origin rpy="1.57 0.0 0.0" xyz="-0.20 0.155 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <link name="wheel_RR">
+        <visual>
+            <origin rpy="1.57 0.0 0.0" xyz="-0.20 -0.155 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="camera_joint" type="fixed">
+        <parent link="lidar_link"/>
+        <child link="camera_link"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="wheel_FL_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="wheel_FL"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+    <joint name="wheel_FR_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="wheel_FR"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+    <joint name="wheel_RL_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="wheel_RL"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+    <joint name="wheel_RR_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="wheel_RR"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+
+  <gazebo reference="base_link">
+      <kp>100000.0</kp>
+      <kd>100000.0</kd>
+      <mu1>10.0</mu1>
+      <mu2>10.0</mu2>
+      <material>Gazebo/Grey</material>
+  </gazebo>
+
+    <!-- camera -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>15.0</update_rate>
+      <camera name="head">
+
+          <pose>0 0 0 0 0 0</pose>
+
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>400</width>
+          <height>400</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.01</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>my_robot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="lidar_link">
+      <material value="Gazebo/Blue" />
+      <sensor type="gpu_ray" name="head_hokuyo_sensor">
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>811</samples>
+              <resolution>1</resolution>
+              <min_angle>-2.35</min_angle>
+              <max_angle>2.35</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.02</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>lidar_link</frameName>
+      </plugin>
+      </sensor>
+    </gazebo>
+</robot>
