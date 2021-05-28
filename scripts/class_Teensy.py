@@ -9,7 +9,7 @@ class TeensyMjolnir():
         self.steering = 0.0
         self.speed = 0.0
 
-    def __poll(self):
+    def poll(self):
         """Get input values from Teensy in manual mode"""
         # Go over all messages (one per line) in the serial buffer
         # Store the values on board (speed,throttle,steering)
@@ -27,15 +27,15 @@ class TeensyMjolnir():
             elif 'steering' in mcu_message:
                 self.steering = number_in_message[0]
 
-    def __request_speed(self):
+    def request_speed(self):
         msg = f'pollSpeed\n'
         self.send(msg)
 
-    def __send_throttle(self, throttle):
+    def send_throttle(self, throttle):
         msg = f'commandThrottle_{throttle}\n'
         self.send(msg)
 
-    def __send_steering(self, steering):
+    def send_steering(self, steering):
         msg = f'commandSteering_{steering}\n'
         self.send(msg)
 
