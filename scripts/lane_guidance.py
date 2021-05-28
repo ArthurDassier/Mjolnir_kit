@@ -12,7 +12,7 @@ global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
 
-
+#whatt's up arthur
 def LineFollower(msg):
     kp = 0.80
     global steering_float, throttle_float
