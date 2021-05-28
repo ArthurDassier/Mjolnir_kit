@@ -14,8 +14,8 @@ def steering_callback(data):
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
     print("salut steering : " + str(angle_delta))
     print("salut normalized : " + str(normalized_steering))
-    sys.stdout.write("hey" + str(data) + " | " + str(normalized_steering))
-    TeensyMjolnir.__send_steering(data.data)
+    sys.stdout.write("stdout write : "  + str(data) + " | " + str(normalized_steering))
+    TeensyMjolnir.send_steering(data.data)
     #TeensyMjolnir().__send_throttle(data)
 
 
