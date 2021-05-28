@@ -13,21 +13,15 @@ esp = TeensyMjolnir()
 def steering_callback(data):
     normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
-    print("salut steering : " + str(angle_delta))
-    print("salut normalized : " + str(normalized_steering))
-    sys.stdout.write("stdout write : "  + str(data) + " | " + str(normalized_steering))
     esp.send_steering(angle_delta)
+    esp.poll()
     #TeensyMjolnir().__send_throttle(data)
 
 
 def steering_throttle(data):
     normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
-    print(data)
-    print(normalized_steering)
-    print("angle data throttle : " + str(angle_delta))
-    print("salut normalized : " + str(normalized_steering))
-    sys.stdout.write("hey" + str(data) + " | " + str(normalized_steering))
+
 
 
 def listener():

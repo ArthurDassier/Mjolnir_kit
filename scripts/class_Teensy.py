@@ -19,6 +19,8 @@ class TeensyMjolnir():
             mcu_message = self.ser.readline().decode().lower()  # The message coming in
             number_in_message = re.findall(r'\d+\.?\d*', mcu_message)  # Find number in message
 
+            print("message from teensy :" + str(mcu_message))
+
             self.watchdog_subthread.reset_countdown()  # Reset watchdog as soon as data is received
             if 'speed' in mcu_message:
                 self.speed = number_in_message[0]
