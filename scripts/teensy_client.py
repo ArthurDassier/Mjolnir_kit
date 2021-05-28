@@ -2,7 +2,7 @@
 import rospy
 import sys
 from std_msgs.msg import Float32
-# from class_Teensy import TeensyMjolnir
+from class_Teensy import TeensyMjolnir
 
 TEENSY_NODE_NAME = 'teensy_client'
 STEERING_TOPIC_NAME = '/steering'
@@ -12,9 +12,10 @@ THROTTLE_TOPIC_NAME = '/throttle'
 def steering_callback(data):
     normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
-    print("salut :" + str(data))
-    print("salut normalized :" + str(normalized_steering))
+    print("salut steering : " + str(angle_delta))
+    print("salut normalized : " + str(normalized_steering))
     sys.stdout.write("hey" + str(data) + " | " + str(normalized_steering))
+    TeensyMjolnir.__send_steering(data.data)
     #TeensyMjolnir().__send_throttle(data)
 
 
@@ -23,8 +24,8 @@ def steering_throttle(data):
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
     print(data)
     print(normalized_steering)
-    print("salut :" + str(data))
-    print("salut normalized :" + str(normalized_steering))
+    print("angle data throttle : " + str(angle_delta))
+    print("salut normalized : " + str(normalized_steering))
     sys.stdout.write("hey" + str(data) + " | " + str(normalized_steering))
 
 
