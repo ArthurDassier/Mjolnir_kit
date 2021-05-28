@@ -69,6 +69,15 @@ volatile unsigned long omegaB = 0;
 volatile unsigned long omegaC = 0;
 
 // ------------------------------------------------------------
+// Serial Interface data
+// ------------------------------------------------------------
+
+char rxBuffer[256];
+byte rxBufPtr = 0;
+bool cmdReadyToParse = false;
+bool commandParsed = false;
+
+// ------------------------------------------------------------
 // Main Functions
 // ------------------------------------------------------------
 
@@ -76,19 +85,18 @@ void setup() {
   initIO();
 
   Serial.begin(115200);
+
 }
 
 void loop() {
-  Serial.print("cntA: ");
-  Serial.println(cntA);
 
-  Serial.print("cntB: ");
-  Serial.println(cntB);
+  receiveSerialMessages();
+  parseMessageAndDispatch();
 
-  Serial.print("cntC: ");
-  Serial.println(cntC);
-
-  delay(1000);
+  //int avgSpeed = (ticA + ticB + ticC) / 3;
+  //Serial.println(avgSpeed);
+  
+  delay(10);
 }
 
 // ------------------------------------------------------------
