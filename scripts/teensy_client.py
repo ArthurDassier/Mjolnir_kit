@@ -11,8 +11,8 @@ THROTTLE_TOPIC_NAME = '/throttle'
 def steering_callback(data):
     normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
-    print(data)
-    print(normalized_steering)
+    print("salut :" + data)
+    print("salut normalized :" + normalized_steering)
     #TeensyMjolnir().__send_throttle(data)
 
 
