@@ -27,6 +27,10 @@ class TeensyMjolnir():
             elif 'steering' in mcu_message:
                 self.steering = number_in_message[0]
 
+    def emergency_stop(self):
+        msg = f'STOP\n'
+        self.send(msg)
+
     def request_speed(self):
         msg = f'pollSpeed\n'
         self.send(msg)

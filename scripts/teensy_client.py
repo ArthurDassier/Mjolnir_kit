@@ -8,6 +8,7 @@ TEENSY_NODE_NAME = 'teensy_client'
 STEERING_TOPIC_NAME = '/steering'
 THROTTLE_TOPIC_NAME = '/throttle'
 
+esp = TeensyMjolnir()
 
 def steering_callback(data):
     normalized_steering = data.data
@@ -15,7 +16,7 @@ def steering_callback(data):
     print("salut steering : " + str(angle_delta))
     print("salut normalized : " + str(normalized_steering))
     sys.stdout.write("stdout write : "  + str(data) + " | " + str(normalized_steering))
-    TeensyMjolnir.send_steering(data.data)
+    esp.send_steering(angle_delta)
     #TeensyMjolnir().__send_throttle(data)
 
 
