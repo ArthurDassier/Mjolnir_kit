@@ -97,13 +97,13 @@ void setup() {
 
 void loop() {
 
-  receiveSerialMessages();
-  parseMessageAndDispatch();
+  //receiveSerialMessages();
+  //parseMessageAndDispatch();
 
-  //int avgSpeed = (ticA + ticB + ticC) / 3;
-  //Serial.println(avgSpeed);
+  int avgSpeed = (ticA + ticB + ticC) / 3;
+  Serial.println(avgSpeed);
   
-  delay(10);
+  delay(100);
 }
 
 // ------------------------------------------------------------
