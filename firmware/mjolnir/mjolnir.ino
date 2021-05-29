@@ -78,6 +78,13 @@ bool cmdReadyToParse = false;
 bool commandParsed = false;
 
 // ------------------------------------------------------------
+// Global State Variables
+// ------------------------------------------------------------
+
+// TODO for testing, initialize to zero after testing done
+uint32_t carSpeedRPM = 65535;
+
+// ------------------------------------------------------------
 // Main Functions
 // ------------------------------------------------------------
 

@@ -1,3 +1,35 @@
+/*
+
+    Mjolnir <-> Jetson
+    Serial Interface Specification
+
+    Commands from JTN:
+      
+      commandThrottle_XX
+      > Commands Mjolnir to set Throttle PWM (RPM) to XX
+      > XX is float32, range [-1.0, 1.0]
+
+      commandSteering_XX
+      > Commands Mjolnir to set Steering PWM (angle) to XX
+      > XX is float32, range [-1.0, 1.0]
+
+      commandStop
+      > Commands Mjolnir to STOP all PWM outputs
+        > Set throttle to 0 RPM (brake)
+        > Set steering to angle 90 (straight)
+        > Note: to brake, ESC setting needs to be brake, not coast
+
+      pollSpeed
+      > Requests that Mjolnir send the motor RPM back to the JTN
+
+    Commands to JTN from Mjolnir:
+      responseSpeed_XX
+      > Sends the RPM of the motor back to the JTN
+      > XX is uint32_t representing the RPM
+
+
+ */
+
 static char rxChar;
 
 /*
@@ -42,13 +74,12 @@ void parseMessageAndDispatch() {
   //Serial.println(rxBuffer);
   //Serial.println(strcmp(rxBuffer, "requestSpeed"));
 
-       if (strncmp(rxBuffer, "requestSpeed",    12) == 0) dispatch_reqSpeed();
+       if (strncmp(rxBuffer, "pollSpeed",        9) == 0) dispatch_reqSpeed();
   else if (strncmp(rxBuffer, "commandSteering", 15) == 0) dispatch_setSteer();
   else if (strncmp(rxBuffer, "commandThrottle", 15) == 0) dispatch_setThrot(); 
   else if (strncmp(rxBuffer, "commandShutdown", 15) == 0) dispatch_stop();
-  else {
-    Serial.println("Invalid command :( ");
-  }
+
+  else Serial.println("Invalid command :(");
 
   // Reset the parsing structures
   cmdReadyToParse = false;
@@ -58,8 +89,8 @@ void parseMessageAndDispatch() {
 }
 
 void dispatch_reqSpeed() {
-  Serial.println("Sending speed! TODO");
-  Serial.println(rxBuffer);
+  Serial.print("speedRPM_");
+  Serial.println(carSpeedRPM);
 }
 
 void dispatch_setSteer() {
