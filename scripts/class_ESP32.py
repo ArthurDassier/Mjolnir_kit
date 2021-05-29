@@ -5,7 +5,7 @@ import re
 
 class ESP32_Mjolnir():
     def __init__(self):
-        self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate='115200')
+        self.ser = serial.Serial(port='/dev/ttyACM0', baudrate='115200')
         self.throttle = 0.0
         self.steering = 0.0
         self.speed = 0.0
