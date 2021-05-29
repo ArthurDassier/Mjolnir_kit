@@ -11,18 +11,18 @@ void IRAM_ATTR isr_APulse() {
   //}
 
   ticA = micros();
-  omegaAPeriod = ticA - tocA;
+  omegaA = ticA - tocA;
   tocA = ticA;
 }
 
 void IRAM_ATTR isr_BPulse() {
   ticB = micros();
-  omegaBPeriod = ticB - tocB;
+  omegaB = ticB - tocB;
   tocB = ticB;
 }
 
 void IRAM_ATTR isr_CPulse() {
   ticC = micros();
-  omegaCPeriod = ticC - tocC;
+  omegaC = ticC - tocC;
   tocC = ticC;
 }
