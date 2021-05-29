@@ -17,7 +17,7 @@ def steering_callback(data):
     normalized_steering = data.data
     angle_delta = normalized_steering * 90  # difference in degrees from the center 90 degrees
     esp.send_steering(angle_delta)
-    esp.poll()
+    esp.get_input()
 
 
 def throttle_callback(data):
