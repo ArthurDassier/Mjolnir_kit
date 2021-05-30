@@ -2,7 +2,11 @@
    ISR Routines
  */
 
+#if defined(ARDUINO_TEENSY40)
+void isr_APulse() {
+#else
 void IRAM_ATTR isr_APulse() {
+#endif
   //if (digitalRead(sens_pinB) == HIGH) { //Confirm if we are moving forward
   //  inReverse = false;
   //}
@@ -10,19 +14,33 @@ void IRAM_ATTR isr_APulse() {
   //  inReverse = true;
   //}
 
-  ticA = micros();
-  omegaA = ticA - tocA;
-  tocA = ticA;
+  //ticA = micros();
+  //omegaA = ticA - tocA;
+  //tocA = ticA;
+
+  ticA ++;
 }
 
+#if defined(ARDUINO_TEENSY40)
+void isr_BPulse() {
+#else
 void IRAM_ATTR isr_BPulse() {
-  ticB = micros();
-  omegaB = ticB - tocB;
-  tocB = ticB;
+#endif
+  //ticB = micros();
+  //omegaB = ticB - tocB;
+  //tocB = ticB;
+
+  ticB ++;
 }
 
+#if defined(ARDUINO_TEENSY40)
+void isr_CPulse() {
+#else
 void IRAM_ATTR isr_CPulse() {
-  ticC = micros();
-  omegaC = ticC - tocC;
-  tocC = ticC;
+#endif
+  //ticC = micros();
+  //omegaC = ticC - tocC;
+  //tocC = ticC;
+
+  ticC ++;
 }

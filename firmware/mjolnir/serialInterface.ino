@@ -3,29 +3,39 @@
     Mjolnir <-> Jetson
     Serial Interface Specification
 
+    Jetson Nano (JTN) ALWAYS initiates communication
+
     Commands from JTN:
       
-      commandThrottle_XX
+      t_XX
+      > CommandThrottle
       > Commands Mjolnir to set Throttle PWM (RPM) to XX
       > XX is float32, range [-1.0, 1.0]
 
-      commandSteering_XX
+      s_XX
+      > Command Steering
       > Commands Mjolnir to set Steering PWM (angle) to XX
       > XX is float32, range [-1.0, 1.0]
 
-      commandStop
+      e
+      > Emergency Stop
       > Commands Mjolnir to STOP all PWM outputs
-        > Set throttle to 0 RPM (brake)
-        > Set steering to angle 90 (straight)
+        > Set throttle PWM pulse width to 1500 microseconds (neutral)
+        > Set steering PWM pulse width to 1500 microseconds (0 degrees)
         > Note: to brake, ESC setting needs to be brake, not coast
 
-      pollSpeed
+      p
+      > Poll Speed
       > Requests that Mjolnir send the motor RPM back to the JTN
 
     Commands to JTN from Mjolnir:
-      responseSpeed_XX
+      r_XX
       > Sends the RPM of the motor back to the JTN
       > XX is uint32_t representing the RPM
+
+    
+    Note: Try not to contaminate the Serial interface for debug,
+          to simplify parsing commands from the Jetson side
 
 
  */
@@ -74,12 +84,15 @@ void parseMessageAndDispatch() {
   //Serial.println(rxBuffer);
   //Serial.println(strcmp(rxBuffer, "requestSpeed"));
 
-       if (strncmp(rxBuffer, "pollSpeed",        9) == 0) dispatch_reqSpeed();
-  else if (strncmp(rxBuffer, "commandSteering", 15) == 0) dispatch_setSteer();
-  else if (strncmp(rxBuffer, "commandThrottle", 15) == 0) dispatch_setThrot(); 
-  else if (strncmp(rxBuffer, "commandShutdown", 15) == 0) dispatch_stop();
+  switch (rxBuffer[0])
+  {
+    case 't': dispatch_setThrot(); break;
+    case 's': dispatch_setSteer(); break;
+    case 'p': dispatch_reqSpeed(); break;
+    case 'e': dispatch_stop();     break;
 
-  else Serial.println("Invalid command :(");
+    //default:  Serial.println("Invalid command :(");
+  }
 
   // Reset the parsing structures
   cmdReadyToParse = false;
@@ -94,16 +107,36 @@ void dispatch_reqSpeed() {
 }
 
 void dispatch_setSteer() {
-  Serial.println("Setting steering! TODO");
-  Serial.println(rxBuffer);
+  //Serial.println("Setting steering!");
+  //Serial.println(rxBuffer);
+
+  float recvSteer = atof(&rxBuffer[2]);
+  if (recvSteer < -1.0 || recvSteer > 1.0) return;
+
+  uint32_t steerOut = (uint32_t) ((recvSteer * 500) + 1500);
+
+  //Serial.println(recvSteer);
+  //Serial.println(steerOut);
+  pwmSteering.writeMicroseconds(steerOut);
 }
 
 void dispatch_setThrot() {
-  Serial.println("Setting throttle! TODO");
-  Serial.println(rxBuffer);
+  //Serial.println("Setting throttle!");
+  //Serial.println(rxBuffer);
+
+  float recvThrot = atof(&rxBuffer[2]);
+  if (recvThrot < -1.0 || recvThrot > 1.0) return;
+
+  uint32_t throttleOutput = (uint32_t) ((recvThrot * 500) + 1500);
+
+  //Serial.println(recvThrot);
+  //Serial.println(throttleOutput);
+  pwmThrottle.writeMicroseconds(throttleOutput);
 }
 
 void dispatch_stop() {
-  Serial.println("E-Stop! TODO");
-  Serial.println(rxBuffer);
+  //Serial.println("E-Stop!");
+  //Serial.println(rxBuffer);
+  pwmThrottle.writeMicroseconds(1500);
+  pwmSteering.writeMicroseconds(1500);
 }

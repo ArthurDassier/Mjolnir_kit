@@ -36,27 +36,43 @@
   // ESP32 has special Servo library port for some reason BUT API is identical
   // https://github.com/jkb-git/ESP32Servo
   #include <ESP32Servo.h>
-#elif defined(ESP8266)
+#elif defined(ESP8266) or defined(ARDUINO_TEENSY40)
   #include <Servo.h>
 #else
-  #error "Code is low-level optimized for ESP8266/ESP32 only. Sorry :/"
+  #error "Code is low-level optimized for ESP8266/ESP32 or Teensy 4.0 only. Sorry :/"
+#endif
+
+#if not defined(ESP32)
+  #warning "Code may not be fully compatible, it is optimized for ESP32 for final project"
 #endif
 
 // ------------------------------------------------------------
 // I/O Pins
 // ------------------------------------------------------------
 
-#define sens_pinA  2
-#define sens_pinB  3
-#define sens_pinC  4
+#define sens_pinA  1
+#define sens_pinB  2
+#define sens_pinC  3
+
+#define pinThrottle  5
+#define pinSteering  7
+
+Servo pwmThrottle;
+Servo pwmSteering;
 
 // ------------------------------------------------------------
 // ISR Declarations/Shared Variables
 // ------------------------------------------------------------
 
-void IRAM_ATTR isr_APulse();
-void IRAM_ATTR isr_BPulse();
-void IRAM_ATTR isr_CPulse();
+#if defined(ESP32) or defined(ESP8266)
+  void IRAM_ATTR isr_APulse();
+  void IRAM_ATTR isr_BPulse();
+  void IRAM_ATTR isr_CPulse();
+#else
+  void isr_APulse();
+  void isr_BPulse();
+  void isr_CPulse();
+#endif
 
 volatile unsigned long ticA = 0;
 volatile unsigned long ticB = 0;
@@ -91,19 +107,17 @@ uint32_t carSpeedRPM = 65535;
 void setup() {
   initIO();
 
-  Serial.begin(115200);
+  //Serial.begin(115200);
+
+  Serial.begin(460800);
 
 }
 
 void loop() {
 
-  //receiveSerialMessages();
-  //parseMessageAndDispatch();
+  receiveSerialMessages();
+  parseMessageAndDispatch();
 
-  int avgSpeed = (ticA + ticB + ticC) / 3;
-  Serial.println(avgSpeed);
-  
-  delay(100);
 }
 
 // ------------------------------------------------------------
@@ -118,6 +132,13 @@ void initIO() {
   attachInterrupt(digitalPinToInterrupt(sens_pinA), isr_APulse, RISING);
   attachInterrupt(digitalPinToInterrupt(sens_pinB), isr_BPulse, RISING);
   attachInterrupt(digitalPinToInterrupt(sens_pinC), isr_CPulse, RISING);
+
+  pinMode(pinThrottle, OUTPUT);
+  pinMode(pinSteering, OUTPUT);
+  pwmSteering.attach(pinSteering);
+
+  pwmThrottle.writeMicroseconds(1500);
+  pwmThrottle.writeMicroseconds(1500);
 }
 
 
