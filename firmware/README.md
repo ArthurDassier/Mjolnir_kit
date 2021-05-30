@@ -16,25 +16,29 @@ Mjölnir is the name of the ESP32 on our car. It is responsible for a variety of
 
 #### Commands from Jetson to Mjolnir:
   
-`commandThrottle_XX`
+`t_XX`
+* CommandThrottle
 * Commands Mjolnir to set Throttle PWM (RPM) to XX
 * XX is float32, range [-1.0, 1.0]
 
-`commandSteering_XX`
+`s_XX`
+* Command Steering
 * Commands Mjolnir to set Steering PWM (angle) to XX
 * XX is float32, range [-1.0, 1.0]
 
-`commandStop`
+`e`
+* Emergency Stop
 * Commands Mjolnir to STOP all PWM outputs
-* Set throttle to 0 RPM (brake)
-* Set steering to angle 90 (straight)
+* Set throttle PWM pulse width to 1500 microseconds (neutral)
+* Set steering PWM pulse width to 1500 microseconds (0 degrees)
 * Note: to brake, ESC setting needs to be brake, not coast
 
-`pollSpeed`
+`p`
+* Poll Speed
 * Requests that Mjolnir send the motor RPM to the JTN using the `responseSpeed_XX` message
 
 #### Commands/Messages from Jetson to Mjolnir:
-`responseSpeed_XX`
+`r_XX`
 * Sends the RPM of the motor back to the JTN
 * XX is uint32 representing the RPM
 

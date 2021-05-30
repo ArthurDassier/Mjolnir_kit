@@ -107,9 +107,9 @@ uint32_t carSpeedRPM = 65535;
 void setup() {
   initIO();
 
-  Serial.begin(115200);
+  //Serial.begin(115200);
 
-  //Serial.begin(460800);
+  Serial.begin(460800);
 
 }
 
