@@ -118,23 +118,6 @@ void loop() {
   receiveSerialMessages();
   parseMessageAndDispatch();
 
-  //int avgSpeed = (ticA + ticB + ticC) / 3;
-  //Serial.println(avgSpeed);
-  //Serial.print("ticA: ");
-  //Serial.println(ticA);
-  //Serial.print("ticB: ");
-  //Serial.println(ticB);
-  //Serial.print("ticC: ");
-  //Serial.println(ticC);
-  //Serial.println();
-
-  //pwmThrottle.writeMicroseconds(1700);
-  //pwmThrottle.writeMicroseconds(1500);
-
-  //pwmSteering.writeMicroseconds(1500);
-  //delay(500);
-  //pwmSteering.writeMicroseconds(999);
-  //delay(500);
 }
 
 // ------------------------------------------------------------

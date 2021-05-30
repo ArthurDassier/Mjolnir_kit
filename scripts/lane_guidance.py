@@ -12,9 +12,9 @@ global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
 
-
+#whatt's up arthur
 def LineFollower(msg):
-    kp = 0.195
+    kp = 0.80
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
@@ -23,10 +23,10 @@ def LineFollower(msg):
 
     if msg.data == 0:
         error_x = 0
-        throttle_float = 0.07
+        throttle_float = 0.08 #previous value is 0.1
     else:
         error_x = float(centroid - (width / 2))
-        throttle_float = 0.08
+        throttle_float = 0.08 #previous values is 0.1
 
     steering_float = float(kp * (error_x / (width / 2)))
     if steering_float < -1:
