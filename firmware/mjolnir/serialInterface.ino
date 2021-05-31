@@ -107,28 +107,26 @@ void dispatch_reqSpeed() {
 }
 
 void dispatch_setSteer() {
-  //Serial.println("Setting steering!");
-  //Serial.println(rxBuffer);
-
   float recvSteer = atof(&rxBuffer[2]);
   if (recvSteer < -1.0 || recvSteer > 1.0) return;
 
   uint32_t steerOut = (uint32_t) ((recvSteer * 500) + 1500);
 
+  //Serial.println(rxBuffer);
+  //Serial.println("Setting steering!");
   //Serial.println(recvSteer);
   //Serial.println(steerOut);
   pwmSteering.writeMicroseconds(steerOut);
 }
 
 void dispatch_setThrot() {
-  //Serial.println("Setting throttle!");
-  //Serial.println(rxBuffer);
-
   float recvThrot = atof(&rxBuffer[2]);
   if (recvThrot < -1.0 || recvThrot > 1.0) return;
 
   uint32_t throttleOutput = (uint32_t) ((recvThrot * 500) + 1500);
 
+  //Serial.println(rxBuffer);
+  //Serial.println("Setting throttle!");
   //Serial.println(recvThrot);
   //Serial.println(throttleOutput);
   pwmThrottle.writeMicroseconds(throttleOutput);
@@ -137,6 +135,11 @@ void dispatch_setThrot() {
 void dispatch_stop() {
   //Serial.println("E-Stop!");
   //Serial.println(rxBuffer);
-  pwmThrottle.writeMicroseconds(1500);
+
+  // Setting throttle to reverse for a little bit actually forces the ESC
+  // to brake
+  pwmThrottle.writeMicroseconds(1300);
   pwmSteering.writeMicroseconds(1500);
+  vTaskDelay(100);
+  pwmThrottle.writeMicroseconds(1500);
 }

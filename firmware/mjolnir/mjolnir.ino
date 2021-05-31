@@ -15,20 +15,25 @@
  |  Mjölnir is responsible for the following tasks:
  |    - Hosts a basic text interface over serial to receive commands
  |      from a master device (Jetson Nano or other SBC)
- |
  |    - Measures the speed of the main throttle BLDC via its 3 hall-effect encoder,
  |      and sends them to the Master SBC upon request
- |
  |    - Receives PWM commands from the Master SBC, and forwards them
  |      to the Throttle ESC/Steering Servo
- |
  |    - Communicates with PhoneApp via MQTT client to implement an emergency stop
- |
  |    - Ensures that the Master SBC sends a periodic heartbeat to remain operational,
  |      otherwise performs emergency stop
- |
  |    - Utilizes an internal Watchdog Timer to ensure it remains operational under
  |      unexpected software lockups
+ |
+ |  I/O Connections on ESP32:
+ |    Red:       3V3
+ |    Black:     GND
+ |    Orange: Pin 17
+ |    Yellow: Pin 16
+ |    Green:  Pin  4
+ |    Blue:   Pin  0 // DON'T USE THIS, Doesn't work
+ |    Brown:  Pin  2
+#00b100ff
  |
 */
 
@@ -50,12 +55,13 @@
 // I/O Pins
 // ------------------------------------------------------------
 
-#define sens_pinA  1
-#define sens_pinB  2
-#define sens_pinC  3
+// TODO these are nonsense atm, fix soon
+#define sens_pinA  10
+#define sens_pinB  11
+#define sens_pinC  12
 
-#define pinThrottle  5
-#define pinSteering  7
+#define pinThrottle  2
+#define pinSteering  4
 
 Servo pwmThrottle;
 Servo pwmSteering;
@@ -109,7 +115,7 @@ void setup() {
 
   //Serial.begin(115200);
 
-  Serial.begin(460800);
+  Serial.begin(500000);
 
 }
 
@@ -126,19 +132,19 @@ void loop() {
 
 void initIO() {
   // Attach the interrupts that will read the BLDC encoder to measure the speed
-  pinMode(sens_pinA, INPUT_PULLUP);
-  pinMode(sens_pinB, INPUT_PULLUP);
-  pinMode(sens_pinC, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(sens_pinA), isr_APulse, RISING);
-  attachInterrupt(digitalPinToInterrupt(sens_pinB), isr_BPulse, RISING);
-  attachInterrupt(digitalPinToInterrupt(sens_pinC), isr_CPulse, RISING);
+  //pinMode(sens_pinA, INPUT_PULLUP);
+  //pinMode(sens_pinB, INPUT_PULLUP);
+  //pinMode(sens_pinC, INPUT_PULLUP);
+  //attachInterrupt(digitalPinToInterrupt(sens_pinA), isr_APulse, RISING);
+  //attachInterrupt(digitalPinToInterrupt(sens_pinB), isr_BPulse, RISING);
+  //attachInterrupt(digitalPinToInterrupt(sens_pinC), isr_CPulse, RISING);
 
   pinMode(pinThrottle, OUTPUT);
   pinMode(pinSteering, OUTPUT);
   pwmSteering.attach(pinSteering);
-
+  pwmThrottle.attach(pinThrottle);
   pwmThrottle.writeMicroseconds(1500);
-  pwmThrottle.writeMicroseconds(1500);
+  pwmSteering.writeMicroseconds(1500);
 }
 
 
