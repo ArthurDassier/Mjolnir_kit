@@ -51,17 +51,19 @@
   #warning "Code may not be fully compatible, it is optimized for ESP32 for final project"
 #endif
 
+#include "defines.h"
+
+// ------------------------------------------------------------
+// WiFi/MQTT Definitions
+// ------------------------------------------------------------
+
+// The MQTT Client objects
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
 // ------------------------------------------------------------
 // I/O Pins
 // ------------------------------------------------------------
-
-// TODO these are nonsense atm, fix soon
-#define sens_pinA  10
-#define sens_pinB  11
-#define sens_pinC  12
-
-#define pinThrottle  2
-#define pinSteering  4
 
 Servo pwmThrottle;
 Servo pwmSteering;
@@ -106,12 +108,21 @@ bool commandParsed = false;
 // TODO for testing, initialize to zero after testing done
 uint32_t carSpeedRPM = 65535;
 
+enum {
+  MJOLNIR_ACTIVE,
+  MJOLNIR_ESTOP,
+  MJOLNIR_REMOTE_OVERRIDE
+} mjolnir_state;
+
 // ------------------------------------------------------------
 // Main Functions
 // ------------------------------------------------------------
 
 void setup() {
   initIO();
+  initMQTT();
+
+  mjolnir_state = MJOLNIR_ACTIVE;
 
   //Serial.begin(115200);
 
@@ -121,9 +132,27 @@ void setup() {
 
 void loop() {
 
-  receiveSerialMessages();
-  parseMessageAndDispatch();
 
+  // Force reconnect if disconnected
+  // TODO Make sure this does not interfere w/ Real-Time tasks
+  if (!mqttClient.connected()) {
+    mqttReconnect();
+  }
+  mqttClient.loop();
+
+  switch(mjolnir_state) {
+
+    case MJOLNIR_ACTIVE:
+      receiveSerialMessages();
+      parseMessageAndDispatch();
+      break;
+
+    case MJOLNIR_ESTOP:
+      break;
+
+    case MJOLNIR_REMOTE_OVERRIDE:
+      break;
+  }
 }
 
 // ------------------------------------------------------------
@@ -147,4 +176,29 @@ void initIO() {
   pwmSteering.writeMicroseconds(1500);
 }
 
+void initMQTT() {
+  Serial.print(F("Connecting to network "));
+  Serial.println(SSID);
 
+  WiFi.begin(SSID, PSWD);
+
+  unsigned int retry = 0;
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+
+    if (retry++ > 10) {
+      Serial.println("");
+      Serial.print("Network failed after several retries");
+      ESP.restart();
+    }
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.print("Mjolnir IP address: ");
+  Serial.println(WiFi.localIP());
+
+  mqttClient.setServer(MQTT_SERV_IP, MQTT_PORT);
+  mqttClient.setCallback(mqttMsgRecvCallback);
+}

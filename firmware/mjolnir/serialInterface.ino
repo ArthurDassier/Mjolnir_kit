@@ -42,6 +42,17 @@
 
 static char rxChar;
 
+void resetSerialBuffer() {
+  rxBufPtr = 0;
+  cmdReadyToParse = false;
+  commandParsed   = false;
+
+  // Flush the Arduino Serial buffer
+  while(Serial.available() > 0) {
+    char t = Serial.read();
+  }
+}
+
 /*
  * Receives messages from the Serial interface and puts them
  * in a buffer, ready to be parsed
@@ -140,6 +151,6 @@ void dispatch_stop() {
   // to brake
   pwmThrottle.writeMicroseconds(1300);
   pwmSteering.writeMicroseconds(1500);
-  vTaskDelay(100);
+  vTaskDelay(300);
   pwmThrottle.writeMicroseconds(1500);
 }
