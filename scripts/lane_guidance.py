@@ -14,17 +14,16 @@ KP_TOPIC_NAME = 'app/pid/kp'
 KI_TOPIC_NAME = 'app/pid/ki'
 KD_TOPIC_NAME = 'app/pid/kd'
 
-global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
+
+kp = 0.50
+ki = 0.50
+kd = 0.50
 
 #whatt's up arthur
 #'sup fade
 def LineFollower(msg):
-    kp = 0.50
-    global steering_float, throttle_float
-    steering_float = Float32()
-    throttle_float = Float32()
     centroid = msg.data[0]
     width = msg.data[1]  # width of camera frame
 
@@ -54,7 +53,21 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     ''''''
-    print("Message received : " + str(msg.topic) + " " + str(msg.payload))
+    topic = str(msg.topic)
+    payload = msg.payload.decode('utf-8')
+    print("Message received : " + topic + " " + payload)
+
+    if topic == KP_TOPIC_NAME:
+        print("Message KP_TOPIC_NAME DETECTED")
+        kp = payload
+    elif topic == KI_TOPIC_NAME:
+        print("Message KI_TOPIC_NAME DETECTED")
+        ki = payload
+    elif topic == KD_TOPIC_NAME:
+        print("Message KD_TOPIC_NAME DETECTED")
+        kd = payload
+    else:
+        print("! ! ! UNKNOWN TOPIC NAME ! ! !")
 
 
 if __name__ == '__main__':
