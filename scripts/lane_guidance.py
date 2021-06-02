@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import rospy
+import paho.mqtt.client as mqtt
+
 from std_msgs.msg import Float32, Int32, Int32MultiArray
 
 
@@ -8,11 +10,16 @@ STEERING_TOPIC_NAME = '/steering'
 THROTTLE_TOPIC_NAME = '/throttle'
 CENTROID_TOPIC_NAME = '/centroid'
 
+KP_TOPIC_NAME = 'app/pid/kp'
+KI_TOPIC_NAME = 'app/pid/ki'
+KD_TOPIC_NAME = 'app/pid/kd'
+
 global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
 
 #whatt's up arthur
+#'sup fade
 def LineFollower(msg):
     kp = 0.80
     global steering_float, throttle_float
@@ -39,8 +46,32 @@ def LineFollower(msg):
     throttle_pub.publish(throttle_float)
 
 
+def kp_received(data):
+    kp = data.data
+
+
+def ki_received(data):
+    ki = data.data
+
+
+def kd_received(data):
+    kd = data.data
+
+
+def on_connect():
+    kp_subscriber = rospy.Subscriber(KP_TOPIC_NAME, Int32MultiArray, kp_received)
+    ki_subscriber = rospy.Subscriber(KI_TOPIC_NAME, Int32MultiArray, ki_received)
+    kd_subscriber = rospy.Subscriber(KD_TOPIC_NAME, Int32MultiArray, kd_received)
+
+
 if __name__ == '__main__':
+    ''''''
     rospy.init_node(LANE_GUIDANCE_NODE_NAME, anonymous=False)
+
+    mqtt_client = mqtt.Client("digi_mqtt_test")
+    mqtt_client.connect("ucsdrobocar-148-77", 1883)
+    mqtt_client.loop_start()
+
     centroid_subscriber = rospy.Subscriber(CENTROID_TOPIC_NAME, Int32MultiArray, LineFollower)
     steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
     throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
