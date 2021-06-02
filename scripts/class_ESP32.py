@@ -5,7 +5,7 @@ import re
 
 class ESP32_Mjolnir():
     def __init__(self):
-        self.ser = serial.Serial(port='/dev/ttyACM0', baudrate='115200')
+        self.ser = serial.Serial(port='/dev/ttyUSB0', baudrate='500000')
         self.throttle = 0.0
         self.steering = 0.0
         self.speed = 0.0
@@ -22,19 +22,19 @@ class ESP32_Mjolnir():
             #     self.speed = number_in_message[0]
 
     def emergency_stop(self):
-        msg = f'STOP\n'
+        msg = f'e\n'
         self.send(msg)
 
     def request_speed(self):
-        msg = f'pollSpeed\n'
+        msg = f'p\n'
         self.send(msg)
 
     def send_throttle(self, throttle):
-        msg = f'commandThrottle_{throttle}\n'
+        msg = f't_{throttle}\n'
         self.send(msg)
 
     def send_steering(self, steering):
-        msg = f'commandSteering_{steering}\n'
+        msg = f's_{steering}\n'
         self.send(msg)
 
     def send(self, msg):
