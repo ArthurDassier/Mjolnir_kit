@@ -26,6 +26,10 @@ Mjölnir is the name of the ESP32 on our car. It is responsible for a variety of
 * Commands Mjolnir to set Steering PWM (angle) to XX
 * XX is float32, range [-1.0, 1.0]
 
+`h`
+* Heartbeat
+* MUST be received periodically, otherwise assume master controller has disconnected, and performs E-Stop
+
 `e`
 * Emergency Stop
 * Commands Mjolnir to STOP all PWM outputs

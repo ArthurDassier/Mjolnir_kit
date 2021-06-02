@@ -17,6 +17,11 @@
       > Commands Mjolnir to set Steering PWM (angle) to XX
       > XX is float32, range [-1.0, 1.0]
 
+      h
+      > Heartbeat
+      > MUST be received periodically, otherwise assume master
+        controller has disconnected, and performs E-Stop
+
       e
       > Emergency Stop
       > Commands Mjolnir to STOP all PWM outputs
@@ -97,10 +102,11 @@ void parseMessageAndDispatch() {
 
   switch (rxBuffer[0])
   {
-    case 't': dispatch_setThrot(); break;
-    case 's': dispatch_setSteer(); break;
-    case 'p': dispatch_reqSpeed(); break;
-    case 'e': dispatch_stop();     break;
+    case 't': dispatch_setThrot();  break;
+    case 's': dispatch_setSteer();  break;
+    case 'p': dispatch_reqSpeed();  break;
+    case 'h': dispatch_heartbeat(); break;
+    case 'e': dispatch_stop();      break;
 
     //default:  Serial.println("Invalid command :(");
   }
@@ -141,6 +147,10 @@ void dispatch_setThrot() {
   //Serial.println(recvThrot);
   //Serial.println(throttleOutput);
   pwmThrottle.writeMicroseconds(throttleOutput);
+}
+
+void dispatch_heartbeat () {
+  // TODO: Reset the heartbeat counter
 }
 
 void dispatch_stop() {
