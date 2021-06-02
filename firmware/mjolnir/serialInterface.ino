@@ -151,6 +151,6 @@ void dispatch_stop() {
   // to brake
   pwmThrottle.writeMicroseconds(1300);
   pwmSteering.writeMicroseconds(1500);
-  vTaskDelay(300);
+  delay(300);
   pwmThrottle.writeMicroseconds(1500);
 }
