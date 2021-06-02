@@ -46,22 +46,15 @@ def LineFollower(msg):
     throttle_pub.publish(throttle_float)
 
 
-def kp_received(data):
-    kp = data.data
+def on_connect(client, userdata, flags, rc):
+    client.subscribe(KP_TOPIC_NAME)
+    client.subscribe(KI_TOPIC_NAME)
+    client.subscribe(KD_TOPIC_NAME)
 
 
-def ki_received(data):
-    ki = data.data
-
-
-def kd_received(data):
-    kd = data.data
-
-
-def on_connect():
-    kp_subscriber = rospy.Subscriber(KP_TOPIC_NAME, Int32MultiArray, kp_received)
-    ki_subscriber = rospy.Subscriber(KI_TOPIC_NAME, Int32MultiArray, ki_received)
-    kd_subscriber = rospy.Subscriber(KD_TOPIC_NAME, Int32MultiArray, kd_received)
+def on_message(client, userdata, msg):
+    ''''''
+    print("Message received : " + str(msg.topic) + " " + str(msg.payload))
 
 
 if __name__ == '__main__':
@@ -69,6 +62,8 @@ if __name__ == '__main__':
     rospy.init_node(LANE_GUIDANCE_NODE_NAME, anonymous=False)
 
     mqtt_client = mqtt.Client("digi_mqtt_test")
+    mqtt_client.on_connect = on_connect
+    mqtt_client.on_message = on_message
     mqtt_client.connect("ucsdrobocar-148-77", 1883)
     mqtt_client.loop_start()
 
