@@ -42,7 +42,7 @@ def LineFollower(msg):
         pass
 
     # Derivative (band-limited differentiator)
-    PIDController.differentiator = -(2.0 * PIDController.kd * (measurement - PIDController.prevMeasurement)
+    PIDController.differentiator = -(2.0 * PIDController.kd #* (measurement - PIDController.prevMeasurement)
     + (2.0 * PIDController.tau - PIDController.T) * PIDController.differentiator) / (2.0 * PIDController.tau + PIDController.T)
 
     #Compute output and apply limits
