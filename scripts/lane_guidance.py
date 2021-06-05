@@ -52,7 +52,7 @@ def LineFollower(msg):
     elif (PIDController.out < PIDController.limMin):
         PIDController.out = PIDController.limMin
 
-    print("Steering & Throttle published : " + PIDController.out + " " + throttle_float)
+    print("Steering & Throttle published : " + str(PIDController.out) + " " + str(throttle_float))
     steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
 
