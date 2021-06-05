@@ -56,7 +56,7 @@ def LineFollower(msg):
     throttle_pub.publish(throttle_float)
 
     PIDController.prevError = error_x
-    PIDController.prevMeasurement = centroid
+    PIDController.prevCentroid = centroid
 
 
 def on_connect(client, userdata, flags, rc):

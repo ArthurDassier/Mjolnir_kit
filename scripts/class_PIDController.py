@@ -19,7 +19,7 @@ class PIDController():
         self.integrator = 0.5
         self.prevError = 0.5
         self.differentiator = 0.5
-        self.prevMeasurement = 0.5
+        self.prevCentroid = 0.5
         self.out = 0.5
 
     def get_input(self):
