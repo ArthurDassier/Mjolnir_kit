@@ -68,7 +68,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     ''''''
     topic = str(msg.topic)
-    payload = msg.payload.decode('utf-8')
+    payload = float(msg.payload.decode('utf-8'))
     print("Message received : " + topic + " " + payload)
 
     if topic == KP_TOPIC_NAME:
