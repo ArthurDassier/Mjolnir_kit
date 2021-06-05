@@ -53,9 +53,9 @@ def LineFollower(msg):
         PIDController.out = PIDController.limMin
 
     print("--------------------------------------------------------------")
-    print("Centroid & width / 2 : " + str(centroid) + " / " + str(width / 2))
-    print("KP & The error : " + str(PIDController.kp) + " / " + str(error_x))
-    print("Steering & Throttle published : " + str(PIDController.out) + " / " + str(throttle_float))
+    print("Centroid & width / 2 : " + str(centroid) + " " + str(width / 2))
+    print("KP & The error : " + str(PIDController.kp) + " " + str(error_x))
+    print("Steering & Throttle published : " + str(PIDController.out) + " " + str(throttle_float))
     print("--------------------------------------------------------------")
     steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
@@ -77,13 +77,10 @@ def on_message(client, userdata, msg):
     print("Message received : " + topic + " " + payload)
 
     if topic == KP_TOPIC_NAME:
-        print("Message KP_TOPIC_NAME DETECTED")
         PIDController.kp = payload
     elif topic == KI_TOPIC_NAME:
-        print("Message KI_TOPIC_NAME DETECTED")
         PIDController.ki = payload
     elif topic == KD_TOPIC_NAME:
-        print("Message KD_TOPIC_NAME DETECTED")
         PIDController.kd = payload
     else:
         print("! ! ! UNKNOWN TOPIC NAME ! ! !")
