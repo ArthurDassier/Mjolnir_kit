@@ -27,17 +27,17 @@ def LineFollower(msg):
     width = msg.data[1]  # width of camera frame
 
     if msg.data == 0:
-        error_x = 0
+        error_x = 0.0
         throttle_float = 0.08 #previous value is 0.1
     else:
         error_x = float(centroid - (width / 2))
         throttle_float = 0.08 #previous values is 0.1
 
     PIDController.integrator = float(PIDController.kp * (error_x / (width / 2)))
-    if PIDController.integrator < -1:
-        PIDController.integrator = -1
-    elif PIDController.integrator > 1:
-        PIDController.integrator = 1
+    if PIDController.integrator < -1.0:
+        PIDController.integrator = -1.0
+    elif PIDController.integrator > 1.0:
+        PIDController.integrator = 1.0
     else:
         pass
 
