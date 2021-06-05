@@ -2,7 +2,7 @@
 import rospy
 import paho.mqtt.client as mqtt
 
-from class_PIDController.py import PIDController
+from class_PIDController import PIDController
 from std_msgs.msg import Float32, Int32, Int32MultiArray
 
 
