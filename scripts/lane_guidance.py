@@ -34,7 +34,7 @@ def LineFollower(msg):
         error_x *= PIDController.errorNormalize
         throttle_float = 0.08 #previous values is 0.1
 
-    PIDController.integrator = float(PIDController.kp * (error_x / (width / 2)))
+    PIDController.integrator = float(PIDController.ki * (error_x / (width / 2)))
     if PIDController.integrator < -1.0:
         PIDController.integrator = -1.0
     elif PIDController.integrator > 1.0:
