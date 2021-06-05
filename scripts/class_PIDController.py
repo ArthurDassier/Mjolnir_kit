@@ -15,6 +15,7 @@ class PIDController():
         self.limMinInt = -1
         self.limMaxInt = 1
 
+        self.errorNormalize = (1.0/400.0)
         self.T = 0.5
         self.integrator = 0.5
         self.prevError = 0.5
