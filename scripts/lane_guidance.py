@@ -73,13 +73,13 @@ def on_message(client, userdata, msg):
 
     if topic == KP_TOPIC_NAME:
         print("Message KP_TOPIC_NAME DETECTED")
-        kp = payload
+        PIDController.kp = payload
     elif topic == KI_TOPIC_NAME:
         print("Message KI_TOPIC_NAME DETECTED")
-        ki = payload
+        PIDController.ki = payload
     elif topic == KD_TOPIC_NAME:
         print("Message KD_TOPIC_NAME DETECTED")
-        kd = payload
+        PIDController.kd = payload
     else:
         print("! ! ! UNKNOWN TOPIC NAME ! ! !")
 
