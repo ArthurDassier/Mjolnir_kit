@@ -55,12 +55,9 @@ def LineFollower(msg):
     steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
 
-<<<<<<< HEAD
-=======
     PIDController.prevError = error_x
     PIDController.prevMeasurement = centroid
 
->>>>>>> 286c3e3ea0ca8a93d7ea41c22f663510cf0fc553
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(KP_TOPIC_NAME)
