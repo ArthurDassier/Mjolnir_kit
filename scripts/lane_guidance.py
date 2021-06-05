@@ -52,11 +52,11 @@ def LineFollower(msg):
     elif (PIDController.out < PIDController.limMin):
         PIDController.out = PIDController.limMin
 
-    print("--------------------------------------------------------------")
-    print("Centroid & width / 2 : " + str(centroid) + " " + str(width / 2))
-    print("KP & The error : " + str(PIDController.kp) + " " + str(error_x))
-    print("Steering & Throttle published : " + str(PIDController.out) + " " + str(throttle_float))
-    print("--------------------------------------------------------------")
+    # print("--------------------------------------------------------------")
+    # print("Centroid & width / 2 : " + str(centroid) + " " + str(width / 2))
+    # print("KP & The error : " + str(PIDController.kp) + " " + str(error_x))
+    # print("Steering & Throttle published : " + str(PIDController.out) + " " + str(throttle_float))
+    # print("--------------------------------------------------------------")
     steering_pub.publish(PIDController.out)
     throttle_pub.publish(throttle_float)
 
