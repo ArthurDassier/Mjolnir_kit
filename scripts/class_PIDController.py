@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-import serial
-import re
-
 
 class PIDController():
     def __init__(self):
@@ -23,5 +20,5 @@ class PIDController():
         self.prevCentroid = 0.5
         self.out = 0.5
 
-    def get_input(self):
-        ''''''
+    # def get_input(self):
+    #     ''''''

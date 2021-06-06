@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-import sys
+
 from std_msgs.msg import Float32
 from class_ESP32 import ESP32_Mjolnir
 
@@ -24,7 +24,6 @@ def throttle_callback(data):
     ''' Throttle '''
     normalized_throttle = data.data
     esp.send_throttle(normalized_throttle * throttle_scale)
-
 
 
 def listener():

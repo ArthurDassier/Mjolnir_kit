@@ -3,7 +3,7 @@ import rospy
 import paho.mqtt.client as mqtt
 
 from class_PIDController import PIDController
-from std_msgs.msg import Float32, Int32, Int32MultiArray
+from std_msgs.msg import Float32, Int32MultiArray
 
 
 LANE_GUIDANCE_NODE_NAME = 'lane_guidance_node'
@@ -75,7 +75,7 @@ def on_message(client, userdata, msg):
     ''''''
     topic = str(msg.topic)
     payload = float(msg.payload.decode('utf-8'))
-    print("Message received : " + topic + " " + str(payload))
+    #print("Message received : " + topic + " " + str(payload))
 
     if topic == KP_TOPIC_NAME:
         PIDController.kp = payload

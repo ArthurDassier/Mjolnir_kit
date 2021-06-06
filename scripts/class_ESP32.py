@@ -16,7 +16,7 @@ class ESP32_Mjolnir():
             mcu_message = self.ser.readline().decode().lower()  # The message coming in
             number_in_message = re.findall(r'\d+\.?\d*', mcu_message)  # Find number in message
 
-            print("message from ESP32 : " + str(mcu_message))
+           # print("message from ESP32 : " + str(mcu_message))
 
             # if 'responseSpeed_' in mcu_message:
             #     self.speed = number_in_message[0]
