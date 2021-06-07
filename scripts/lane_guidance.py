@@ -18,51 +18,20 @@ KD_TOPIC_NAME = 'app/pid/kd'
 steering_float = Float32()
 throttle_float = Float32()
 
-PIDController = PIDController()
+steeringPID = PIDController()
 
 #whatt's up arthur
 #'sup fade
 def LineFollower(msg):
     centroid = msg.data[0]
     width = msg.data[1]  # width of camera frame
+    throttle_float = 0.8
 
-    if msg.data == 0:
-        error_x = 0.0
-        throttle_float = 0.08 #previous value is 0.1
-    else:
-        error_x = float(centroid - (width / 2))
-        error_x *= PIDController.errorNormalize
-        throttle_float = 0.08 #previous values is 0.1
+    tickPID(self, width / 2, centroid, msg, throttle_float)
 
-    PIDController.integrator = float(PIDController.ki * (error_x / (width / 2)))
-    if PIDController.integrator < -1.0:
-        PIDController.integrator = -1.0
-    elif PIDController.integrator > 1.0:
-        PIDController.integrator = 1.0
-    else:
-        pass
-
-    # Derivative (band-limited differentiator)
-    PIDController.differentiator = -(2.0 * PIDController.kd * (centroid - PIDController.prevCentroid)
-    + (2.0 * PIDController.tau - PIDController.T) * PIDController.differentiator) / (2.0 * PIDController.tau + PIDController.T)
-
-    #Compute output and apply limits
-    PIDController.out = PIDController.kp * error_x + PIDController.integrator + PIDController.differentiator
-    if (PIDController.out > PIDController.limMax):
-        PIDController.out = PIDController.limMax
-    elif (PIDController.out < PIDController.limMin):
-        PIDController.out = PIDController.limMin
-
-    print("--------------------------------------------------------------")
-    print("Centroid & width / 2 : " + str(centroid) + " " + str((width / 2)))
-    print("KP & The error : " + str(PIDController.kp) + " " + str(error_x))
-    print("Steering & Throttle published : " + str(PIDController.out) + " " + str(throttle_float))
-    print("--------------------------------------------------------------")
-    steering_pub.publish(PIDController.out)
+    steering_pub.publish(steeringPID.out)
     throttle_pub.publish(throttle_float)
 
-    PIDController.prevError = error_x
-    PIDController.prevCentroid = centroid
 
 
 def on_connect(client, userdata, flags, rc):
@@ -78,11 +47,11 @@ def on_message(client, userdata, msg):
     #print("Message received : " + topic + " " + str(payload))
 
     if topic == KP_TOPIC_NAME:
-        PIDController.kp = payload
+        steeringPID.kp = payload
     elif topic == KI_TOPIC_NAME:
-        PIDController.ki = payload
+        steeringPID.ki = payload
     elif topic == KD_TOPIC_NAME:
-        PIDController.kd = payload
+        steeringPID.kd = payload
     else:
         print("! ! ! UNKNOWN TOPIC NAME ! ! !")
 
