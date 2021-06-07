@@ -17,7 +17,7 @@ class PIDController():
         self.integrator = 0.0
         self.prevError = 0.5
         self.differentiator = 0.0
-        self.prevCentroid = 0.5
+        self.prevMeas = 0.5
         self.out = 0.5
 
     # def get_input(self):
@@ -28,9 +28,10 @@ class PIDController():
         if msg.data == 0:
             error_x = 0.0
         else:
-            error_x = float(currentPos - setpoint)
+            error_x = float(setpoint - currentPos)
             error_x = error_x * self.errorNormalize
 
+        # proportional control
         self.proportional = self.kp * error_x
         if self.proportional < self.limMin:
            self.proportional = self.limMin
@@ -39,6 +40,7 @@ class PIDController():
         else:
             pass
 
+        # integral control
         self.integrator = self.integrator + 0.5 * self.ki * self.T * (error_x + self.prevError)
         if self.integrator < self.limMin:
            self.integrator = self.limMin
@@ -48,7 +50,7 @@ class PIDController():
             pass
 
         # Derivative (band-limited differentiator)
-        self.differentiator = -(2.0 * self.kd * (currentPos - self.prevCentroid) + (2.0 * self.tau - self.T) * self.differentiator) / (2.0 * self.tau + self.T)
+        self.differentiator = -(2.0 * self.kd * (currentPos - self.prevMeas) + (2.0 * self.tau - self.T) * self.differentiator) / (2.0 * self.tau + self.T)
 
         #Compute output and apply limits
         self.out = self.proportional + self.integrator + self.differentiator
@@ -70,4 +72,4 @@ class PIDController():
 
         #Store error and measurement for later use
         self.prevError = error_x
-        self.prevCentroid = currentPos
+        self.prevMeas = currentPos
