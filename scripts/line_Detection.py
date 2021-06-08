@@ -61,13 +61,13 @@ def video_detection(data):
     pub.publish(data=centroid_and_frame_width)
 
     # plotting results
-    try:
-       # cv2.imshow("original", orig)
-        #cv2.imshow("yellow mask", mask)
-        #cv2.imshow("plotting centroid", img)
-        cv2.waitKey(1)
-    except KeyboardInterrupt:
-        cv2.destroyAllWindows()
+    # try:
+    #    # cv2.imshow("original", orig)
+    #     #cv2.imshow("yellow mask", mask)
+    #     #cv2.imshow("plotting centroid", img)
+    #     cv2.waitKey(1)
+    # except KeyboardInterrupt:
+    #     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':

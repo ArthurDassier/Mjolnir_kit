@@ -1,6 +1,6 @@
 <launch>
   <rosparam command="load" file="$(find mjolnir_kit)/config/color_filter_parameters/custom_filter.yaml" />
   <node name="camera_server" pkg="mjolnir_kit" type="camera_server.py" />
-  <node name="line_detection_node" pkg="mjolnir_kit" type="line_Detection.py" output="screen" />
-  <node name="lane_guidance_node" pkg="mjolnir_kit" type="lane_guidance.py" output="screen" />
+  <node name="line_detection_node" pkg="mjolnir_kit" type="line_Detection.py" />
+  <node name="lane_guidance_node" pkg="mjolnir_kit" type="lane_guidance.py" />
 </launch>

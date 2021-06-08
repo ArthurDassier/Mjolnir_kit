@@ -59,16 +59,16 @@ class PIDController():
         elif (self.out < self.limMin):
             self.out = self.limMin
 
-        print("--------------------------------------------------------------")
-        print("Centroid   [{}]".format(setpoint))
-        print("currentPos [{}]".format(currentPos))
-        print("error      [{}]".format(error_x))
-        print("prop.      [{}]".format(self.proportional))
-        print("integ.     [{}]".format(self.integrator))
-        print("differ.    [{}]".format(self.differentiator))
-        print("steering   [{}]".format(self.out))
-        print("throttle   [{}]".format(throttle_float))
-        print("--------------------------------------------------------------")
+        # print("--------------------------------------------------------------")
+        # print("Centroid   [{}]".format(setpoint))
+        # print("currentPos [{}]".format(currentPos))
+        # print("error      [{}]".format(error_x))
+        # print("prop.      [{}]".format(self.proportional))
+        # print("integ.     [{}]".format(self.integrator))
+        # print("differ.    [{}]".format(self.differentiator))
+        # print("steering   [{}]".format(self.out))
+        # print("throttle   [{}]".format(throttle_float))
+        # print("--------------------------------------------------------------")
 
         #Store error and measurement for later use
         self.prevError = error_x
