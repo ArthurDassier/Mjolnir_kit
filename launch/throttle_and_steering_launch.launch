@@ -1,5 +1,5 @@
 <launch>
   <node name="steering_client" pkg="mjolnir_kit" type="steering_client.py" />
   <node name="throttle_client" pkg="mjolnir_kit" type="throttle_client.py" />
-  <node name="esp32_client" pkg="mjolnir_kit" type="esp32_client.py" output="screen" />
+  <node name="esp32_client" pkg="mjolnir_kit" type="esp32_client.py" />
 </launch>
