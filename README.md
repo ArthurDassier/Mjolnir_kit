@@ -1,8 +1,7 @@
 # mjolnir_kit
 
 A simple ROS package using OpenCV on a 1/10 RC car chassis with ackerman steering that can follow a yellow line or stay between two white lines.
-
-Everything about the project is explained in the link right below:
+We built an EMO circuit and implemented a real-time PID controller. We also added a cool LED Board to the car ;D Everything is described in our documentation, which you can find below:
 
 https://guitar.ucsd.edu/maeece148/index.php/2021SpringTeam1
 
